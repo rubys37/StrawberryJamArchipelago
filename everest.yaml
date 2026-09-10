@@ -1,0 +1,12 @@
+- Name: Strawberry Jam Archipelago
+  Version: 0.0.1
+  DLL: bin/SJArchipelago.dll
+  Dependencies:
+    - Name: EverestCore
+      Version: 1.5752.0
+    - Name: ExtendedVariantMode
+      Version: 0.50.5
+    - Name: StrawberryJam2021
+      Version: 1.0.12
+    - Name: CommunalHelper
+      Version: 1.25.5

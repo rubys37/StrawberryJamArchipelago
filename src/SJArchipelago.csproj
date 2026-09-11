@@ -17,7 +17,7 @@
     </ItemDefinitionGroup>
 
     <ItemGroup>
-        <PackageReference Include="MonoMod.RuntimeDetour" Version="25.3.1" PrivateAssets="all" ExcludeAssets="runtime" />
+        <PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" PrivateAssets="all" ExcludeAssets="runtime" />
         <PackageReference Include="MonoMod.Patcher" Version="25.0.0-prerelease.2" />
         <PackageReference Include="CelesteAnalyzer" Version="*" />
     </ItemGroup>
@@ -26,11 +26,22 @@
         <PackageReference Include="CelesteMod.Publicizer" Version="*" CelesteAssembly="$(CelestePrefix)\Celeste.dll" />
         <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll" Private="false" />
         <Reference Include="$(CelestePrefix)\FNA.dll" Private="false" />
+        
+        <Reference Include="../lib/Archipelago.MultiClient.Net.dll" Private="true" />
+        <Reference Include="../lib/Newtonsoft.Json.dll" Private="false" />
+        <Reference Include="../lib/mods/CommunalHelper.dll" />
+        <Reference Include="../lib/mods/MaxHelpingHand.dll" />
+        <Reference Include="../lib/mods/ExtendedVariantMode.dll" />
+        <Reference Include="../lib/mods/GravityHelper.dll" />
+        <Reference Include="../lib/mods/vitmod.dll" />
+        <Reference Include="../lib/mods/FrostTempleHelper.dll" />
+        <Reference Include="../lib/mods/StrawberryJam2021.dll" />
     </ItemGroup>
 
     <Target Name="CopyFiles" AfterTargets="Build" Inputs="$(OutputPath)\$(AssemblyName).dll;$(OutputPath)\$(AssemblyName).pdb" Outputs="..\bin\$(AssemblyName).dll;..\bin\$(AssemblyName).pdb">
         <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll" DestinationFolder="..\bin" />
         <Copy SourceFiles="$(OutputPath)\$(AssemblyName).pdb" DestinationFolder="..\bin" />
+        <Copy SourceFiles="$(OutputPath)\Archipelago.MultiClient.Net.dll" DestinationFolder="..\bin" />
     </Target>
 
     <Target Name="PackageMod" AfterTargets="CopyFiles" Inputs="$(ZippedFiles)" Outputs="..\SJArchipelago.zip" Condition="'$(Configuration)' == 'Release'">
@@ -39,15 +50,21 @@
         </ItemGroup>
         <PackageMod Files="@(FilesToPackage)" OutputPath="..\SJArchipelago.zip" />
     </Target>
-    
+
     <PropertyGroup>
         <PathMap>$(MSBuildProjectDirectory)=SJArchipelago/</PathMap>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <NoWarn>1701;1702;CL0003;CS4014</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <NoWarn>1701;1702;CL0003;CS4014</NoWarn>
+    </PropertyGroup>
+
     <!-- Inline task used to create a .zip for the mod -->
-    <UsingTask TaskName="PackageMod"
-               TaskFactory="RoslynCodeTaskFactory"
-               AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
+    <UsingTask TaskName="PackageMod" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
         <ParameterGroup>
             <Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
             <OutputPath ParameterType="System.String" Required="true" />
@@ -56,7 +73,7 @@
             <Using Namespace="System.IO" />
             <Using Namespace="System.IO.Compression" />
             <Code Type="Fragment" Language="cs">
-            <![CDATA[
+                <![CDATA[
                 var projectDir = Path.Combine(@"$(ProjectDir)", ".."); // Go one level up, since we're inside the 'Source' directory
                 projectDir = Uri.UnescapeDataString(projectDir);
             

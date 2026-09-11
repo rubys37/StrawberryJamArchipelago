@@ -1,5 +1,6 @@
 namespace Celeste.Mod.SJArchipelago;
 
-public class SJArchipelagoModuleSession : EverestModuleSession {
+public class SJArchipelagoModuleSession : EverestModuleSession
+{
 
 }

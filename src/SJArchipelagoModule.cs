@@ -35,12 +35,12 @@ public class SJArchipelagoModule : EverestModule
         foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods)
         {
             item.Load();
+            EntityBehavior.ModItemUpdate.CustomLoad();
         }
     }
 
     public override void LoadContent(bool firstLoad)
     {
-        EntityBehavior.ModItemUpdate.CustomLoad();
     }
 
     public override void Unload()

@@ -7,16 +7,16 @@ namespace Celeste.Mod.SJArchipelago.Items;
 public static class EntityHandler
 {
     public enum Items {
-        IntroCrusher,
-        Spring,
-        TrafficBlock,
+        IntroCrushers,
+        Springs,
+        TrafficBlocks,
         DashCrystals,
         DoubleDashCrystals,
         BlueCassetteBlock,
         PinkCassetteBlock,
         YellowCassetteBlock,
         GreenCassetteBlock,
-        DreamBlock,
+        DreamBlocks,
         StrawberrySeeds,
         Coins,
         SinkingPlatforms,
@@ -47,13 +47,15 @@ public static class EntityHandler
         DreamDashCrystals,
         BlueSprings,
         BlueBubbles,
+        CassetteZippers,
         SingleJumpCrystals,
         TripleJumpCrystals,
         GravityTriggers,
         TimeCrystals,
         DashCrystalShards,
         TinyStrawberries,
-        Roses
+        Roses,
+        Pipes,
     };
     public static Dictionary<int, string> IdToString = new Dictionary<int, string>()
     {

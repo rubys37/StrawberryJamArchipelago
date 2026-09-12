@@ -5,16 +5,19 @@ using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 
+using Celeste.Mod.AdventureHelper.Entities;
 using Celeste.Mod.CommunalHelper.DashStates;
 using Celeste.Mod.CommunalHelper.Entities;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using ExtendedVariants.Entities.ForMappers;
 using Celeste.Mod.GravityHelper.Triggers;
 using vitmod;
-using FrostTempleHelper.Entities;
 using Celeste.Mod.StrawberryJam2021.Entities;
 using FrostHelper.Entities.Boosters;
-
+using Celeste.Mod.CherryHelper;
+using Celeste.Mod.PandorasBox;
+using Celeste.Mod.PandorasBox.Entities.ClearPipeInteractions;
+using Celeste.Pico8;
 using Monocle;
 using MonoMod.RuntimeDetour;
 
@@ -30,9 +33,62 @@ internal class EntityBehavior
     ];
     
     
-    public static bool HaveInteractable(Enum items)
+    public static bool HaveInteractable(EntityHandler.Items item)
     {
-        return SJArchipelagoModule.Settings.Receiveallitems;
+        SJArchipelagoModuleSettings.ReceiveSpecificItems receiveItems = SJArchipelagoModule.Settings.ReceiveItems;
+        if (SJArchipelagoModule.Settings.DisableAllItems) return false;
+        return item switch
+        {
+            EntityHandler.Items.IntroCrushers => receiveItems.ReceiveIntroCrushers,
+            EntityHandler.Items.Springs => receiveItems.ReceiveSprings,
+            EntityHandler.Items.TrafficBlocks => receiveItems.ReceiveTrafficBlocks,
+            EntityHandler.Items.DashCrystals => receiveItems.ReceiveDashCrystals,
+            EntityHandler.Items.DoubleDashCrystals => receiveItems.ReceiveDoubleDashCrystals,
+            EntityHandler.Items.BlueCassetteBlock => receiveItems.ReceiveBlueCassetteBlock,
+            EntityHandler.Items.PinkCassetteBlock => receiveItems.ReceivePinkCassetteBlock,
+            EntityHandler.Items.YellowCassetteBlock => receiveItems.ReceiveYellowCassetteBlock,
+            EntityHandler.Items.GreenCassetteBlock => receiveItems.ReceiveGreenCassetteBlock,
+            EntityHandler.Items.DreamBlocks => receiveItems.ReceiveDreamBlocks,
+            EntityHandler.Items.StrawberrySeeds => receiveItems.ReceiveStrawberrySeeds,
+            EntityHandler.Items.Coins => receiveItems.ReceiveCoins,
+            EntityHandler.Items.SinkingPlatforms => receiveItems.ReceiveSinkingPlatforms,
+            EntityHandler.Items.MovingPlatforms => receiveItems.ReceiveMovingPlatforms,
+            EntityHandler.Items.BlueClouds => receiveItems.ReceiveBlueClouds,
+            EntityHandler.Items.PinkClouds => receiveItems.ReceivePinkClouds,
+            EntityHandler.Items.GreenBubbles => receiveItems.ReceiveGreenBubbles,
+            EntityHandler.Items.RedBubbles => receiveItems.ReceiveRedBubbles,
+            EntityHandler.Items.MoveBlocks => receiveItems.ReceiveMoveBlocks,
+            EntityHandler.Items.WhiteBlock => receiveItems.ReceiveWhiteBlock,
+            EntityHandler.Items.SwapBlocks => receiveItems.ReceiveSwapBlocks,
+            EntityHandler.Items.DashSwitch => receiveItems.ReceiveDashSwitch,
+            EntityHandler.Items.Seekers => receiveItems.ReceiveSeekers,
+            EntityHandler.Items.TheoCrystals => receiveItems.ReceiveTheoCrystals,
+            EntityHandler.Items.Feathers => receiveItems.ReceiveFeathers,
+            EntityHandler.Items.Kevins => receiveItems.ReceiveKevins,
+            EntityHandler.Items.Bumpers => receiveItems.ReceiveBumpers,
+            EntityHandler.Items.BadelineOrbs => receiveItems.ReceiveBadelineOrbs,
+            EntityHandler.Items.CoreBlocks => receiveItems.ReceiveCoreBlocks,
+            EntityHandler.Items.Iceballs => receiveItems.ReceiveIceballs,
+            EntityHandler.Items.CoreSwitches => receiveItems.ReceiveCoreSwitches,
+            EntityHandler.Items.Pufferfish => receiveItems.ReceivePufferfish,
+            EntityHandler.Items.Jellyfish => receiveItems.ReceiveJellyfish,
+            EntityHandler.Items.PowerBoxes => receiveItems.ReceivePowerBoxes,
+            EntityHandler.Items.Birds => receiveItems.ReceiveBirds,
+            EntityHandler.Items.DashTrafficBlocks => receiveItems.ReceiveDashTrafficBlocks,
+            EntityHandler.Items.DreamDashCrystals => receiveItems.ReceiveDreamDashCrystals,
+            EntityHandler.Items.BlueSprings => receiveItems.ReceiveBlueSprings,
+            EntityHandler.Items.BlueBubbles => receiveItems.ReceiveBlueBubbles,
+            EntityHandler.Items.CassetteZippers => receiveItems.ReceiveCassetteZippers,
+            EntityHandler.Items.SingleJumpCrystals => receiveItems.ReceiveSingleJumpCrystals,
+            EntityHandler.Items.TripleJumpCrystals => receiveItems.ReceiveTripleJumpCrystals,
+            EntityHandler.Items.GravityTriggers => receiveItems.ReceiveGravityTriggers,
+            EntityHandler.Items.TimeCrystals => receiveItems.ReceiveTimeCrystals,
+            EntityHandler.Items.DashCrystalShards => receiveItems.ReceiveDashCrystalShards,
+            EntityHandler.Items.TinyStrawberries => receiveItems.ReceiveTinyStrawberries,
+            EntityHandler.Items.Roses => receiveItems.ReceiveRoses,
+            EntityHandler.Items.Pipes => receiveItems.ReceivePipes,
+            _ => false
+        };
     }
 
     public class ModItemCollision : LoadableItemMod
@@ -93,7 +149,7 @@ internal class EntityBehavior
                     return HaveInteractable(EntityHandler.Items.Roses);
                 //vanilla
                 case Spring:
-                    return HaveInteractable(EntityHandler.Items.Spring);
+                    return HaveInteractable(EntityHandler.Items.Springs);
                 case Refill { twoDashes: false }:
                     return HaveInteractable(EntityHandler.Items.DashCrystals);
                 case Refill { twoDashes: true }:
@@ -138,13 +194,17 @@ internal class EntityBehavior
             On.Celeste.IntroCrusher.Sequence += ModIntroCrusher.Sequence;
             On.Celeste.ZipMover.Update += ModZipMover.Update;
             On.Celeste.CassetteBlock.Update += ModCassetteBlock.Update;
+            On.Celeste.CassetteBlock.ShiftSize += ModCassetteBlock.ShiftSize;
             On.Celeste.Player.DreamDashCheck += ModDreamBlock.Update;
             On.Celeste.SinkingPlatform.Update += ModSinkingPlatform.Update;
             On.Celeste.MovingPlatform.Update += ModMovingPlatform.Update;
             On.Celeste.Cloud.Update += ModCloud.Update;
             On.Celeste.MoveBlock.MoveCheck += ModMoveBlock.MoveCheck;
             On.Celeste.SwapBlock.OnDash += ModSwapBlock.OnDash;
-            On.Celeste.DashSwitch.OnDashed += ModDashSwitch.OnDashed;
+            using (new DetourConfigContext(new DetourConfig("SJAP/DisableDashSwitches").WithPriority(1)).Use())
+            {
+                On.Celeste.DashSwitch.OnDashed += ModDashSwitch.OnDashed;
+            }
             On.Celeste.Seeker.Awake += ModSeeker.Awake;
             On.Celeste.CrushBlock.CanActivate += ModCrushBlock.CanActivate;
             On.Celeste.BounceBlock.Update += ModCoreBlock.Update;
@@ -158,9 +218,12 @@ internal class EntityBehavior
         {
             // using reflection to get access to modded methods
             _customHooks.Add(new Hook(typeof(DashZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModDashTrafficBlock.Sequence));
+            _customHooks.Add(new Hook(typeof(CassetteZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteZipper.Sequence));
             _customHooks.Add(new Hook(typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
-            _customHooks.Add(new Hook(typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
-            _customHooks.Add(new Hook(typeof(ConnectedDreamBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
+            _customHooks.Add(new Hook(typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));
+            _customHooks.Add(new Hook(typeof(MarioClearPipeHelper).GetMethod("CanTransportEntity", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static), ModClearPipeHelper.CanTransportEntity));
+            _customHooks.Add(new Hook(typeof(LinkedZipMoverNoReturn).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedNonReturnZipMover.Sequence));
+            _customHooks.Add(new Hook(typeof(LinkedZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedZipMover.Sequence));
         }
 
         public override void Unload()
@@ -196,7 +259,7 @@ internal class EntityBehavior
         {
             internal static IEnumerator Sequence(On.Celeste.IntroCrusher.orig_Sequence orig, IntroCrusher self)
             {
-                if (HaveInteractable(EntityHandler.Items.IntroCrusher))
+                if (HaveInteractable(EntityHandler.Items.IntroCrushers))
                 {
                     yield return new SwapImmediately(orig(self));
                 }
@@ -208,7 +271,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.ZipMover.orig_Update orig, ZipMover self)
             {
-                if (HaveInteractable(EntityHandler.Items.TrafficBlock))
+                if (HaveInteractable(EntityHandler.Items.TrafficBlocks))
                 {
                     orig(self); 
                 }
@@ -219,7 +282,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.CassetteBlock.orig_Update orig, CassetteBlock self)
             {
-                Enum id = self.Index switch
+                EntityHandler.Items id = self.Index switch
                 {
                     0 => EntityHandler.Items.BlueCassetteBlock,
                     1 => EntityHandler.Items.PinkCassetteBlock,
@@ -227,15 +290,19 @@ internal class EntityBehavior
                     3 => EntityHandler.Items.GreenCassetteBlock,
                     _ => EntityHandler.Items.BlueCassetteBlock
                 };
-                if (HaveInteractable(id))
-                {
-                    orig(self);
-                }
-                else
-                {
-                    self.ShiftSize(-1);
-                    self.SetActivatedSilently(false);
-                }
+                
+                orig(self);
+                
+                if (HaveInteractable(id)) return;
+                
+                self.Collidable = false;
+                self.DisableStaticMovers();
+                self.SetActivatedSilently(false);
+            }
+
+            internal static void ShiftSize(On.Celeste.CassetteBlock.orig_ShiftSize orig, CassetteBlock self, int shift)
+            {
+                return;
             }
         }
 
@@ -243,7 +310,7 @@ internal class EntityBehavior
         {
             internal static bool Update(On.Celeste.Player.orig_DreamDashCheck orig, Player self, Vector2 v)
             {
-                return HaveInteractable(EntityHandler.Items.DreamBlock) && orig(self, v);
+                return HaveInteractable(EntityHandler.Items.DreamBlocks) && orig(self, v);
             }
         }
 
@@ -418,8 +485,18 @@ internal class EntityBehavior
         {
             internal static IEnumerator Sequence(Func<DashZipMover, IEnumerator> orig, DashZipMover self)
             {
-                
                 if (HaveInteractable(EntityHandler.Items.DashTrafficBlocks))
+                {
+                    yield return new SwapImmediately(orig(self));
+                }
+            }
+        }
+        
+        private static class ModCassetteZipper
+        {
+            internal static IEnumerator Sequence(Func<CassetteZipMover, IEnumerator> orig, CassetteZipMover self)
+            {
+                if (HaveInteractable(EntityHandler.Items.CassetteZippers))
                 {
                     yield return new SwapImmediately(orig(self));
                 }
@@ -428,9 +505,52 @@ internal class EntityBehavior
         
         private static class ModConnectedMoveBlock
         {
-            internal static bool MoveCheck(Func<ConnectedMoveBlock, bool> orig, ConnectedMoveBlock self)
+            internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig,ConnectedMoveBlock self, Vector2 v)
             {
-                return HaveInteractable(EntityHandler.Items.MoveBlocks) && orig(self);
+                return HaveInteractable(EntityHandler.Items.MoveBlocks) && orig(self, v);
+            }
+        }
+
+        private static class ModUnInterruptableNonReturnKevin
+        {
+            internal static DashCollisionResults OnDashed(Func<UninterruptedNRCB, Player, Vector2, DashCollisionResults> orig, UninterruptedNRCB self, Player player, Vector2 v)
+            {
+                if (HaveInteractable(EntityHandler.Items.Kevins))
+                {
+                    return orig(self, player, v);
+                }
+
+                return DashCollisionResults.NormalCollision;
+            }
+        }
+        
+        private static class ModClearPipeHelper
+        {
+            internal static bool CanTransportEntity(Func<Entity, MarioClearPipeHelper.Direction, bool> orig, Entity entity, MarioClearPipeHelper.Direction dir)
+            {
+                return HaveInteractable(EntityHandler.Items.Pipes) && orig(entity, dir);
+            }
+        }
+        
+        private static class ModLinkedZipMover
+        {
+            internal static IEnumerator Sequence(Func<LinkedZipMover, IEnumerator> orig, LinkedZipMover self)
+            {
+                if (HaveInteractable(EntityHandler.Items.TrafficBlocks))
+                {
+                    yield return new SwapImmediately(orig(self));
+                }
+            }
+        }
+        
+        private static class ModLinkedNonReturnZipMover
+        {
+            internal static IEnumerator Sequence(Func<LinkedZipMoverNoReturn, IEnumerator> orig, LinkedZipMoverNoReturn self)
+            {
+                if (HaveInteractable(EntityHandler.Items.TrafficBlocks))
+                {
+                    yield return new SwapImmediately(orig(self));
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ things left to implement:
 location checks  
 archipelago connection  
 apworld  
-item disabling rendering
+item disabling rendering  
 selective entity disabling up to gm lobby
 
 ## Installation

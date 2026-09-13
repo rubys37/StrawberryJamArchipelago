@@ -42,9 +42,12 @@ public static class EntityHandler
         Jellyfish,
         PowerBoxes,
         Birds,
+        CrystalBombs,
         
-        DashTrafficBlocks,
         DreamDashCrystals,
+        CerealBlockBumps,
+        CerealBlockClouds,
+        DashTrafficBlocks,
         BlueSprings,
         BlueBubbles,
         CassetteZippers,
@@ -56,6 +59,11 @@ public static class EntityHandler
         TinyStrawberries,
         Roses,
         Pipes,
+        TeleportFields,
+        Ziplines,
+        DashToggleBlocks,
+        PurpleBubbles,
+        DashSprings,
     };
     public static Dictionary<int, string> IdToString = new Dictionary<int, string>()
     {

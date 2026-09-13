@@ -43,7 +43,10 @@ public class SJArchipelagoModuleSettings : EverestModuleSettings
         public bool ReceiveJellyfish { get; set; } = true;
         public bool ReceivePowerBoxes { get; set; } = true;
         public bool ReceiveBirds { get; set; } = true;
+        
         public bool ReceiveDashTrafficBlocks { get; set; } = true;
+        public bool ReceiveCerealBlockBumps { get; set; } = true;
+        public bool ReceiveCerealBlockClouds { get; set; } = true;
         public bool ReceiveDreamDashCrystals { get; set; } = true;
         public bool ReceiveBlueSprings { get; set; } = true;
         public bool ReceiveBlueBubbles { get; set; } = true;
@@ -56,5 +59,11 @@ public class SJArchipelagoModuleSettings : EverestModuleSettings
         public bool ReceiveTinyStrawberries { get; set; } = true;
         public bool ReceiveRoses { get; set; } = true;
         public bool ReceivePipes { get; set; } = true;
+        public bool ReceiveTeleportFields { get; set; } = true;
+        public bool ReceiveZiplines { get; set; } = true;
+        public bool ReceiveDashToggleBlocks { get; set; } = true;
+        public bool ReceiveCrystalBombs { get; set; } = true;
+        public bool ReceivePurpleBubbles { get; set; } = true;
+        public bool ReceiveDashSprings { get; set; } = true;
     }
 }

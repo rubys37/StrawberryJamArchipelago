@@ -38,6 +38,11 @@
         <Reference Include="../lib/mods/FrostTempleHelper.dll" />
         <Reference Include="../lib/mods/CherryHelper.dll" />
         <Reference Include="../lib/mods/PandorasBox.dll" />
+        <Reference Include="../lib/mods/VivHelper.dll" />
+        <Reference Include="../lib/mods/OutbackHelper.dll" />
+        <Reference Include="../lib/mods/IsaMods.dll" />
+        <Reference Include="../lib/mods/CavernHelper.dll" />
+        <Reference Include="../lib/mods/BrokemiaHelper.dll" />
         <Reference Include="../lib/mods/StrawberryJam2021.dll" />
     </ItemGroup>
 

@@ -14,7 +14,7 @@ item disabling rendering
 selective entity disabling up to gm lobby
 
 ## Installation
-for now, this archipelago remains a manual implementation with a manual enabling and disabling of entities. you can use any manual clients that include entity items. i will make an associated apworld in the future!
+for now, this archipelago remains a manual implementation with a manual enabling and disabling of entities. you can use any manual clients that include entity items. i have attahced one made by maybeGVST that will work with this mod while it develops into a full archipelago client.
 
 anyone that wants to playtest this initial client and suggest changes/improvements:
 1. download the latest zip file in releases 
@@ -25,3 +25,5 @@ your mods folder is in your steam install. by default, it is located at "C:\Prog
 ## Licensing
 i bear no association to the main celeste archipelago team, nor has any of their code been used in the development of this repository or its associated releases. Ruby/rubys37 maintains the copyright for this repository (at least, for now). if you have had any part in developing the main celeste archipelago by PoryGoneDev, you are not permitted to contribute, use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of any code in this repository.  
 if others would like to contribute or use my code, please ask me first.
+
+also, the apworld attached in releases belongs to maybeGVST, who gave me permission to post it :3

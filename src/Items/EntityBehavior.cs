@@ -359,7 +359,7 @@ internal class EntityBehavior
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModCerealBlock.OnDashed));
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModCerealBlock.Update));
             _customHooks.Add(new Hook( typeof(CassetteZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteZipper.Sequence));
-            _customHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
+            _customHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
             _customHooks.Add(new Hook( typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
             _customHooks.Add(new Hook( typeof(NonReturnCrushBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModNonReturnKevin.OnDashed));
             _customHooks.Add(new Hook( typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));

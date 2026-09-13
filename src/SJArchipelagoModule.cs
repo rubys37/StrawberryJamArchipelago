@@ -32,15 +32,8 @@ public class SJArchipelagoModule : EverestModule
     public override void Load()
     {
         // TODO: apply any hooks that should always be active
-        foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods)
-        {
-            item.Load();
-            EntityBehavior.ModItemUpdate.CustomLoad();
-        }
-    }
-
-    public override void LoadContent(bool firstLoad)
-    {
+        foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods) item.Load();
+        EntityBehavior.ModItemUpdate.CustomLoad();
     }
 
     public override void Unload()

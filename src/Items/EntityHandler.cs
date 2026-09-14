@@ -69,5 +69,6 @@ public static class EntityHandler
         FakeHearts,
         WormholeBoosters,
         Portals,
+        PinkBubbles
     };
 }

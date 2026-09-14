@@ -152,8 +152,6 @@ internal class EntityBehavior
                 
                 case BlueBooster blueBooster:
                     // Blue boosters inherit generic custom booster which is where the field we are looking for is stored.
-                    field = typeof(BlueBooster).BaseType.GetField("red",
-                        BindingFlags.Instance | BindingFlags.NonPublic);
                     t = typeof(BlueBooster);
                     field = null;
                     while (field == null && t != null)

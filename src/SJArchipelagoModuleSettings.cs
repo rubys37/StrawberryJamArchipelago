@@ -71,5 +71,7 @@ public class SJArchipelagoModuleSettings : EverestModuleSettings
         public bool ReceiveWormholeBoosters { get; set; } = true;
         public bool ReceivePortals { get; set; } = true;
         public bool ReceivePinkBubbles { get; set; } = true;
+        public bool ReceiveGravitySprings { get; set; } = true;
+        public bool ReceiveSwitchCrates { get; set; } = true;
     }
 }

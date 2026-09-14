@@ -24,9 +24,11 @@ using Celeste.Mod.FemtoHelper;
 using Celeste.Mod.OutbackHelper;
 using Celeste.Mod.VortexHelper.Entities;
 using BrokemiaHelper;
+using Celeste.Mod.GravityHelper.Entities;
 using FlaglinesAndSuch;
 using Monocle;
 using MonoMod.RuntimeDetour;
+using VivHelper.Entities;
 // wow thats a lot of imports, im sure there wouldnt be any conflicts
 using DashZipMover = Celeste.Mod.StrawberryJam2021.Entities.DashZipMover;
 using CItems = Celeste.Mod.SJArchipelago.Items.EntityHandler.Items;
@@ -114,6 +116,8 @@ internal class EntityBehavior
             CItems.WormholeBoosters => receiveItems.ReceiveWormholeBoosters,
             CItems.Portals => receiveItems.ReceivePortals,
             CItems.PinkBubbles => receiveItems.ReceivePinkBubbles,
+            CItems.GravitySprings => receiveItems.ReceiveGravitySprings,
+            CItems.SwitchCrates => receiveItems.ReceiveSwitchCrates,
             _ => true
         };
     }
@@ -258,6 +262,15 @@ internal class EntityBehavior
                 case PurpleBooster:
                     return HaveInteractable(CItems.PinkBubbles);
                 
+                case GravitySpring:
+                    return HaveInteractable(CItems.GravitySprings);
+                
+                case RefillWall:
+                    return HaveInteractable(CItems.DashCrystals);
+                
+                case SwitchCrate:
+                    return HaveInteractable(CItems.SwitchCrates);
+                
                 // these classes are internal and i cannot reference them directly, which means a string comparison must be used
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower":
                     return HaveInteractable(CItems.Roses);
@@ -370,18 +383,17 @@ internal class EntityBehavior
 
         public static void CustomLoad()
         {
-            // using reflection to get access to modded methods
+            //_customHooks.Add(new Hook( typeof(CassetteZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteZipper.Sequence));
+            //_customHooks.Add(new Hook( typeof(LinkedZipMoverNoReturn).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedNonReturnZipMover.Sequence));
+            //_customHooks.Add(new Hook( typeof(LinkedZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedZipMover.Sequence));
             _customHooks.Add(new Hook( typeof(DashZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModDashTrafficBlock.Sequence));
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModCerealBlock.OnDashed));
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModCerealBlock.Update));
-            //_customHooks.Add(new Hook( typeof(CassetteZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteZipper.Sequence));
             _customHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
             _customHooks.Add(new Hook( typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
             _customHooks.Add(new Hook( typeof(NonReturnCrushBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModNonReturnKevin.OnDashed));
             _customHooks.Add(new Hook( typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));
             _customHooks.Add(new Hook( typeof(MarioClearPipeHelper).GetMethod("CanTransportEntity", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static), ModClearPipeHelper.CanTransportEntity));
-            //_customHooks.Add(new Hook( typeof(LinkedZipMoverNoReturn).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedNonReturnZipMover.Sequence));
-            //_customHooks.Add(new Hook( typeof(LinkedZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedZipMover.Sequence));
             _customHooks.Add(new Hook( typeof(InstantTeleportTrigger).GetMethod("TeleportMaster", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleport.TeleportMaster));
             _customHooks.Add(new Hook( typeof(FrostHelper.ToggleSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModFHToggleSwapBlock.OnDash));
             _customHooks.Add(new Hook( typeof(ToggleSwapBlock).GetMethod("OnPlayerDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModSJToggleSwapBlock.OnPlayerDashed));

@@ -26,15 +26,18 @@ using Celeste.Mod.VortexHelper.Entities;
 using BrokemiaHelper;
 using Celeste.Mod.GravityHelper.Entities;
 using FlaglinesAndSuch;
+using FrostHelper;
 using Monocle;
 using MonoMod.RuntimeDetour;
 using VivHelper.Entities;
+using VivHelper.Entities.CurvedStuff;
 // wow thats a lot of imports, im sure there wouldnt be any conflicts
 using DashZipMover = Celeste.Mod.StrawberryJam2021.Entities.DashZipMover;
 using CItems = Celeste.Mod.SJArchipelago.Items.EntityHandler.Items;
 using ExpiringDashRefill = Celeste.Mod.StrawberryJam2021.Entities.ExpiringDashRefill;
 using Entity = Monocle.Entity;
 using InstantTeleportTrigger = VivHelper.Triggers.InstantTeleportTrigger;
+using ToggleSwapBlock = Celeste.Mod.StrawberryJam2021.Entities.ToggleSwapBlock;
 
 namespace Celeste.Mod.SJArchipelago.Items;
 
@@ -45,8 +48,7 @@ internal class EntityBehavior
         new ModItemCollision(),
         new ModItemUpdate()
     ];
-
-
+    
     public static bool HaveInteractable(EntityHandler.Items item)
     {
         SJArchipelagoModuleSettings.ReceiveSpecificItems receiveItems = SJArchipelagoModule.Settings.ReceiveItems;
@@ -342,7 +344,17 @@ internal class EntityBehavior
         private static bool modSolid_HasPlayerRider(On.Celeste.Solid.orig_HasPlayerRider orig, Solid self)
         {
             if (!orig(self)) return false;
-            if (self is ZipMover or ConnectedZipMover or CassetteZipMover or LinkedZipMover or LinkedZipMoverNoReturn && !HaveInteractable(CItems.TrafficBlocks)) return false;
+
+            List<Type> zipMovers = new List<Type>
+            {
+                typeof(ZipMover),
+                typeof(CustomCurvedZipMover),
+                typeof(ConnectedZipMover),
+                typeof(CassetteZipMover),
+                typeof(LinkedZipMover),
+                typeof(LinkedZipMoverNoReturn),
+            };
+            if (zipMovers.Contains(self.GetType()) && !HaveInteractable(CItems.TrafficBlocks)) return false;
             return true;
         }
     }
@@ -387,17 +399,24 @@ internal class EntityBehavior
             //_customHooks.Add(new Hook( typeof(LinkedZipMoverNoReturn).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedNonReturnZipMover.Sequence));
             //_customHooks.Add(new Hook( typeof(LinkedZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedZipMover.Sequence));
             _customHooks.Add(new Hook( typeof(DashZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModDashTrafficBlock.Sequence));
+            
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModCerealBlock.OnDashed));
             _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModCerealBlock.Update));
+            
             _customHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
+            _customHooks.Add(new Hook( typeof(ToggleSwapBlock).GetMethod("OnPlayerDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModSJToggleSwapBlock.OnPlayerDashed));
+            _customHooks.Add(new Hook( typeof(FrostHelper.ToggleSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModFHToggleSwapBlock.OnDash));
+
             _customHooks.Add(new Hook( typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
+            _customHooks.Add(new Hook( typeof(VitMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModVitMoveBlock.MoveCheck));
+            
             _customHooks.Add(new Hook( typeof(NonReturnCrushBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModNonReturnKevin.OnDashed));
             _customHooks.Add(new Hook( typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));
+            
             _customHooks.Add(new Hook( typeof(MarioClearPipeHelper).GetMethod("CanTransportEntity", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static), ModClearPipeHelper.CanTransportEntity));
             _customHooks.Add(new Hook( typeof(InstantTeleportTrigger).GetMethod("TeleportMaster", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleport.TeleportMaster));
-            _customHooks.Add(new Hook( typeof(FrostHelper.ToggleSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModFHToggleSwapBlock.OnDash));
-            _customHooks.Add(new Hook( typeof(ToggleSwapBlock).GetMethod("OnPlayerDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModSJToggleSwapBlock.OnPlayerDashed));
             _customHooks.Add(new Hook( typeof(StationBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModDashToggleBlock.OnDashed));
+            
             _customHooks.Add(new Hook( typeof(PlatformJelly).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModPlatformJellyfish.Update));
         }
 
@@ -466,7 +485,7 @@ internal class EntityBehavior
 
             internal static void ShiftSize(On.Celeste.CassetteBlock.orig_ShiftSize orig, CassetteBlock self, int shift)
             {
-                return;
+                // literally do nothing
             }
         }
 
@@ -705,10 +724,16 @@ internal class EntityBehavior
 
         private static class ModConnectedMoveBlock
         {
-            internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig, ConnectedMoveBlock self,
-                Vector2 v)
+            internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig, ConnectedMoveBlock self, Vector2 v)
             {
-                return HaveInteractable(CItems.MoveBlocks) && orig(self, v);
+                return !HaveInteractable(CItems.MoveBlocks) || orig(self, v);
+            }
+        }
+        private static class ModVitMoveBlock
+        {
+            internal static bool MoveCheck(Func<VitMoveBlock, Vector2, bool> orig, VitMoveBlock self, Vector2 v)
+            {
+                return !HaveInteractable(CItems.MoveBlocks) || orig(self, v);
             }
         }
 

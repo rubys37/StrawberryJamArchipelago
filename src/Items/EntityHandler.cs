@@ -39,7 +39,6 @@ public static class EntityHandler
         Jellyfish,
         PowerBoxes,
         Birds,
-        CrystalBombs,
         
         DreamDashCrystals,
         CerealBlockBumps,
@@ -67,6 +66,7 @@ public static class EntityHandler
         Skateboard,
         Umbrella,
         FakeHearts,
+        CrystalBombs,
         WormholeBoosters,
         Portals,
         PinkBubbles,

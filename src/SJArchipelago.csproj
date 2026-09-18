@@ -47,6 +47,7 @@
         <Reference Include="../lib/mods/FemtoHelper.dll" />
         <Reference Include="../lib/mods/DJMapHelper.dll" />
         <Reference Include="../lib/mods/VortexHelper.dll" />
+        <Reference Include="../lib/mods/HonlyHelper.dll" />
         <Reference Include="../lib/mods/StrawberryJam2021.dll" />
     </ItemGroup>
 

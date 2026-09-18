@@ -29,14 +29,12 @@ the apworld attached to releases is made by maybeGVST. it relies on bingosync pr
 * Loop blocks -> Cereal block clouds/Cereal block bumps
 * Toggle Blocks -> Dash Traffic Blocks/Dash Toggle Blocks
 
-
 some items have been renamed:
 * Loop blocks -> Cereal blocks (also i just realized i never tested these uh oh) 
 * Grey Spring -> Dash Springs
 
-
 additionally, the folloing items are enabled by default since they are not used in the apworld attached:
-* gravity triggers
+* Gravity triggers
 * Teleport Fields
 
 ## Licensing

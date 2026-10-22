@@ -42,6 +42,11 @@ public class LocationBehavior : LoadableItemMod
         public static void OnCollect(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
         {
             orig(self);
+            string sid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            string entityId = self.ID.Key;
+            string fullId = sid + entityId;
+            string humanReadableName = LocationHandler.LocationsDict[fullId];
+            // send this off to some mysterious network manager.
         }
     }
 }

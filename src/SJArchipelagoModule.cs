@@ -22,10 +22,10 @@ public class SJArchipelagoModule : EverestModule
         Instance = this;
 #if DEBUG
         // debug builds use verbose logging
-        Logger.SetLogLevel("AP", LogLevel.Verbose);
+        Logger.SetLogLevel("SJAP", LogLevel.Verbose);
 #else
         // release builds use info logging to reduce spam in log files
-        Logger.SetLogLevel("AP", LogLevel.Info);
+        Logger.SetLogLevel("SJAP", LogLevel.Info);
 #endif
     }
 

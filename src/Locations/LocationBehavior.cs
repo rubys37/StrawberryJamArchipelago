@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Monocle;
 using MonoMod.RuntimeDetour;
-
 using Celeste.Mod.HonlyHelper;
 using Celeste.Mod.SJArchipelago.Items;
 using On.Celeste.Mod.Core;

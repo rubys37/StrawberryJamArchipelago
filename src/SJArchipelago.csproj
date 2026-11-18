@@ -29,6 +29,7 @@
         
         <Reference Include="../lib/Archipelago.MultiClient.Net.dll" Private="true" />
         <Reference Include="../lib/Newtonsoft.Json.dll" Private="false" />
+        <Reference Include="../lib/mods/CollabUtils2.dll" />
         <Reference Include="../lib/mods/AdventureHelper.dll" />
         <Reference Include="../lib/mods/CommunalHelper.dll" />
         <Reference Include="../lib/mods/MaxHelpingHand.dll" />

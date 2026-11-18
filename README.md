@@ -42,3 +42,6 @@ i bear no association to the main celeste archipelago team, nor has any of their
 if others would like to contribute or use my code, please ask me first.
 
 also, the apworld attached in releases belongs to maybeGVST, who gave me permission to post it :3
+
+## Disclosure Statement
+no LLM assistence, AI assistence, or anything of the like was used in the making of this implementation. humans made this from start to finish.

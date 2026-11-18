@@ -43,5 +43,11 @@ if others would like to contribute or use my code, please ask me first.
 
 also, the apworld attached in releases belongs to maybeGVST, who gave me permission to post it :3
 
+i would like to acknoledge the many resources out there that helped me on this journey to developing this archipelago implementation. 
+the archipelago for outer wilds, developed by ixrecs, helped me tremendously with the networking. 
+the celeste discord helped me with interactable disabling, and the resources they shared made this possible. the base mod template that they develop is the base of this mod.
+also, shoutouts to my friends who helped me with some of the more boring tasks. in particular, thanks to julie, jog, and isaac for various parts of this. and thank you to gvst for inspiring this idea.
+
+
 ## Disclosure Statement
 no LLM assistence, AI assistence, or anything of the like was used in the making of this implementation. humans made this from start to finish.

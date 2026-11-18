@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Reflection;
 using Celeste.Mod.CollabUtils2.Triggers;
 
 
@@ -18,7 +17,7 @@ public class MapRando
         On.Celeste.Trigger.ctor -= ModTriggerCtor;
     }
 
-    public static void ModTriggerCtor(On.Celeste.Trigger.orig_ctor orig, Trigger self, EntityData data, Vector2 offset)
+    private static void ModTriggerCtor(On.Celeste.Trigger.orig_ctor orig, Trigger self, EntityData data, Vector2 offset)
     {
         if (self is not ChapterPanelTrigger)
         {

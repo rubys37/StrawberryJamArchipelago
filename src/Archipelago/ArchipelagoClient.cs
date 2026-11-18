@@ -10,29 +10,26 @@ using Newtonsoft.Json;
 
 namespace Celeste.Mod.SJArchipelago.Archipelago;
 
-public class APConnData
+public class APSaveData
 {
     public const string Game = "Celeste: Strawberry Jam";
     public string Uri;
     public string SlotName;
     public string Password;
-    
-    public int RoomId;
+
+    public string RoomId;
     public List<long> CheckedLocations;
-    private string seed;
 
-    private Dictionary<string, object> slotData;
+    public Dictionary<string, object> SlotData;
 
-    public bool NeedSlotData => slotData == null;
-
-    public APConnData()
+    public APSaveData()
     {
         Uri = "localhost";
         SlotName = "Player1";
         CheckedLocations = new();
     }
 
-    public APConnData(string uri, string slotName, string password)
+    public APSaveData(string uri, string slotName, string password)
     {
         Uri = uri;
         SlotName = slotName;
@@ -40,15 +37,14 @@ public class APConnData
         CheckedLocations = new();
     }
 
-
-    public void SetupSession(Dictionary<string, object> roomSlotData, string roomSeed)
+    public void SetupSessionData(Dictionary<string, object> roomSlotData, string roomId)
     {
-        slotData = roomSlotData;
-        seed = roomSeed;
+        SlotData = roomSlotData;
+        RoomId = roomId;
     }
+    
 
-
-    public override string ToString()
+public override string ToString()
     {
         return JsonConvert.SerializeObject(this);
     }
@@ -56,25 +52,43 @@ public class APConnData
 
 public class APClient()
 {
-    private static ArchipelagoSession APsession;
+    private static ArchipelagoSession APSession;
+    private static APSaveData SaveData;
 
-    public static LoginResult ConnectToAPServer(APConnData cdata)
+    public static LoginResult ConnectToAPServer(APSaveData cdata)
     {
         Logger.Log(LogLevel.Info, "SJAP", $"Attempting to connect to APServer with connection data {cdata.Uri}, {cdata.SlotName}");
         
-        APsession = ArchipelagoSessionFactory.CreateSession(cdata.Uri);
-        LoginResult loginResult = APsession.TryConnectAndLogin(APConnData.Game, cdata.SlotName, ItemsHandlingFlags.AllItems, password: cdata.Password, requestSlotData: true);
+        SaveData = cdata;
+        APSession = ArchipelagoSessionFactory.CreateSession(cdata.Uri);
+        LoginResult loginResult = APSession.TryConnectAndLogin(APSaveData.Game, cdata.SlotName, ItemsHandlingFlags.AllItems, password: cdata.Password, requestSlotData: true);
+        
         if (!loginResult.Successful)
         {
             return loginResult;
         }
         
-        APsession.Socket.ErrorReceived += APSession_ErrorReceived;
-        
+        APSession.Socket.ErrorReceived += APSession_ErrorReceived;
+        SetupSession((LoginSuccessful)loginResult, APSession.RoomState.Seed);
         return loginResult;
     }
-    
-    private static 
+
+    private static void SetupSession(LoginSuccessful loginResult, string roomId)
+    {
+        SaveData.SetupSessionData(loginResult.SlotData, roomId);
+        APSession.Items.ItemReceived += OnItemReceivedFromAP;
+        APSession.MessageLog.OnMessageReceived += OnMessageReceivedFromAP;
+    }
+
+    private static void OnItemReceivedFromAP(IReceivedItemsHelper receivedItemsHelper)
+    {
+        // TODO: implement
+    }
+
+    private static void OnMessageReceivedFromAP(LogMessage msg)
+    {
+        // TODO: implement
+    }
 
     private static HashSet<string> SocketWarningsAlreadyShown = new();
     

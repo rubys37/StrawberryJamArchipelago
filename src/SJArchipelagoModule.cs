@@ -1,6 +1,8 @@
 using System;
+using Celeste.Mod.SJArchipelago.Archipelago;
 using Celeste.Mod.SJArchipelago.Items;
-using Celeste.Mod.SJArchipelago.Misc;
+using Celeste.Mod.SJArchipelago.Locations;
+using Celeste.Mod.SJArchipelago.MapMods;
 
 namespace Celeste.Mod.SJArchipelago;
 
@@ -34,8 +36,9 @@ public class SJArchipelagoModule : EverestModule
     {
         // TODO: apply any hooks that should always be active
         foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods) item.Load();
-        EntityBehavior.ModItemUpdate.CustomLoad();
-        MapRando.Load();
+        LocationBehavior.Load();
+        //MapEntranceMod.Load();
+        //APClient.ConnectToAPServer(new APSaveData());
     }
 
     public override void Unload()
@@ -45,7 +48,8 @@ public class SJArchipelagoModule : EverestModule
         {
             item.Unload();
         }
-        EntityBehavior.ModItemUpdate.CustomUnload();
-        MapRando.Unload();
+        //MapEntranceMod.Unload();
+        LocationBehavior.Unload();
+
     }
 }

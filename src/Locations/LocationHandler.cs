@@ -6,7 +6,7 @@ namespace Celeste.Mod.SJArchipelago.Locations;
 
 internal class LocationHandler
 {
-    public static readonly Dictionary<string, string> LocationsDict = new Dictionary<string, string>
+    public static readonly Dictionary<string, string> LocationsToReadableDict = new Dictionary<string, string>
     {
         {"StrawberryJam2021/1-Beginner/asteriskblue=^.^=a-11:1244", "Forest Path Berry 2"},
         {"StrawberryJam2021/1-Beginner/asteriskblue=^.^=a-03:3", "Forest Path Berry 1"},

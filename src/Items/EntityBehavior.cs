@@ -10,6 +10,7 @@ using Celeste.Mod.CommunalHelper.Entities;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using Celeste.Mod.DJMapHelper.Entities;
 using ExtendedVariants.Entities.ForMappers;
+using ExtendedVariants.Entities.Legacy;
 using Celeste.Mod.GravityHelper.Triggers;
 using vitmod;
 using Celeste.Mod.StrawberryJam2021.Entities;
@@ -25,8 +26,17 @@ using Celeste.Mod.OutbackHelper;
 using Celeste.Mod.VortexHelper.Entities;
 using BrokemiaHelper;
 using Celeste.Mod.GravityHelper.Entities;
+using Celeste.Mod.Batteries;
+using Celeste.Mod.BounceHelper;
+using Celeste.Mod.JackalHelper.Entities;
+using Celeste.Mod.TwigHelper.Entities;
+using Celeste.Mod.Anonhelper;
+using Celeste.Mod.FurryHelper;
+using ExtendedVariants.Module;
+using Celeste.Mod.Spirialis;
 using FlaglinesAndSuch;
 using FrostHelper;
+using Celeste.Mod.EmHelper.Entities;
 using Monocle;
 using MonoMod.RuntimeDetour;
 using VivHelper.Entities;
@@ -36,6 +46,7 @@ using DashZipMover = Celeste.Mod.StrawberryJam2021.Entities.DashZipMover;
 using CItems = Celeste.Mod.SJArchipelago.Items.EntityHandler.Items;
 using ExpiringDashRefill = Celeste.Mod.StrawberryJam2021.Entities.ExpiringDashRefill;
 using Entity = Monocle.Entity;
+using GrabTempleGate = Celeste.Mod.StrawberryJam2021.Entities.GrabTempleGate;
 using InstantTeleportTrigger = VivHelper.Triggers.InstantTeleportTrigger;
 using ToggleSwapBlock = Celeste.Mod.StrawberryJam2021.Entities.ToggleSwapBlock;
 
@@ -129,14 +140,18 @@ internal class EntityBehavior
         public override void Load()
         {
             On.Monocle.Collide.Check_Entity_Entity += modCollide_EntityCheck;
-            On.Celeste.Solid.HasPlayerRider += modSolid_HasPlayerRider;
+            On.Celeste.Solid.GetPlayerRider += modSolid_GetPlayerRider;
         }
 
         public override void Unload()
         {
             On.Monocle.Collide.Check_Entity_Entity -= modCollide_EntityCheck;
-            On.Celeste.Solid.HasPlayerRider -= modSolid_HasPlayerRider;
+            On.Celeste.Solid.GetPlayerRider -= modSolid_GetPlayerRider;
         }
+        
+        private static Type TripleBoostFlower = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower");
+        private static Type PropellerBox = Type.GetType("Celeste.Mod.PandorasBox.PropellerBox");
+
 
         /* Handles every entity that should have no collision when disabled by the ap
         TODO: Add a list of every entity handled here*/
@@ -151,6 +166,7 @@ internal class EntityBehavior
             if (b.GetType() == typeof(SolidTiles)) return true;
             FieldInfo field;
             Type t;
+            string areaSid;
             // player is usually a, (if not then its theo, or jellyfish, or pufferfish or allat). ill sort out exceptions as they come along
             switch (b)
             {
@@ -189,9 +205,18 @@ internal class EntityBehavior
                         t = t.BaseType;
                     }
                     int extraJumps;
-                    if (field == null) extraJumps = 1;
-                    else extraJumps = (int)field.GetValue(jumpRefill);
-                    if (extraJumps == 1) return HaveInteractable(CItems.SingleJumpCrystals);
+                    if (field == null)
+                    {
+                        extraJumps = 1;
+                    }
+                    else
+                    {
+                        extraJumps = (int)field.GetValue(jumpRefill);
+                    }
+                    if (extraJumps == 1)
+                    {
+                        return HaveInteractable(CItems.SingleJumpCrystals);
+                    }
                     return HaveInteractable(CItems.TripleJumpCrystals);
                 
                 case GravityTrigger:
@@ -244,7 +269,8 @@ internal class EntityBehavior
                 
                 case TriggerTrigger trigger:
                     if (HaveInteractable(CItems.Skateboard)) return true;
-                    if (trigger.SceneAs<Level>().Session.Area.SID != "StrawberryJam2021/3-Advanced/mmm") return true;
+                    areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+                    if (areaSid != "StrawberryJam2021/3-Advanced/mmm") return true;
                     string level = trigger.SceneAs<Level>().Session.Level;
                     if (level is "a00" or "a01") return false;
                     return true;
@@ -267,12 +293,86 @@ internal class EntityBehavior
                 case GravitySpring:
                     return HaveInteractable(CItems.GravitySprings);
                 
-                case RefillWall:
-                    return HaveInteractable(CItems.DashCrystals);
+                case RefillWall refillWall:
+                    field = typeof(RefillWall).GetField("twoDashes", BindingFlags.Instance | BindingFlags.NonPublic);
+                    bool twoDashes = (bool)field.GetValue(refillWall);
+                    return twoDashes ? HaveInteractable(CItems.DoubleDashCrystals) : HaveInteractable(CItems.DashCrystals);
                 
                 case SwitchCrate:
                     return HaveInteractable(CItems.SwitchCrates);
                 
+                case Battery:
+                    return HaveInteractable(CItems.Batteries);
+                
+                case FloatingBubble:
+                    return HaveInteractable(CItems.FloatingBubbles);
+                
+                case DashBoostField:
+                    return HaveInteractable(CItems.DashBoostFields);
+                
+                case CoreBooster:
+                    return HaveInteractable(CItems.CoreBoosters);
+                
+                case ShroomRefill:
+                    return HaveInteractable(CItems.DashCrystals);
+                
+                case ExtendedVariantTrigger trigger:
+                    areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+                    if (areaSid == "StrawberryJam2021/4-Expert/DanTKO")
+                    {
+                        field = typeof(ExtendedVariantTrigger).GetField("variantChange", BindingFlags.Instance | BindingFlags.NonPublic);
+                        ExtendedVariantsModule.Variant variant = (ExtendedVariantsModule.Variant)field.GetValue(trigger);
+                        if (variant == ExtendedVariantsModule.Variant.BounceEverywhere)
+                        {
+                            return HaveInteractable(CItems.FlowerSprings);
+                        }
+
+                        if (variant is ExtendedVariantsModule.Variant.HyperdashSpeed
+                            or ExtendedVariantsModule.Variant.WallBouncingSpeed)
+                        {
+                            return HaveInteractable(CItems.FlowerHyperBoosts);
+                        }
+                    }
+                    if (areaSid == "StrawberryJam2021/4-Expert/KAERRA")
+                    {
+                        field = typeof(ExtendedVariantTrigger).GetField("variantChange", BindingFlags.Instance | BindingFlags.NonPublic);
+                        ExtendedVariantsModule.Variant variant = (ExtendedVariantsModule.Variant)field.GetValue(trigger);
+
+                        if (variant is ExtendedVariantsModule.Variant.Gravity)
+                        {
+                            return HaveInteractable(CItems.GravityTriggers);
+                        }
+                    }
+                    return true;
+                
+                case CardinalBumper:
+                    return HaveInteractable(CItems.Bumpers);
+                
+                case MonumentBooster monumentBooster:
+                    field = typeof(MonumentBooster).GetField("red", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                    if ((bool)field.GetValue(monumentBooster))
+                    {
+                        return HaveInteractable(CItems.RedBubbles);
+                    }
+                    return HaveInteractable(CItems.GreenBubbles);
+                
+                case CloudRefill:
+                    return HaveInteractable(CItems.CloudCrystals);
+                
+                case JellyRefill:
+                    return HaveInteractable(CItems.JellyCrystals);
+                
+                case StopwatchRefill:
+                    return HaveInteractable(CItems.RewindCrystals);
+                
+                case BowlPuffer:
+                    return HaveInteractable(CItems.BowlPuffers);
+                
+                case CustomizableRefill:
+                    return HaveInteractable(CItems.DashCrystals);
+                
+                
+                    
                 // these classes are internal and i cannot reference them directly, which means a string comparison must be used
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower":
                     return HaveInteractable(CItems.Roses);
@@ -285,7 +385,30 @@ internal class EntityBehavior
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster":
                     return HaveInteractable(CItems.WormholeBoosters);
-
+                
+                case Object obj when obj.GetType().FullName == "Celeste.Mod.PandorasBox.PropellerBox":
+                    return HaveInteractable(CItems.PropellerBoxes);
+                
+                case Object obj when obj.GetType().FullName == "FrostHelper.PlusOneRefill":
+                    return HaveInteractable(CItems.RedDashRefills);
+                
+                case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.SkyLantern":
+                    return HaveInteractable(CItems.SkyLanterns);
+                
+                case Object obj when obj.GetType().FullName == "Celeste.Mod.Spirialis.Stopwatch":
+                    // TODO: this does not work. you need to disable the actual grab to toggle time functionality.
+                    field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
+                    int stopType = (int)field.GetValue(obj);
+                    switch (stopType)
+                    {
+                        case 0:
+                            return HaveInteractable(CItems.GrayStopwatches);
+                        case 1:
+                            return HaveInteractable(CItems.BlueStopwatches);
+                        case 2:
+                            return HaveInteractable(CItems.GreenStopwatches);
+                    }
+                    return true;
 
                 //vanilla
                 case Spring:
@@ -340,41 +463,56 @@ internal class EntityBehavior
                     return true;
             }
         }
-
-        private static bool modSolid_HasPlayerRider(On.Celeste.Solid.orig_HasPlayerRider orig, Solid self)
+        
+        static List<Type> ZipMovers = new List<Type>
         {
-            if (!orig(self)) return false;
-
-            List<Type> zipMovers = new List<Type>
+            typeof(ZipMover),
+            typeof(CustomZipMover),
+            typeof(CustomCurvedZipMover),
+            typeof(ConnectedZipMover),
+            typeof(CassetteZipMover),
+            typeof(LinkedZipMover),
+            typeof(LinkedZipMoverNoReturn),
+        };
+        
+        private static Player modSolid_GetPlayerRider(On.Celeste.Solid.orig_GetPlayerRider orig, Solid self)
+        {
+            var player = orig(self);
+            if (player is null)
             {
-                typeof(ZipMover),
-                typeof(CustomCurvedZipMover),
-                typeof(ConnectedZipMover),
-                typeof(CassetteZipMover),
-                typeof(LinkedZipMover),
-                typeof(LinkedZipMoverNoReturn),
-            };
-            if (zipMovers.Contains(self.GetType()) && !HaveInteractable(CItems.TrafficBlocks)) return false;
-            return true;
+                return null;
+            }
+            if (ZipMovers.Contains(self.GetType()) && !HaveInteractable(CItems.TrafficBlocks))
+            {
+                return null;
+            }
+            if (self.GetType() == typeof(GlitchWall) && !HaveInteractable(CItems.GlitchWalls))
+            {
+                return null;
+            }
+            return player;
         }
     }
 
     public class ModItemUpdate : LoadableItemMod
     {
-        private static List<Hook> _customHooks = new();
+        private static List<Hook> CustomHooks = new();
 
         public override void Load()
         {
             On.Celeste.IntroCrusher.Sequence += ModIntroCrusher.Sequence;
-            // On.Celeste.ZipMover.Update += ModZipMover.Update;
-            using (new DetourConfigContext(new DetourConfig("SJAP/CassetteBlockUpdateNonCollidable").WithPriority(1)).Use())
+            using (new DetourConfigContext(new DetourConfig("SJAP/CassetteBlockUpdateNonCollidable").WithPriority(1))
+                       .Use())
             {
                 On.Celeste.CassetteBlock.Update += ModCassetteBlock.Update;
             }
-            using (new DetourConfigContext(new DetourConfig("SJAP/DisableCassetteBlockShiftSize").WithPriority(1)).Use())
+
+            using (new DetourConfigContext(new DetourConfig("SJAP/DisableCassetteBlockShiftSize").WithPriority(1))
+                       .Use())
             {
                 On.Celeste.CassetteBlock.ShiftSize += ModCassetteBlock.ShiftSize;
             }
+
             On.Celeste.Player.DreamDashCheck += ModDreamBlock.Update;
             On.Celeste.SinkingPlatform.Update += ModSinkingPlatform.Update;
             On.Celeste.MovingPlatform.Update += ModMovingPlatform.Update;
@@ -385,45 +523,43 @@ internal class EntityBehavior
             {
                 On.Celeste.DashSwitch.OnDashed += ModDashSwitch.OnDashed;
             }
+
             On.Celeste.Seeker.Awake += ModSeeker.Awake;
             On.Celeste.CrushBlock.CanActivate += ModCrushBlock.CanActivate;
             On.Celeste.BounceBlock.Update += ModCoreBlock.Update;
             On.Celeste.FireBall.Update += ModFireball.Update;
             On.Celeste.Puffer.Explode += ModPuffer.Explode;
             On.Celeste.LightningBreakerBox.Break += ModPowerBox.Break;
+            CustomLoad();
         }
 
         public static void CustomLoad()
         {
-            //_customHooks.Add(new Hook( typeof(CassetteZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteZipper.Sequence));
-            //_customHooks.Add(new Hook( typeof(LinkedZipMoverNoReturn).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedNonReturnZipMover.Sequence));
-            //_customHooks.Add(new Hook( typeof(LinkedZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModLinkedZipMover.Sequence));
-            _customHooks.Add(new Hook( typeof(DashZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModDashTrafficBlock.Sequence));
-            
-            _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModCerealBlock.OnDashed));
-            _customHooks.Add(new Hook( typeof(LoopBlock).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModCerealBlock.Update));
-            
-            _customHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
-            _customHooks.Add(new Hook( typeof(ToggleSwapBlock).GetMethod("OnPlayerDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModSJToggleSwapBlock.OnPlayerDashed));
-            _customHooks.Add(new Hook( typeof(FrostHelper.ToggleSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModFHToggleSwapBlock.OnDash));
-
-            _customHooks.Add(new Hook( typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
-            _customHooks.Add(new Hook( typeof(VitMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModVitMoveBlock.MoveCheck));
-            
-            _customHooks.Add(new Hook( typeof(NonReturnCrushBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModNonReturnKevin.OnDashed));
-            _customHooks.Add(new Hook( typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));
-            
-            _customHooks.Add(new Hook( typeof(MarioClearPipeHelper).GetMethod("CanTransportEntity", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static), ModClearPipeHelper.CanTransportEntity));
-            _customHooks.Add(new Hook( typeof(InstantTeleportTrigger).GetMethod("TeleportMaster", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleport.TeleportMaster));
-            _customHooks.Add(new Hook( typeof(StationBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModDashToggleBlock.OnDashed));
-            
-            _customHooks.Add(new Hook( typeof(PlatformJelly).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModPlatformJellyfish.Update));
+            CustomHooks.Add(new Hook( typeof(DashZipMover).GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic), ModDashTrafficBlock.Sequence));
+            CustomHooks.Add(new Hook( typeof(LoopBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModCerealBlock.OnDashed));
+            CustomHooks.Add(new Hook( typeof(LoopBlock).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModCerealBlock.Update));
+            CustomHooks.Add(new Hook( typeof(CassetteSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModCassetteSwapBlock.OnDash));
+            CustomHooks.Add(new Hook( typeof(ToggleSwapBlock).GetMethod("OnPlayerDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModSJToggleSwapBlock.OnPlayerDashed));
+            CustomHooks.Add(new Hook( typeof(FrostHelper.ToggleSwapBlock).GetMethod("OnDash", BindingFlags.Instance | BindingFlags.NonPublic), ModFHToggleSwapBlock.OnDash));
+            CustomHooks.Add(new Hook( typeof(ConnectedMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModConnectedMoveBlock.MoveCheck));
+            CustomHooks.Add(new Hook( typeof(VitMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModVitMoveBlock.MoveCheck));
+            CustomHooks.Add(new Hook( typeof(NonReturnCrushBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModNonReturnKevin.OnDashed));
+            CustomHooks.Add(new Hook( typeof(UninterruptedNRCB).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.Public), ModUnInterruptableNonReturnKevin.OnDashed));
+            CustomHooks.Add(new Hook( typeof(MarioClearPipeHelper).GetMethod("CanTransportEntity", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static), ModClearPipeHelper.CanTransportEntity));
+            CustomHooks.Add(new Hook( typeof(InstantTeleportTrigger).GetMethod("TeleportMaster", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleport.TeleportMaster));
+            CustomHooks.Add(new Hook( typeof(StationBlock).GetMethod("OnDashed", BindingFlags.Instance | BindingFlags.NonPublic), ModDashToggleBlock.OnDashed));
+            CustomHooks.Add(new Hook( typeof(PlatformJelly).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModPlatformJellyfish.Update));
+            CustomHooks.Add(new Hook(typeof(DreamMoveBlock).GetMethod("MoveCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModDreamMoveBlock.MoveCheck));
+            CustomHooks.Add(new Hook(typeof(BounceMoveBlock).GetMethod("MoveVCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModBounceMoveBlock.MoveCheck));
+            CustomHooks.Add(new Hook(typeof(BounceMoveBlock).GetMethod("MoveHCheck", BindingFlags.Instance | BindingFlags.NonPublic), ModBounceMoveBlock.MoveCheck));
+            CustomHooks.Add(new Hook(typeof(BowlPuffer).GetMethod("Explode", BindingFlags.Instance | BindingFlags.NonPublic), ModBowlPuffer.Explode));
+            CustomHooks.Add(new Hook(typeof(GrabTempleGate).GetMethod("Open", BindingFlags.Instance | BindingFlags.Public), ModGrabSwitchGate.OpenClose));
+            CustomHooks.Add(new Hook(typeof(GrabTempleGate).GetMethod("Close", BindingFlags.Instance | BindingFlags.Public), ModGrabSwitchGate.OpenClose));
         }
 
         public override void Unload()
         {
             On.Celeste.IntroCrusher.Sequence -= ModIntroCrusher.Sequence;
-            On.Celeste.ZipMover.Update -= ModZipMover.Update;
             On.Celeste.CassetteBlock.Update -= ModCassetteBlock.Update;
             On.Celeste.Player.DreamDashCheck -= ModDreamBlock.Update;
             On.Celeste.SinkingPlatform.Update -= ModSinkingPlatform.Update;
@@ -438,11 +574,12 @@ internal class EntityBehavior
             On.Celeste.FireBall.Update -= ModFireball.Update;
             On.Celeste.Puffer.Explode -= ModPuffer.Explode;
             On.Celeste.LightningBreakerBox.Break -= ModPowerBox.Break;
+            CustomUnload();
         }
 
         public static void CustomUnload()
         {
-            foreach (Hook hook in _customHooks)
+            foreach (Hook hook in CustomHooks)
             {
                 hook.Dispose();
             }
@@ -458,17 +595,6 @@ internal class EntityBehavior
                 }
 
                 yield return null;
-            }
-        }
-
-        private static class ModZipMover
-        {
-            internal static void Update(On.Celeste.ZipMover.orig_Update orig, ZipMover self)
-            {
-                if (HaveInteractable(CItems.TrafficBlocks))
-                {
-                    orig(self);
-                }
             }
         }
 
@@ -700,17 +826,6 @@ internal class EntityBehavior
             }
         }
 
-        private static class ModCassetteZipper
-        {
-            internal static IEnumerator Sequence(Func<CassetteZipMover, IEnumerator> orig, CassetteZipMover self)
-            {
-                if (HaveInteractable(CItems.CassetteZippers))
-                {
-                    yield return new SwapImmediately(orig(self));
-                }
-            }
-        }
-        
         private static class ModCassetteSwapBlock
         {
             internal static void OnDash(Action<CassetteSwapBlock, Vector2> orig, CassetteSwapBlock self, Vector2 v)
@@ -724,11 +839,13 @@ internal class EntityBehavior
 
         private static class ModConnectedMoveBlock
         {
-            internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig, ConnectedMoveBlock self, Vector2 v)
+            internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig, ConnectedMoveBlock self,
+                Vector2 v)
             {
                 return !HaveInteractable(CItems.MoveBlocks) || orig(self, v);
             }
         }
+
         private static class ModVitMoveBlock
         {
             internal static bool MoveCheck(Func<VitMoveBlock, Vector2, bool> orig, VitMoveBlock self, Vector2 v)
@@ -776,29 +893,6 @@ internal class EntityBehavior
             }
         }
 
-        private static class ModLinkedZipMover
-        {
-            internal static IEnumerator Sequence(Func<LinkedZipMover, IEnumerator> orig, LinkedZipMover self)
-            {
-                if (HaveInteractable(CItems.TrafficBlocks))
-                {
-                    yield return new SwapImmediately(orig(self));
-                }
-            }
-        }
-
-        private static class ModLinkedNonReturnZipMover
-        {
-            internal static IEnumerator Sequence(Func<LinkedZipMoverNoReturn, IEnumerator> orig,
-                LinkedZipMoverNoReturn self)
-            {
-                if (HaveInteractable(CItems.TrafficBlocks))
-                {
-                    yield return new SwapImmediately(orig(self));
-                }
-            }
-        }
-
         private static class ModInstantTeleport
         {
             internal static void TeleportMaster(Action<InstantTeleportTrigger, Player> orig,
@@ -822,10 +916,11 @@ internal class EntityBehavior
                 }
             }
         }
-        
+
         private static class ModSJToggleSwapBlock
         {
-            internal static void OnPlayerDashed(Action<ToggleSwapBlock, Vector2> orig, ToggleSwapBlock self, Vector2 v)
+            internal static void OnPlayerDashed(Action<StrawberryJam2021.Entities.ToggleSwapBlock, Vector2> orig,
+                ToggleSwapBlock self, Vector2 v)
             {
                 if (HaveInteractable(CItems.SwapBlocks))
                 {
@@ -857,11 +952,47 @@ internal class EntityBehavior
                 {
                     JumpThru ridablePlatform = (JumpThru)(typeof(PlatformJelly).GetField("ridablePlatform", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self));
                     ridablePlatform.Collidable = false;
-
-                    /*i couldnt get this to work
-                     MethodInfo destroyAnimationRoutine = typeof(PlatformJelly).GetMethod("DestroyAnimationRoutine", BindingFlags.NonPublic | BindingFlags.Instance);
-                    self.Add(new Coroutine(destroyAnimationRoutine.Invoke(self, null)));*/
                 }
+            }
+        }
+
+        private static class ModDreamMoveBlock
+        {
+            internal static bool MoveCheck(Func<DreamMoveBlock, Vector2, bool> orig, DreamMoveBlock self, Vector2 speed)
+            {
+                return !HaveInteractable(CItems.MoveBlocks) || orig(self, speed);
+            }
+        }
+        
+        private static class ModBounceMoveBlock
+        {
+            internal static bool MoveCheck(Func<BounceMoveBlock, float, bool> orig, BounceMoveBlock self, float move)
+            {
+                return !HaveInteractable(CItems.MoveBlocks) || orig(self, move);
+            }
+        }
+        
+        private static class ModBowlPuffer
+        {
+            internal static void Explode(Action<BowlPuffer, bool> orig, BowlPuffer self, bool playsound)
+            {
+                if (HaveInteractable(CItems.Pufferfish))
+                {
+                    return;
+                }
+                orig(self, playsound);
+            }
+        }
+        
+        private static class ModGrabSwitchGate
+        {
+            internal static void OpenClose(Action<GrabTempleGate> orig, GrabTempleGate self)
+            {
+                if (!HaveInteractable(CItems.GrabToggleGates))
+                {
+                    return;
+                }
+                orig(self);
             }
         }
     }

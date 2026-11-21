@@ -1,0 +1,992 @@
+{
+   "StrawberryJam2021/0-Lobbies/0-Prologue": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "0-Prologue",
+      "Map SID": "StrawberryJam2021/0-Lobbies/0-Prologue",
+      "Stylized Map Name": "Prologue",
+      "Difficulty": "0",
+      "Difficulty Color": "Prologue"
+   },
+   "StrawberryJam2021/0-Gyms/0-Prologue": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "0-Prologue",
+      "Map SID": "StrawberryJam2021/0-Gyms/0-Prologue",
+      "Stylized Map Name": "Library",
+      "Difficulty": "0",
+      "Difficulty Color": "Prologue"
+   },
+   "StrawberryJam2021/0-Lobbies/1-Beginner": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "1-Beginner",
+      "Map SID": "StrawberryJam2021/0-Lobbies/1-Beginner",
+      "Stylized Map Name": "Beginner Lobby",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/0-Gyms/1-Beginner": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "1-Beginner",
+      "Map SID": "StrawberryJam2021/0-Gyms/1-Beginner",
+      "Stylized Map Name": "Beginner Gym",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/asteriskblue": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "asteriskblue",
+      "Map SID": "StrawberryJam2021/1-Beginner/asteriskblue",
+      "Stylized Map Name": "Forest Path",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/Bing_Over_Google": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "Bing_Over_Google",
+      "Map SID": "StrawberryJam2021/1-Beginner/Bing_Over_Google",
+      "Stylized Map Name": "If my 'driveway' almost did you in...",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/cellularAutomaton": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "cellularAutomaton",
+      "Map SID": "StrawberryJam2021/1-Beginner/cellularAutomaton",
+      "Stylized Map Name": "Azure Caverns",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/ceph": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "ceph",
+      "Map SID": "StrawberryJam2021/1-Beginner/ceph",
+      "Stylized Map Name": "Cassette Cliffs",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/circumplex": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "circumplex",
+      "Map SID": "StrawberryJam2021/1-Beginner/circumplex",
+      "Stylized Map Name": "Soap",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/coffe": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "coffe",
+      "Map SID": "StrawberryJam2021/1-Beginner/coffe",
+      "Stylized Map Name": "Loopy Lagoon",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/coupcritik": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "coupcritik",
+      "Map SID": "StrawberryJam2021/1-Beginner/coupcritik",
+      "Stylized Map Name": "Over the City",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/eclipse": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "eclipse",
+      "Map SID": "StrawberryJam2021/1-Beginner/eclipse",
+      "Stylized Map Name": "Troposphere",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/flagpole1up": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "flagpole1up",
+      "Map SID": "StrawberryJam2021/1-Beginner/flagpole1up",
+      "Stylized Map Name": "Switchtube Vista",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/frozenflygone": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "frozenflygone",
+      "Map SID": "StrawberryJam2021/1-Beginner/frozenflygone",
+      "Stylized Map Name": "Potential for Anything",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/hankymueller": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "hankymueller",
+      "Map SID": "StrawberryJam2021/1-Beginner/hankymueller",
+      "Stylized Map Name": "A Gift From the Stars",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/hyperlife": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "hyperlife",
+      "Map SID": "StrawberryJam2021/1-Beginner/hyperlife",
+      "Stylized Map Name": "Collapsing Skyline",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/jadeturtle": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "jadeturtle",
+      "Map SID": "StrawberryJam2021/1-Beginner/jadeturtle",
+      "Stylized Map Name": "Strawberry Orchard",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/joltik": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "joltik",
+      "Map SID": "StrawberryJam2021/1-Beginner/joltik",
+      "Stylized Map Name": "Midnight Spire",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/mosscairn": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "mosscairn",
+      "Map SID": "StrawberryJam2021/1-Beginner/mosscairn",
+      "Stylized Map Name": "paint",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/notyourbadeline": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "notyourbadeline",
+      "Map SID": "StrawberryJam2021/1-Beginner/notyourbadeline",
+      "Stylized Map Name": "Seeing is Believing",
+      "Difficulty": "1",
+      "Difficulty Color": "Beginner Green"
+   },
+   "StrawberryJam2021/1-Beginner/owen-shirrell": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "owen-shirrell",
+      "Map SID": "StrawberryJam2021/1-Beginner/owen-shirrell",
+      "Stylized Map Name": "Dropzle",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/quinnigan": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "quinnigan",
+      "Map SID": "StrawberryJam2021/1-Beginner/quinnigan",
+      "Stylized Map Name": "Rose Garden",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/skeleton": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "skeleton",
+      "Map SID": "StrawberryJam2021/1-Beginner/skeleton",
+      "Stylized Map Name": "Treehive",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/snas": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "snas",
+      "Map SID": "StrawberryJam2021/1-Beginner/snas",
+      "Stylized Map Name": "The Squeeze",
+      "Difficulty": "2",
+      "Difficulty Color": "Beginner Yellow"
+   },
+   "StrawberryJam2021/1-Beginner/voliver9": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "voliver9",
+      "Map SID": "StrawberryJam2021/1-Beginner/voliver9",
+      "Stylized Map Name": "Coresaken City",
+      "Difficulty": "3",
+      "Difficulty Color": "Beginner Red"
+   },
+   "StrawberryJam2021/1-Beginner/ZZ-HeartSide": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "1-Beginner",
+      "Map File Name": "ZZ-HeartSide",
+      "Map SID": "StrawberryJam2021/1-Beginner/ZZ-HeartSide",
+      "Stylized Map Name": "Blueberry Bay",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/0-Lobbies/2-Intermediate": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "2-Intermediate",
+      "Map SID": "StrawberryJam2021/0-Lobbies/2-Intermediate",
+      "Stylized Map Name": "Intermediate Lobby",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/0-Gyms/2-Intermediate": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "2-Intermediate",
+      "Map SID": "StrawberryJam2021/0-Gyms/2-Intermediate",
+      "Stylized Map Name": "Intermediate Gym",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/Arphimigon": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "Arphimigon",
+      "Map SID": "StrawberryJam2021/2-Intermediate/Arphimigon",
+      "Stylized Map Name": "Sleeping Under Stars",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/bryse0n": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "bryse0n",
+      "Map SID": "StrawberryJam2021/2-Intermediate/bryse0n",
+      "Stylized Map Name": "Square the Circle",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/dooshii": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "dooshii",
+      "Map SID": "StrawberryJam2021/2-Intermediate/dooshii",
+      "Stylized Map Name": "Frosted Fragments",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/emik": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "emik",
+      "Map SID": "StrawberryJam2021/2-Intermediate/emik",
+      "Stylized Map Name": "Deep Blue",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/evilleafy": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "evilleafy",
+      "Map SID": "StrawberryJam2021/2-Intermediate/evilleafy",
+      "Stylized Map Name": "Vertigo",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/ezel": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "ezel",
+      "Map SID": "StrawberryJam2021/2-Intermediate/ezel",
+      "Stylized Map Name": "EAT GIRL",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/glowWoomii": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "glowWoomii",
+      "Map SID": "StrawberryJam2021/2-Intermediate/glowWoomii",
+      "Stylized Map Name": "Honeyzip Inc.",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/ice": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "ice",
+      "Map SID": "StrawberryJam2021/2-Intermediate/ice",
+      "Stylized Map Name": "Temple of a thousand skies",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/jems": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "jems",
+      "Map SID": "StrawberryJam2021/2-Intermediate/jems",
+      "Stylized Map Name": "In Filtration",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/legS": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "legS",
+      "Map SID": "StrawberryJam2021/2-Intermediate/legS",
+      "Stylized Map Name": "Supernautica",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/liero": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "liero",
+      "Map SID": "StrawberryJam2021/2-Intermediate/liero",
+      "Stylized Map Name": "Fifth Demension",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/luma": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "luma",
+      "Map SID": "StrawberryJam2021/2-Intermediate/luma",
+      "Stylized Map Name": "Midnight Monsoon",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/marlin": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "marlin",
+      "Map SID": "StrawberryJam2021/2-Intermediate/marlin",
+      "Stylized Map Name": "Low-G Botany",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/pixelator": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "pixelator",
+      "Map SID": "StrawberryJam2021/2-Intermediate/pixelator",
+      "Stylized Map Name": "The Tower",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/rocketguy2": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "rocketguy2",
+      "Map SID": "StrawberryJam2021/2-Intermediate/rocketguy2",
+      "Stylized Map Name": "Pufferfish Transportation Co.",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/spoopySoup": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "spoopySoup",
+      "Map SID": "StrawberryJam2021/2-Intermediate/spoopySoup",
+      "Stylized Map Name": "Sea of Soup",
+      "Difficulty": "4",
+      "Difficulty Color": "Intermediate Green"
+   },
+   "StrawberryJam2021/2-Intermediate/thebreadstick1": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "thebreadstick1",
+      "Map SID": "StrawberryJam2021/2-Intermediate/thebreadstick1",
+      "Stylized Map Name": "Construction Conundrum",
+      "Difficulty": "5",
+      "Difficulty Color": "Intermediate Yellow"
+   },
+   "StrawberryJam2021/2-Intermediate/vitellary": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "vitellary",
+      "Map SID": "StrawberryJam2021/2-Intermediate/vitellary",
+      "Stylized Map Name": "Pointless Machines",
+      "Difficulty": "6",
+      "Difficulty Color": "Intermediate Red"
+   },
+   "StrawberryJam2021/2-Intermediate/ZZ-HeartSide": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "2-Intermediate",
+      "Map File Name": "ZZ-HeartSide",
+      "Map SID": "StrawberryJam2021/2-Intermediate/ZZ-HeartSide",
+      "Stylized Map Name": "Raspberry Roots",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/0-Lobbies/3-Advanced": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "3-Advanced",
+      "Map SID": "StrawberryJam2021/0-Lobbies/3-Advanced",
+      "Stylized Map Name": "Advanced Lobby",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/0-Gyms/3-Advanced": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "3-Advanced",
+      "Map SID": "StrawberryJam2021/0-Gyms/3-Advanced",
+      "Stylized Map Name": "Advanced Gym",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/astraxel": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "astraxel",
+      "Map SID": "StrawberryJam2021/3-Advanced/astraxel",
+      "Stylized Map Name": "Sands of Time",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/blueXans": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "blueXans",
+      "Map SID": "StrawberryJam2021/3-Advanced/blueXans",
+      "Stylized Map Name": "Jellyfish Sanctum",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/citrea": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "citrea",
+      "Map SID": "StrawberryJam2021/3-Advanced/citrea",
+      "Stylized Map Name": "Toggle Theory",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/galaksyz": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "galaksyz",
+      "Map SID": "StrawberryJam2021/3-Advanced/galaksyz",
+      "Stylized Map Name": "Slime Time",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/goldian": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "goldian",
+      "Map SID": "StrawberryJam2021/3-Advanced/goldian",
+      "Stylized Map Name": "Superstructure",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/hennyburgr": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "hennyburgr",
+      "Map SID": "StrawberryJam2021/3-Advanced/hennyburgr",
+      "Stylized Map Name": "Lethal Laser Laboratory",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/indecx": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "indecx",
+      "Map SID": "StrawberryJam2021/3-Advanced/indecx",
+      "Stylized Map Name": "Starry Ruins",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/JANisEXIST": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "JANisEXIST",
+      "Map SID": "StrawberryJam2021/3-Advanced/JANisEXIST",
+      "Stylized Map Name": "The Tower (XVI)",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/jolly": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "jolly",
+      "Map SID": "StrawberryJam2021/3-Advanced/jolly",
+      "Stylized Map Name": "Starlight Station",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/julia": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "julia",
+      "Map SID": "StrawberryJam2021/3-Advanced/julia",
+      "Stylized Map Name": "Tectonic Trenches",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/maladroit": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "maladroit",
+      "Map SID": "StrawberryJam2021/3-Advanced/maladroit",
+      "Stylized Map Name": "Golden Dawn",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/meario": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "meario",
+      "Map SID": "StrawberryJam2021/3-Advanced/meario",
+      "Stylized Map Name": "Dusk City",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/mmm": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "mmm",
+      "Map SID": "StrawberryJam2021/3-Advanced/mmm",
+      "Stylized Map Name": "Forest Rush",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/mousseMoose": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "mousseMoose",
+      "Map SID": "StrawberryJam2021/3-Advanced/mousseMoose",
+      "Stylized Map Name": "Synapse",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/nic": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "nic",
+      "Map SID": "StrawberryJam2021/3-Advanced/nic",
+      "Stylized Map Name": "Undergrowth",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/oppen": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "oppen",
+      "Map SID": "StrawberryJam2021/3-Advanced/oppen",
+      "Stylized Map Name": "Lost Woods",
+      "Difficulty": "7",
+      "Difficulty Color": "Advanced Green"
+   },
+   "StrawberryJam2021/3-Advanced/pugroy": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "pugroy",
+      "Map SID": "StrawberryJam2021/3-Advanced/pugroy",
+      "Stylized Map Name": "Attack of the Clone",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/radleyMcTuneston": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "radleyMcTuneston",
+      "Map SID": "StrawberryJam2021/3-Advanced/radleyMcTuneston",
+      "Stylized Map Name": "The Lab",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/roborb": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "roborb",
+      "Map SID": "StrawberryJam2021/3-Advanced/roborb",
+      "Stylized Map Name": "Belated Valentine's Day",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/sp1029": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "sp1029",
+      "Map SID": "StrawberryJam2021/3-Advanced/sp1029",
+      "Stylized Map Name": "Thinking With Portals",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/TiltTheStars": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "TiltTheStars",
+      "Map SID": "StrawberryJam2021/3-Advanced/TiltTheStars",
+      "Stylized Map Name": "Bee Berserk",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/tortoise": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "tortoise",
+      "Map SID": "StrawberryJam2021/3-Advanced/tortoise",
+      "Stylized Map Name": "Java's Crypt",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/vamp": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "vamp",
+      "Map SID": "StrawberryJam2021/3-Advanced/vamp",
+      "Stylized Map Name": "Rightside-Down Cavern",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/viv": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "viv",
+      "Map SID": "StrawberryJam2021/3-Advanced/viv",
+      "Stylized Map Name": "Call of the Void",
+      "Difficulty": "9",
+      "Difficulty Color": "Advanced Red"
+   },
+   "StrawberryJam2021/3-Advanced/worldwaker2": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "worldwaker2",
+      "Map SID": "StrawberryJam2021/3-Advanced/worldwaker2",
+      "Stylized Map Name": "Raindrops on Roses",
+      "Difficulty": "8",
+      "Difficulty Color": "Advanced Yellow"
+   },
+   "StrawberryJam2021/3-Advanced/ZZ-HeartSide": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "3-Advanced",
+      "Map File Name": "ZZ-HeartSide",
+      "Map SID": "StrawberryJam2021/3-Advanced/ZZ-HeartSide",
+      "Stylized Map Name": "Mango Mesa",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/0-Lobbies/4-Expert": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "4-Expert",
+      "Map SID": "StrawberryJam2021/0-Lobbies/4-Expert",
+      "Stylized Map Name": "Expert Lobby",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/0-Gyms/4-Expert": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "4-Expert",
+      "Map SID": "StrawberryJam2021/0-Gyms/4-Expert",
+      "Stylized Map Name": "Expert Gym",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/Agent": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Agent",
+      "Map SID": "StrawberryJam2021/4-Expert/Agent",
+      "Stylized Map Name": "A Change in Direction",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/alicequasar": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "alicequasar",
+      "Map SID": "StrawberryJam2021/4-Expert/alicequasar",
+      "Stylized Map Name": "Flying Battery",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/Appels": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Appels",
+      "Map SID": "StrawberryJam2021/4-Expert/Appels",
+      "Stylized Map Name": "Skyline Usurper",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Archire": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Archire",
+      "Map SID": "StrawberryJam2021/4-Expert/Archire",
+      "Stylized Map Name": "Chromatic Complex",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/Aspar": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Aspar",
+      "Map SID": "StrawberryJam2021/4-Expert/Aspar",
+      "Stylized Map Name": "Fortress Fall",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/Banana23": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Banana23",
+      "Map SID": "StrawberryJam2021/4-Expert/Banana23",
+      "Stylized Map Name": "The Core Problem",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/Cabob": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Cabob",
+      "Map SID": "StrawberryJam2021/4-Expert/Cabob",
+      "Stylized Map Name": "Psychokinetic",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/DanTKO": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "DanTKO",
+      "Map SID": "StrawberryJam2021/4-Expert/DanTKO",
+      "Stylized Map Name": "Garden of Khu'tara",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/Flamecrafter113": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Flamecrafter113",
+      "Map SID": "StrawberryJam2021/4-Expert/Flamecrafter113",
+      "Stylized Map Name": "Overgrown Linn",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/fonda1515": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "fonda1515",
+      "Map SID": "StrawberryJam2021/4-Expert/fonda1515",
+      "Stylized Map Name": "Clockwork",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/hivemindsrule": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "hivemindsrule",
+      "Map SID": "StrawberryJam2021/4-Expert/hivemindsrule",
+      "Stylized Map Name": "Plasma Reactor",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/itsabrody": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "itsabrody",
+      "Map SID": "StrawberryJam2021/4-Expert/itsabrody",
+      "Stylized Map Name": "Narrow Hollow",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/Jackal": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Jackal",
+      "Map SID": "StrawberryJam2021/4-Expert/Jackal",
+      "Stylized Map Name": "Hydroshock",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/KAERRA": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "KAERRA",
+      "Map SID": "StrawberryJam2021/4-Expert/KAERRA",
+      "Stylized Map Name": "Floating Point",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/LethargicDoggo": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "LethargicDoggo",
+      "Map SID": "StrawberryJam2021/4-Expert/LethargicDoggo",
+      "Stylized Map Name": "Storm Runner",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Linj": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Linj",
+      "Map SID": "StrawberryJam2021/4-Expert/Linj",
+      "Stylized Map Name": "Summit Down-Side",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/Moladan": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Moladan",
+      "Map SID": "StrawberryJam2021/4-Expert/Moladan",
+      "Stylized Map Name": "Time Trouble",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/nyan": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "nyan",
+      "Map SID": "StrawberryJam2021/4-Expert/nyan",
+      "Stylized Map Name": "Subway Neon",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/pansear": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "pansear",
+      "Map SID": "StrawberryJam2021/4-Expert/pansear",
+      "Stylized Map Name": "Hypnagogia",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/powerav": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "powerav",
+      "Map SID": "StrawberryJam2021/4-Expert/powerav",
+      "Stylized Map Name": "Meaningless Contraptions",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/QuantumSpaceman": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "QuantumSpaceman",
+      "Map SID": "StrawberryJam2021/4-Expert/QuantumSpaceman",
+      "Stylized Map Name": "Ethereal Ascension",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/rdoggo8": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "rdoggo8",
+      "Map SID": "StrawberryJam2021/4-Expert/rdoggo8",
+      "Stylized Map Name": "Vinculum",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/RedBoule": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "RedBoule",
+      "Map SID": "StrawberryJam2021/4-Expert/RedBoule",
+      "Stylized Map Name": "Golden Alleyway",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/Scroogle": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Scroogle",
+      "Map SID": "StrawberryJam2021/4-Expert/Scroogle",
+      "Stylized Map Name": "Mosaic Garden",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Skunkynator": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Skunkynator",
+      "Map SID": "StrawberryJam2021/4-Expert/Skunkynator",
+      "Stylized Map Name": "System.InvalidMapException",
+      "Difficulty": "10",
+      "Difficulty Color": "Expert Green"
+   },
+   "StrawberryJam2021/4-Expert/spirialis": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "spirialis",
+      "Map SID": "StrawberryJam2021/4-Expert/spirialis",
+      "Stylized Map Name": "Lunar Pagoda",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Stotch": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Stotch",
+      "Map SID": "StrawberryJam2021/4-Expert/Stotch",
+      "Stylized Map Name": "Caper Cavortion",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Vina": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Vina",
+      "Map SID": "StrawberryJam2021/4-Expert/Vina",
+      "Stylized Map Name": "Madeline: The Bubble",
+      "Difficulty": "11",
+      "Difficulty Color": "Expert Yellow"
+   },
+   "StrawberryJam2021/4-Expert/Yoshachobi7": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "Yoshachobi7",
+      "Map SID": "StrawberryJam2021/4-Expert/Yoshachobi7",
+      "Stylized Map Name": "Polaris",
+      "Difficulty": "12",
+      "Difficulty Color": "Expert Red"
+   },
+   "StrawberryJam2021/4-Expert/ZZ-HeartSide": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "4-Expert",
+      "Map File Name": "ZZ-HeartSide",
+      "Map SID": "StrawberryJam2021/4-Expert/ZZ-HeartSide",
+      "Stylized Map Name": "Starfruit Supernova",
+      "Difficulty": "13",
+      "Difficulty Color": "Grandmaster Green"
+   },
+   "StrawberryJam2021/0-Lobbies/5-Grandmaster": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Lobbies",
+      "Map File Name": "5-Grandmaster",
+      "Map SID": "StrawberryJam2021/0-Lobbies/5-Grandmaster",
+      "Stylized Map Name": "Grandmaster Lobby",
+      "Difficulty": "13",
+      "Difficulty Color": "Grandmaster Green"
+   },
+   "StrawberryJam2021/0-Gyms/5-Grandmaster": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "0-Gyms",
+      "Map File Name": "5-Grandmaster",
+      "Map SID": "StrawberryJam2021/0-Gyms/5-Grandmaster",
+      "Stylized Map Name": "Grandmaster Gym",
+      "Difficulty": "13",
+      "Difficulty Color": "Grandmaster Green"
+   },
+   "": {
+      "Mod": "StrawberryJam2021",
+      "Prefix": "",
+      "Map File Name": "",
+      "Map SID": "",
+      "Stylized Map Name": "",
+      "Difficulty": "",
+      "Difficulty Color": ""
+   }
+}

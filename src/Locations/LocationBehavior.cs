@@ -11,18 +11,19 @@ using On.Celeste.Mod.Core;
 
 namespace Celeste.Mod.SJArchipelago.Locations;
 
-public class LocationBehavior : LoadableItemMod
+public class LocationBehavior
 {
+    private const string Separator = "=^.^=";
     
-    private Hook _cathook;
+    private static Hook _cathook;
 
-    public override void Load()
+    public static void Load()
     {
         On.Celeste.Strawberry.OnCollect += ModStrawberry.OnCollect;
         _cathook = new Hook(typeof(PettableCat).GetMethod("OnPetting", BindingFlags.Instance | BindingFlags.NonPublic), ModCat.OnPetting);
     }
     
-    public override void Unload()
+    public static void Unload()
     {
         On.Celeste.Strawberry.OnCollect -= ModStrawberry.OnCollect;
         _cathook.Dispose();
@@ -30,9 +31,12 @@ public class LocationBehavior : LoadableItemMod
     
     public static class ModCat
     {
-        public static void OnPetting(Action<PettableCat> orig, PettableCat self)
+        public static void OnPetting(Action<PettableCat, Player> orig, PettableCat self, Player player)
         {
-            orig(self);
+            orig(self, player);
+            string areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            string entityId = self.SourceId.Key;
+            string fullId = areaSid + Separator + entityId;
         }
     }
 
@@ -41,10 +45,10 @@ public class LocationBehavior : LoadableItemMod
         public static void OnCollect(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
         {
             orig(self);
-            string sid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            string areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
             string entityId = self.ID.Key;
-            string fullId = sid + entityId;
-            string humanReadableName = LocationHandler.LocationsDict[fullId];
+            string fullId = areaSid + Separator + entityId;
+            string humanReadableName = LocationHandler.LocationsToReadableDict[fullId];
             // send this off to some mysterious network manager.
         }
     }

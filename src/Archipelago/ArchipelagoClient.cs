@@ -7,12 +7,14 @@ using Archipelago.MultiClient.Net.MessageLog.Messages;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+using Celeste.Mod.SJArchipelago.MapMods;
+
 
 namespace Celeste.Mod.SJArchipelago.Archipelago;
 
 public class APSaveData
 {
-    public const string Game = "Celeste: Strawberry Jam";
+    public const string Game = "Slay the Spire II";
     public string Uri;
     public string SlotName;
     public string Password;
@@ -24,8 +26,9 @@ public class APSaveData
 
     public APSaveData()
     {
-        Uri = "localhost";
-        SlotName = "Player1";
+        Uri = "localhost:38281";
+        SlotName = "ruby_spire";
+        Password = "";
         CheckedLocations = new();
     }
 
@@ -67,7 +70,7 @@ public class APClient()
         {
             return loginResult;
         }
-        
+
         APSession.Socket.ErrorReceived += APSession_ErrorReceived;
         SetupSession((LoginSuccessful)loginResult, APSession.RoomState.Seed);
         return loginResult;
@@ -82,7 +85,9 @@ public class APClient()
 
     private static void OnItemReceivedFromAP(IReceivedItemsHelper receivedItemsHelper)
     {
-        // TODO: implement
+        var itemId = receivedItemsHelper.PeekItem().ItemId;
+        ApplyItem(itemId);
+        receivedItemsHelper.DequeueItem();
     }
 
     private static void OnMessageReceivedFromAP(LogMessage msg)
@@ -104,5 +109,13 @@ public class APClient()
             "SJAP", 
             $"Receive error from APSession: '{msg}'\n" +
             $"{e.StackTrace}");
+    }
+
+    private static void ApplyItem(long itemID)
+    {
+        switch (itemID)
+        {
+            case 500: MapEntranceMod.MapUnlockHandler(); break;
+        }
     }
 }

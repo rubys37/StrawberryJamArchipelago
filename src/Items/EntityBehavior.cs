@@ -34,6 +34,7 @@ using Celeste.Mod.Anonhelper;
 using Celeste.Mod.FurryHelper;
 using ExtendedVariants.Module;
 using Celeste.Mod.Spirialis;
+using Celeste.Mod.BGswitch;
 using FlaglinesAndSuch;
 using FrostHelper;
 using Celeste.Mod.EmHelper.Entities;
@@ -122,15 +123,34 @@ internal class EntityBehavior
             CItems.PurpleBubbles => receiveItems.ReceivePurpleBubbles,
             CItems.DashSprings => receiveItems.ReceiveDashSprings,
             CItems.PlatformJellyfish => receiveItems.ReceivePlatformJellyfish,
-            CItems.GrayBooster => receiveItems.ReceiveGrayBooster,
+            CItems.GrayBubbles => receiveItems.ReceiveGrayBooster,
             CItems.Skateboard => receiveItems.ReceiveSkateboard,
             CItems.Umbrella => receiveItems.ReceiveUmbrella,
             CItems.FakeHearts => receiveItems.ReceiveFakeHearts,
-            CItems.WormholeBoosters => receiveItems.ReceiveWormholeBoosters,
+            CItems.WormholeBubbles => receiveItems.ReceiveWormholeBoosters,
             CItems.Portals => receiveItems.ReceivePortals,
+            CItems.MomentumSprings => receiveItems.ReceiveMomentumSprings,
             CItems.PinkBubbles => receiveItems.ReceivePinkBubbles,
             CItems.GravitySprings => receiveItems.ReceiveGravitySprings,
-            CItems.SwitchCrates => receiveItems.ReceiveSwitchCrates,
+            CItems.PowerSwitchCrates => receiveItems.ReceivePowerSwitchCrates,
+            CItems.Batteries => receiveItems.ReceiveBatteries,
+            CItems.FloatingBubbles => receiveItems.ReceiveFloatingBubbles,
+            CItems.DashBoostFields => receiveItems.ReceiveDashBoostFields,
+            CItems.PropellerBoxes => receiveItems.ReceivePropellerBoxes,
+            CItems.CoreBubbles => receiveItems.ReceiveCoreBubbles,
+            CItems.FlowerSprings => receiveItems.ReceiveFlowerSprings,
+            CItems.FlowerHyperBoosts => receiveItems.ReceiveFlowerHyperBoosts,
+            CItems.CloudCrystals => receiveItems.ReceiveCloudCrystals,
+            CItems.JellyCrystals => receiveItems.ReceiveJellyCrystals,
+            CItems.RewindCrystals => receiveItems.ReceiveRewindCrystals,
+            CItems.BowlPuffers => receiveItems.ReceiveBowlPuffers,
+            CItems.GrayStopwatches => receiveItems.ReceiveGrayStopwatches,
+            CItems.BlueStopwatches => receiveItems.ReceiveBlueStopwatches,
+            CItems.GreenStopwatches => receiveItems.ReceiveGreenStopwatches,
+            CItems.SkyLanterns => receiveItems.ReceiveSkyLanterns,
+            CItems.GlitchWalls => receiveItems.ReceiveGlitchWalls,
+            CItems.GrabToggleGates => receiveItems.ReceiveGrabToggleGates,
+            CItems.BackgroundToggleSwitches => receiveItems.ReceiveBackgroundToggleSwitches,
             _ => true
         };
     }
@@ -265,7 +285,7 @@ internal class EntityBehavior
                     return HaveInteractable(CItems.PlatformJellyfish);
                 
                 case GrayBooster:
-                    return HaveInteractable(CItems.GrayBooster);
+                    return HaveInteractable(CItems.GrayBubbles);
                 
                 case TriggerTrigger trigger:
                     if (HaveInteractable(CItems.Skateboard)) return true;
@@ -285,7 +305,7 @@ internal class EntityBehavior
                     return HaveInteractable(CItems.Coins);
                 
                 case SpringGreen:
-                    return HaveInteractable(CItems.Springs);
+                    return HaveInteractable(CItems.MomentumSprings);
                 
                 case PurpleBooster:
                     return HaveInteractable(CItems.PinkBubbles);
@@ -299,7 +319,7 @@ internal class EntityBehavior
                     return twoDashes ? HaveInteractable(CItems.DoubleDashCrystals) : HaveInteractable(CItems.DashCrystals);
                 
                 case SwitchCrate:
-                    return HaveInteractable(CItems.SwitchCrates);
+                    return HaveInteractable(CItems.PowerSwitchCrates);
                 
                 case Battery:
                     return HaveInteractable(CItems.Batteries);
@@ -311,7 +331,7 @@ internal class EntityBehavior
                     return HaveInteractable(CItems.DashBoostFields);
                 
                 case CoreBooster:
-                    return HaveInteractable(CItems.CoreBoosters);
+                    return HaveInteractable(CItems.CoreBubbles);
                 
                 case ShroomRefill:
                     return HaveInteractable(CItems.DashCrystals);
@@ -371,6 +391,8 @@ internal class EntityBehavior
                 case CustomizableRefill:
                     return HaveInteractable(CItems.DashCrystals);
                 
+                case BGModeToggle:
+                    return HaveInteractable(CItems.BackgroundToggleSwitches);
                 
                     
                 // these classes are internal and i cannot reference them directly, which means a string comparison must be used
@@ -384,13 +406,13 @@ internal class EntityBehavior
                     return false;
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster":
-                    return HaveInteractable(CItems.WormholeBoosters);
+                    return HaveInteractable(CItems.WormholeBubbles);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.PandorasBox.PropellerBox":
                     return HaveInteractable(CItems.PropellerBoxes);
                 
                 case Object obj when obj.GetType().FullName == "FrostHelper.PlusOneRefill":
-                    return HaveInteractable(CItems.RedDashRefills);
+                    return HaveInteractable(CItems.DashCrystals);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.SkyLantern":
                     return HaveInteractable(CItems.SkyLanterns);
@@ -409,7 +431,21 @@ internal class EntityBehavior
                             return HaveInteractable(CItems.GreenStopwatches);
                     }
                     return true;
-
+                
+                case Object obj when obj.GetType().FullName == "Celeste.Mod.Spirialis.TimeGrabTrigger":
+                    field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
+                    stopType = (int)field.GetValue(obj);
+                    switch (stopType)
+                    {
+                        case 0:
+                            return HaveInteractable(CItems.GrayStopwatches);
+                        case 1:
+                            return HaveInteractable(CItems.BlueStopwatches);
+                        case 2:
+                            return HaveInteractable(CItems.GreenStopwatches);
+                    }
+                    return true;
+                
                 //vanilla
                 case Spring:
                     return HaveInteractable(CItems.Springs);

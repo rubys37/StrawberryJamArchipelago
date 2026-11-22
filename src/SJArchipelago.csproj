@@ -56,6 +56,7 @@
         <Reference Include="../lib/mods/AnonHelper.dll" />
         <Reference Include="../lib/mods/FurryHelper.dll" />
         <Reference Include="../lib/mods/Spirialis.dll" />
+        <Reference Include="../lib/mods/BGswitch.dll" />
         <Reference Include="../lib/mods/StrawberryJam2021.dll" />
     </ItemGroup>
 

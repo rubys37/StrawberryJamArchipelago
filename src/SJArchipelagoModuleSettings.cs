@@ -70,8 +70,27 @@ public class SJArchipelagoModuleSettings : EverestModuleSettings
         public bool ReceiveFakeHearts { get; set; } = true;
         public bool ReceiveWormholeBoosters { get; set; } = true;
         public bool ReceivePortals { get; set; } = true;
+        public bool ReceiveMomentumSprings { get; set; } = true;
         public bool ReceivePinkBubbles { get; set; } = true;
         public bool ReceiveGravitySprings { get; set; } = true;
-        public bool ReceiveSwitchCrates { get; set; } = true;
+        public bool ReceivePowerSwitchCrates { get; set; } = true;
+        public bool ReceiveBatteries { get; set; } = true;
+        public bool ReceiveFloatingBubbles { get; set; } = true;
+        public bool ReceiveDashBoostFields { get; set; } = true;
+        public bool ReceivePropellerBoxes { get; set; } = true;
+        public bool ReceiveCoreBubbles { get; set; } = true;
+        public bool ReceiveFlowerSprings { get; set; } = true;
+        public bool ReceiveFlowerHyperBoosts { get; set; } = true;
+        public bool ReceiveCloudCrystals { get; set; } = true;
+        public bool ReceiveJellyCrystals { get; set; } = true;
+        public bool ReceiveRewindCrystals { get; set; } = true;
+        public bool ReceiveBowlPuffers { get; set; } = true;
+        public bool ReceiveGrayStopwatches { get; set; } = true;
+        public bool ReceiveBlueStopwatches { get; set; } = true;
+        public bool ReceiveGreenStopwatches { get; set; } = true;
+        public bool ReceiveSkyLanterns { get; set; } = true;
+        public bool ReceiveGlitchWalls { get; set; } = true;
+        public bool ReceiveGrabToggleGates { get; set; } = true;
+        public bool ReceiveBackgroundToggleSwitches { get; set; } = true;
     }
 }

@@ -170,8 +170,14 @@ internal class EntityBehavior
         }
         
         private static Type TripleBoostFlower = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower");
+        private static Type PocketUmbrellaTrigger = Type.GetType("Celeste.Mod.StrawberryJam2021.Triggers.PocketUmbrellaTrigger");
+        private static Type WormholeBooster = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster");
         private static Type PropellerBox = Type.GetType("Celeste.Mod.PandorasBox.PropellerBox");
-
+        private static Type PlusOneRefill = Type.GetType("FrostHelper.PlusOneRefill");
+        private static Type SkyLantern = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.SkyLantern");
+        private static Type Stopwatch = Type.GetType("Celeste.Mod.Spirialis.Stopwatch");
+        private static Type TimeGrabTrigger = Type.GetType("Celeste.Mod.Spirialis.TimeGrabTrigger");
+            
 
         /* Handles every entity that should have no collision when disabled by the ap
         TODO: Add a list of every entity handled here*/
@@ -187,16 +193,17 @@ internal class EntityBehavior
             FieldInfo field;
             Type t;
             string areaSid;
+            int stopType;
             // player is usually a, (if not then its theo, or jellyfish, or pufferfish or allat). ill sort out exceptions as they come along
             switch (b)
             {
                 // modded
                 case DreamTunnelRefill:
                     return HaveInteractable(CItems.DreamDashCrystals);
-                
+
                 case NoDashRefillSpring:
                     return HaveInteractable(CItems.BlueSprings);
-                
+
                 case BlueBooster blueBooster:
                     // Blue boosters inherit generic custom booster which is where the field we are looking for is stored.
                     t = typeof(BlueBooster);
@@ -207,13 +214,14 @@ internal class EntityBehavior
                             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                         t = t.BaseType;
                     }
+
                     bool red = (bool)field.GetValue(blueBooster);
                     return red switch
                     {
                         false => HaveInteractable(CItems.BlueBubbles),
                         true => HaveInteractable(CItems.PurpleBubbles)
                     };
-                
+
                 case JumpRefill jumpRefill:
                     // i shamelessly copypasted this reflection from stackoverflow
                     t = jumpRefill.GetType();
@@ -224,6 +232,7 @@ internal class EntityBehavior
                             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                         t = t.BaseType;
                     }
+
                     int extraJumps;
                     if (field == null)
                     {
@@ -233,15 +242,17 @@ internal class EntityBehavior
                     {
                         extraJumps = (int)field.GetValue(jumpRefill);
                     }
+
                     if (extraJumps == 1)
                     {
                         return HaveInteractable(CItems.SingleJumpCrystals);
                     }
+
                     return HaveInteractable(CItems.TripleJumpCrystals);
-                
+
                 case GravityTrigger:
                     return HaveInteractable(CItems.GravityTriggers);
-                
+
                 case TimeCrystal timeCrystal:
                     field = (typeof(TimeCrystal).GetField("untilDash",
                         BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public));
@@ -251,16 +262,16 @@ internal class EntityBehavior
 
                 case RefillShard:
                     return HaveInteractable(CItems.DashCrystalShards);
-                
+
                 case MultiRoomStrawberrySeed:
                     return HaveInteractable(CItems.TinyStrawberries);
-                
+
                 case FlagTouchSwitch:
                     return HaveInteractable(CItems.Coins);
-                
+
                 case ZipLine:
                     return HaveInteractable(CItems.Ziplines);
-                
+
                 case ResettingRefill resettingRefill:
                     field = typeof(ResettingRefill).GetField("extraJump", BindingFlags.Instance | BindingFlags.NonPublic);
                     bool extraJump = (bool)field.GetValue(resettingRefill);
@@ -271,22 +282,22 @@ internal class EntityBehavior
                     if (dashes == 2) return HaveInteractable(CItems.DoubleDashCrystals);
                     // idk how we'd end up here but just in case
                     return true;
-                
+
                 case ExpiringDashRefill:
                     return HaveInteractable(CItems.DashCrystals);
-                
+
                 case CrystalBomb:
                     return HaveInteractable(CItems.CrystalBombs);
-                
+
                 case DashSpring:
                     return HaveInteractable(CItems.DashSprings);
-                
+
                 case PlatformJelly:
                     return HaveInteractable(CItems.PlatformJellyfish);
-                
+
                 case GrayBooster:
                     return HaveInteractable(CItems.GrayBubbles);
-                
+
                 case TriggerTrigger trigger:
                     if (HaveInteractable(CItems.Skateboard)) return true;
                     areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
@@ -294,48 +305,48 @@ internal class EntityBehavior
                     string level = trigger.SceneAs<Level>().Session.Level;
                     if (level is "a00" or "a01") return false;
                     return true;
-                
+
                 case CustomFakeHeart:
                     return HaveInteractable(CItems.FakeHearts);
-                
+
                 case Portal:
                     return HaveInteractable(CItems.Portals);
-                
+
                 case MovingTouchSwitch:
                     return HaveInteractable(CItems.Coins);
-                
+
                 case SpringGreen:
                     return HaveInteractable(CItems.MomentumSprings);
-                
+
                 case PurpleBooster:
                     return HaveInteractable(CItems.PinkBubbles);
-                
+
                 case GravitySpring:
                     return HaveInteractable(CItems.GravitySprings);
-                
+
                 case RefillWall refillWall:
                     field = typeof(RefillWall).GetField("twoDashes", BindingFlags.Instance | BindingFlags.NonPublic);
                     bool twoDashes = (bool)field.GetValue(refillWall);
                     return twoDashes ? HaveInteractable(CItems.DoubleDashCrystals) : HaveInteractable(CItems.DashCrystals);
-                
+
                 case SwitchCrate:
                     return HaveInteractable(CItems.PowerSwitchCrates);
-                
+
                 case Battery:
                     return HaveInteractable(CItems.Batteries);
-                
+
                 case FloatingBubble:
                     return HaveInteractable(CItems.FloatingBubbles);
-                
+
                 case DashBoostField:
                     return HaveInteractable(CItems.DashBoostFields);
-                
+
                 case CoreBooster:
                     return HaveInteractable(CItems.CoreBubbles);
-                
+
                 case ShroomRefill:
                     return HaveInteractable(CItems.DashCrystals);
-                
+
                 case ExtendedVariantTrigger trigger:
                     areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
                     if (areaSid == "StrawberryJam2021/4-Expert/DanTKO")
@@ -353,6 +364,7 @@ internal class EntityBehavior
                             return HaveInteractable(CItems.FlowerHyperBoosts);
                         }
                     }
+
                     if (areaSid == "StrawberryJam2021/4-Expert/KAERRA")
                     {
                         field = typeof(ExtendedVariantTrigger).GetField("variantChange", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -363,153 +375,154 @@ internal class EntityBehavior
                             return HaveInteractable(CItems.GravityTriggers);
                         }
                     }
+
                     return true;
-                
+
                 case CardinalBumper:
                     return HaveInteractable(CItems.Bumpers);
-                
+
                 case MonumentBooster monumentBooster:
                     field = typeof(MonumentBooster).GetField("red", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                     if ((bool)field.GetValue(monumentBooster))
                     {
                         return HaveInteractable(CItems.RedBubbles);
                     }
+
                     return HaveInteractable(CItems.GreenBubbles);
-                
+
                 case CloudRefill:
                     return HaveInteractable(CItems.CloudCrystals);
-                
+
                 case JellyRefill:
                     return HaveInteractable(CItems.JellyCrystals);
-                
+
                 case StopwatchRefill:
                     return HaveInteractable(CItems.RewindCrystals);
-                
+
                 case BowlPuffer:
                     return HaveInteractable(CItems.BowlPuffers);
-                
+
                 case CustomizableRefill:
                     return HaveInteractable(CItems.DashCrystals);
-                
+
                 case BGModeToggle:
                     return HaveInteractable(CItems.BackgroundToggleSwitches);
-                
-                    
+
                 // these classes are internal and i cannot reference them directly, which means a string comparison must be used
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower":
-                    return HaveInteractable(CItems.Roses);
+                return HaveInteractable(CItems.Roses);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Triggers.PocketUmbrellaTrigger":
-                    if (HaveInteractable(CItems.Umbrella)) return true;
-                    field = obj.GetType().GetField("Enable", BindingFlags.Instance | BindingFlags.NonPublic);
-                    field.SetValue(obj, false);
-                    return false;
+                if (HaveInteractable(CItems.Umbrella)) return true;
+                field = obj.GetType().GetField("Enable", BindingFlags.Instance | BindingFlags.NonPublic);
+                field.SetValue(obj, false);
+                return false;
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster":
-                    return HaveInteractable(CItems.WormholeBubbles);
+                return HaveInteractable(CItems.WormholeBubbles);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.PandorasBox.PropellerBox":
-                    return HaveInteractable(CItems.PropellerBoxes);
+                return HaveInteractable(CItems.PropellerBoxes);
                 
                 case Object obj when obj.GetType().FullName == "FrostHelper.PlusOneRefill":
-                    return HaveInteractable(CItems.DashCrystals);
+                return HaveInteractable(CItems.DashCrystals);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.SkyLantern":
-                    return HaveInteractable(CItems.SkyLanterns);
+                return HaveInteractable(CItems.SkyLanterns);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.Spirialis.Stopwatch":
-                    // TODO: this does not work. you need to disable the actual grab to toggle time functionality.
-                    field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
-                    int stopType = (int)field.GetValue(obj);
-                    switch (stopType)
-                    {
-                        case 0:
-                            return HaveInteractable(CItems.GrayStopwatches);
-                        case 1:
-                            return HaveInteractable(CItems.BlueStopwatches);
-                        case 2:
-                            return HaveInteractable(CItems.GreenStopwatches);
-                    }
-                    return true;
+                // TODO: this does not work. you need to disable the actual grab to toggle time functionality.
+                field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
+                stopType = (int)field.GetValue(obj);
+                switch (stopType)
+                {
+                    case 0:
+                        return HaveInteractable(CItems.GrayStopwatches);
+                    case 1:
+                        return HaveInteractable(CItems.BlueStopwatches);
+                    case 2:
+                        return HaveInteractable(CItems.GreenStopwatches);
+                }
+                return true;
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.Spirialis.TimeGrabTrigger":
-                    field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
-                    stopType = (int)field.GetValue(obj);
-                    switch (stopType)
-                    {
-                        case 0:
-                            return HaveInteractable(CItems.GrayStopwatches);
-                        case 1:
-                            return HaveInteractable(CItems.BlueStopwatches);
-                        case 2:
-                            return HaveInteractable(CItems.GreenStopwatches);
-                    }
-                    return true;
-                
+                field = obj.GetType().GetField("stopType", BindingFlags.Instance | BindingFlags.NonPublic);
+                stopType = (int)field.GetValue(obj);
+                switch (stopType)
+                {
+                    case 0:
+                        return HaveInteractable(CItems.GrayStopwatches);
+                    case 1:
+                        return HaveInteractable(CItems.BlueStopwatches);
+                    case 2:
+                        return HaveInteractable(CItems.GreenStopwatches);
+                }
+                return true;
+            
                 //vanilla
                 case Spring:
-                    return HaveInteractable(CItems.Springs);
+                return HaveInteractable(CItems.Springs);
                 
                 case Refill { twoDashes: false }:
-                    return HaveInteractable(CItems.DashCrystals);
+                return HaveInteractable(CItems.DashCrystals);
                 
                 case Refill { twoDashes: true }:
-                    return HaveInteractable(CItems.DoubleDashCrystals);
+                return HaveInteractable(CItems.DoubleDashCrystals);
                 
                 case StrawberrySeed:
-                    return HaveInteractable(CItems.StrawberrySeeds);
+                return HaveInteractable(CItems.StrawberrySeeds);
                 
                 case TouchSwitch:
-                    return HaveInteractable(CItems.Coins);
+                return HaveInteractable(CItems.Coins);
                 
                 case Booster { red: false }:
-                    return HaveInteractable(CItems.GreenBubbles);
+                return HaveInteractable(CItems.GreenBubbles);
                 
                 case Booster { red: true }:
-                    return HaveInteractable(CItems.RedBubbles);
+                return HaveInteractable(CItems.RedBubbles);
                 
                 case WhiteBlock:
-                    return HaveInteractable(CItems.WhiteBlock);
+                return HaveInteractable(CItems.WhiteBlock);
                 
                 case TheoCrystal:
-                    return HaveInteractable(CItems.TheoCrystals);
+                return HaveInteractable(CItems.TheoCrystals);
                 
                 case FlyFeather:
-                    return HaveInteractable(CItems.Feathers);
+                return HaveInteractable(CItems.Feathers);
                 
                 case Bumper:
-                    return HaveInteractable(CItems.Bumpers);
+                return HaveInteractable(CItems.Bumpers);
                 
                 case BadelineBoost:
-                    return HaveInteractable(CItems.BadelineOrbs);
+                return HaveInteractable(CItems.BadelineOrbs);
                 
                 case CoreModeToggle:
-                    return HaveInteractable(CItems.CoreSwitches);
+                return HaveInteractable(CItems.CoreSwitches);
                 
                 case Puffer:
-                    return HaveInteractable(CItems.Pufferfish);
+                return HaveInteractable(CItems.Pufferfish);
                 
                 case Glider:
-                    return HaveInteractable(CItems.Jellyfish);
+                return HaveInteractable(CItems.Jellyfish);
                 
                 case FlingBird:
-                    return HaveInteractable(CItems.Birds);
+                return HaveInteractable(CItems.Birds);
                 
                 default:
-                    return true;
+                return true;
             }
         }
         
-        static List<Type> ZipMovers = new List<Type>
-        {
+        static List<Type> ZipMovers =
+        [
             typeof(ZipMover),
             typeof(CustomZipMover),
             typeof(CustomCurvedZipMover),
             typeof(ConnectedZipMover),
             typeof(CassetteZipMover),
             typeof(LinkedZipMover),
-            typeof(LinkedZipMoverNoReturn),
-        };
+            typeof(LinkedZipMoverNoReturn)
+        ];
         
         private static Player modSolid_GetPlayerRider(On.Celeste.Solid.orig_GetPlayerRider orig, Solid self)
         {

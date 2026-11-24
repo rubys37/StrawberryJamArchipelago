@@ -37,8 +37,8 @@ public class SJArchipelagoModule : EverestModule
         // TODO: apply any hooks that should always be active
         foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods) item.Load();
         LocationBehavior.Load();
+        ArchipelagoChat.Load();
         //MapEntranceMod.Load();
-        //APClient.ConnectToAPServer(new APSaveData());
     }
 
     public override void Unload()
@@ -50,5 +50,7 @@ public class SJArchipelagoModule : EverestModule
         }
         //MapEntranceMod.Unload();
         LocationBehavior.Unload();
+        ArchipelagoChat.Unload();
+
     }
 }

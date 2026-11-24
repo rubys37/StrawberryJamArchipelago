@@ -10,7 +10,7 @@ public static class ItemHandler
     public const int IDOffsetNonInteractables = 1000;
     public const int IDOffsetNonProgression = 2000;
     public enum Item {
-        // 0-9999 is for progression items (interactables)
+        // 0-999 is for interactables
         // vanilla (1-31)
         IntroCrushers,
         Springs,
@@ -98,7 +98,7 @@ public static class ItemHandler
         DashBoostFields,
         FlowerSprings,
         FlowerHyperBoosts,
-        // introduced in gm (
+        // introduced in gm
         BackgroundToggleSwitches,
         
         // progressive items that unlock things start at id 1000

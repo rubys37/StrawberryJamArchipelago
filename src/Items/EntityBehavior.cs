@@ -797,7 +797,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.FireBall.orig_Update orig, FireBall self)
             {
-                if ((self.iceMode && !HaveInteractable(ItemHandler.Item.Iceballs)))
+                if (self.iceMode && !HaveInteractable(ItemHandler.Item.Iceballs))
                 {
                     self.sprite.Visible = false;
                     self.broken = true;
@@ -812,10 +812,11 @@ internal class EntityBehavior
         {
             internal static void Explode(On.Celeste.Puffer.orig_Explode orig, Puffer self)
             {
-                if (HaveInteractable(ItemHandler.Item.Pufferfish))
+                if (!HaveInteractable(ItemHandler.Item.Pufferfish))
                 {
-                    orig(self);
+                    return;
                 }
+                orig(self);
             }
         }
 
@@ -1027,7 +1028,7 @@ internal class EntityBehavior
         {
             internal static void Explode(Action<BowlPuffer, bool> orig, BowlPuffer self, bool playsound)
             {
-                if (HaveInteractable(ItemHandler.Item.Pufferfish))
+                if (!HaveInteractable(ItemHandler.Item.BowlPuffers))
                 {
                     return;
                 }

@@ -58,6 +58,8 @@ public class APConnData
 
 public static class APClient
 {
+    public static bool Connected { get; set; } = false;
+    
     private static ArchipelagoSession APSession;
     private static APConnData connData;
 
@@ -74,6 +76,7 @@ public static class APClient
             return loginResult;
         }
 
+        Connected = true;
         APSession.Socket.ErrorReceived += APSession_ErrorReceived;
         SetupSession((LoginSuccessful)loginResult, APSession.RoomState.Seed);
         return loginResult;

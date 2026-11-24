@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework.Input;
+
 namespace Celeste.Mod.SJArchipelago;
 
 public class SJArchipelagoModuleSettings : EverestModuleSettings
@@ -92,4 +94,8 @@ public class SJArchipelagoModuleSettings : EverestModuleSettings
         public bool ReceiveGrabToggleGates { get; set; } = true;
         public bool ReceiveBackgroundToggleSwitches { get; set; } = true;
     }
+    
+    [DefaultButtonBinding(button: Buttons.Back, key: Keys.T)]
+    public ButtonBinding OpenChat { get; set; }
+    
 }

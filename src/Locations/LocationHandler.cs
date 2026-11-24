@@ -41,7 +41,7 @@ internal class LocationHandler
     {
         try
         {
-            APClient.CompleteLocations([apWorldID]);
+            APClient.CompleteLocation([apWorldID]);
         }
         catch (ArchipelagoSocketClosedException)
         {

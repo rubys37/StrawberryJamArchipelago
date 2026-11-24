@@ -85,6 +85,9 @@ public static class APClient
         connData.SetupSessionData(loginResult.SlotData, roomId);
         SJArchipelagoModule.SaveData.ConnectionData = connData.ToString();
         
+        ResyncItems();
+        ResyncLocations();
+        
         APSession.Items.ItemReceived += OnItemReceivedFromAP;
         APSession.MessageLog.OnMessageReceived += OnMessageReceivedFromAP;
     }
@@ -125,6 +128,18 @@ public static class APClient
         // the server will always have less completed locations than the save data
         // probably
         // unless the user connects to a save file that has less progress than the server (different room seeds)
+        // i plan to handle this in other ways, but right now, lets just ignore this glaring fucking problem
+        var locations = APSession.Locations.AllLocationsChecked;
+        HashSet<long> savedLocations = new HashSet<long>(SJArchipelagoModule.SaveData.UnlockedLocations);
+        foreach (var location in locations)
+        {
+            savedLocations.Remove(location);
+        }
+
+        foreach (var missedLocation in savedLocations)
+        {
+            CompleteLocation([missedLocation]);
+        }
     }
 
     private static void ResyncItems()
@@ -142,7 +157,7 @@ public static class APClient
         }
     }
     
-    public static void CompleteLocations(long[] apWorldID)
+    public static void CompleteLocation(long[] apWorldID)
     {
         APSession.Locations.CompleteLocationChecks(apWorldID);
     } 

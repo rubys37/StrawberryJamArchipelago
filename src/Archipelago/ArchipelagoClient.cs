@@ -5,6 +5,8 @@ using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 
 using System.Collections.Generic;
+using Celeste.Mod.SJArchipelago.Items;
+using Celeste.Mod.SJArchipelago.Locations;
 using Newtonsoft.Json;
 
 using Celeste.Mod.SJArchipelago.MapMods;
@@ -12,7 +14,7 @@ using Celeste.Mod.SJArchipelago.MapMods;
 
 namespace Celeste.Mod.SJArchipelago.Archipelago;
 
-public class APSaveData
+public class APConnData
 {
     public const string Game = "Slay the Spire II";
     public string Uri;
@@ -20,24 +22,26 @@ public class APSaveData
     public string Password;
 
     public string RoomId;
-    public List<long> CheckedLocations;
 
     public Dictionary<string, object> SlotData;
-
-    public APSaveData()
-    {
-        Uri = "localhost:38281";
-        SlotName = "ruby_spire";
-        Password = "";
-        CheckedLocations = new();
-    }
-
-    public APSaveData(string uri, string slotName, string password)
+    
+    public APConnData(string uri, string slotName, string password)
     {
         Uri = uri;
         SlotName = slotName;
         Password = password;
-        CheckedLocations = new();
+    }
+
+    public APConnData()
+    {
+        Uri = "localhost:38281";
+        SlotName = "ruby_spire";
+        Password = "";
+    }
+    
+    public static APConnData FromJson(string json)
+    {
+        return JsonConvert.DeserializeObject<APConnData>(json);
     }
 
     public void SetupSessionData(Dictionary<string, object> roomSlotData, string roomId)
@@ -46,25 +50,25 @@ public class APSaveData
         RoomId = roomId;
     }
     
-
-public override string ToString()
+    public override string ToString()
     {
         return JsonConvert.SerializeObject(this);
     }
 }
 
-public class APClient()
+
+public static class APClient
 {
     private static ArchipelagoSession APSession;
-    private static APSaveData SaveData;
+    private static APConnData connData;
 
-    public static LoginResult ConnectToAPServer(APSaveData cdata)
+    public static LoginResult ConnectToAPServer(APConnData cdata)
     {
         Logger.Log(LogLevel.Info, "SJAP", $"Attempting to connect to APServer with connection data {cdata.Uri}, {cdata.SlotName}");
         
-        SaveData = cdata;
+        connData = cdata;
         APSession = ArchipelagoSessionFactory.CreateSession(cdata.Uri);
-        LoginResult loginResult = APSession.TryConnectAndLogin(APSaveData.Game, cdata.SlotName, ItemsHandlingFlags.AllItems, password: cdata.Password, requestSlotData: true);
+        LoginResult loginResult = APSession.TryConnectAndLogin(APConnData.Game, cdata.SlotName, ItemsHandlingFlags.AllItems, password: cdata.Password, requestSlotData: true);
         
         if (!loginResult.Successful)
         {
@@ -78,16 +82,21 @@ public class APClient()
 
     private static void SetupSession(LoginSuccessful loginResult, string roomId)
     {
-        SaveData.SetupSessionData(loginResult.SlotData, roomId);
+        connData.SetupSessionData(loginResult.SlotData, roomId);
+        SJArchipelagoModule.SaveData.ConnectionData = connData.ToString();
+        
         APSession.Items.ItemReceived += OnItemReceivedFromAP;
         APSession.MessageLog.OnMessageReceived += OnMessageReceivedFromAP;
     }
 
     private static void OnItemReceivedFromAP(IReceivedItemsHelper receivedItemsHelper)
     {
-        var itemId = receivedItemsHelper.PeekItem().ItemId;
-        ApplyItem(itemId);
-        receivedItemsHelper.DequeueItem();
+        while (receivedItemsHelper.PeekItem() != null)
+        {
+            var itemId = receivedItemsHelper.PeekItem().ItemId;
+            ApplyItem(itemId);
+            receivedItemsHelper.DequeueItem();
+        }
     }
 
     private static void OnMessageReceivedFromAP(LogMessage msg)
@@ -111,11 +120,53 @@ public class APClient()
             $"{e.StackTrace}");
     }
 
+    private static void ResyncLocations()
+    {
+        // the server will always have less completed locations than the save data
+        // probably
+        // unless the user connects to a save file that has less progress than the server (different room seeds)
+    }
+
+    private static void ResyncItems()
+    {
+        var items = APSession.Items.AllItemsReceived;
+        
+        // since this is a full resync done on connection, we overwrite the items save data.
+        SJArchipelagoModule.SaveData.UnlockedDifficulty = 0;
+        SJArchipelagoModule.SaveData.Strawberries = 0;
+        SJArchipelagoModule.SaveData.UnlockedInteractables.Clear();
+        foreach (var item in items)
+        {
+            var itemId = item.ItemId;
+            ApplyItem(itemId);
+        }
+    }
+    
+    public static void CompleteLocations(long[] apWorldID)
+    {
+        APSession.Locations.CompleteLocationChecks(apWorldID);
+    } 
+
     private static void ApplyItem(long itemID)
     {
-        switch (itemID)
+        if (itemID >= ItemHandler.IDOffsetNonProgression)
         {
-            case 500: MapEntranceMod.MapUnlockHandler(); break;
+            return;
         }
+
+        if (itemID >= ItemHandler.IDOffsetNonInteractables)
+        {
+            switch (itemID)
+            {
+                case 1000:
+                    SJArchipelagoModule.SaveData.UnlockedDifficulty += 1;
+                    return;
+                case 1001:
+                    SJArchipelagoModule.SaveData.Strawberries += 1;
+                    return;
+            }
+        }
+
+        SJArchipelagoModule.SaveData.UnlockedInteractables.Add(itemID);
     }
 }

@@ -40,6 +40,17 @@ public class MapEntranceMod
         orig(self, data, offset);
     }
 
+    // i think the name of this doesnt do a good job explaining this but wtvr
+    // it gets the map that is in place of the map SID that you pass in.
+    private static string GetMapSwapFromLocation(string SID)
+    {
+        if (SJArchipelagoModule.SaveData.MapSwapMappings.TryGetValue(SID, out var mapSwap))
+        {
+            return mapSwap;
+        }
+        return SID;
+    }
+
     public static void MapUnlockHandler()
     {
         SJArchipelagoModule.SaveData.UnlockedDifficulty += 1;

@@ -50,6 +50,5 @@ public class SJArchipelagoModule : EverestModule
         }
         //MapEntranceMod.Unload();
         LocationBehavior.Unload();
-
     }
 }

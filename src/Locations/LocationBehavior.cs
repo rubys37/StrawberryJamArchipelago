@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using Monocle;
 using MonoMod.RuntimeDetour;
 using Celeste.Mod.HonlyHelper;
-using Celeste.Mod.SJArchipelago.Items;
-using On.Celeste.Mod.Core;
+using Celeste.Mod.VivHelper;
+using VivHelper.Triggers;
 
 namespace Celeste.Mod.SJArchipelago.Locations;
 
@@ -15,41 +11,70 @@ public class LocationBehavior
 {
     private const string Separator = "=^.^=";
     
-    private static Hook _cathook;
+    private static Hook cathook;
+    private static Hook gymhook;
 
     public static void Load()
     {
         On.Celeste.Strawberry.OnCollect += ModStrawberry.OnCollect;
-        _cathook = new Hook(typeof(PettableCat).GetMethod("OnPetting", BindingFlags.Instance | BindingFlags.NonPublic), ModCat.OnPetting);
+        On.Celeste.AreaComplete.Begin += ModAreaComplete.OnBegin;
+        cathook = new Hook(typeof(PettableCat).GetMethod("OnPetting", BindingFlags.Instance | BindingFlags.NonPublic), ModCat.OnPetting);
+        gymhook = new Hook(typeof(InstantTeleportTrigger).GetMethod("Teleport", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleportTrigger.OnTeleport);
+
     }
     
     public static void Unload()
     {
         On.Celeste.Strawberry.OnCollect -= ModStrawberry.OnCollect;
-        _cathook.Dispose();
+        On.Celeste.AreaComplete.Begin -= ModAreaComplete.OnBegin;
+
+        cathook.Dispose();
+        gymhook.Dispose();
     }
     
-    public static class ModCat
+    private static class ModCat
     {
-        public static void OnPetting(Action<PettableCat, Player> orig, PettableCat self, Player player)
+        internal static void OnPetting(Action<PettableCat, Player> orig, PettableCat self, Player player)
         {
             orig(self, player);
-            string areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
-            string entityId = self.SourceId.Key;
-            string fullId = areaSid + Separator + entityId;
+            var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            var entityId = self.SourceId.Key;
+            var fullId = areaSid + Separator + entityId;
+            LocationHandler.TrySendLocation(fullId);
         }
     }
 
-    public static class ModStrawberry
+    private static class ModStrawberry
     {
-        public static void OnCollect(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
+        internal static void OnCollect(On.Celeste.Strawberry.orig_OnCollect orig, Strawberry self)
         {
             orig(self);
-            string areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
-            string entityId = self.ID.Key;
-            string fullId = areaSid + Separator + entityId;
-            string humanReadableName = LocationHandler.LocationsToReadableDict[fullId];
-            // send this off to some mysterious network manager.
+            var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            var entityId = self.ID.Key;
+            var fullId = areaSid + Separator + entityId;
+            LocationHandler.TrySendLocation(fullId);
+        }
+    }
+
+    private class ModAreaComplete
+    {
+        internal static void OnBegin(On.Celeste.AreaComplete.orig_Begin orig, AreaComplete self)
+        {
+            var sid = self.Session.Area.SID;
+            var fullId = sid + Separator + "complete";
+            LocationHandler.TrySendLocation(fullId);
+        }
+    }
+
+    private static class ModInstantTeleportTrigger
+    {
+        internal static void OnTeleport(Action<InstantTeleportTrigger, Player> orig, InstantTeleportTrigger self, Player player)
+        {
+            orig(self, player);
+            var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+            var entityId = self.SourceId.Key;
+            var fullId = areaSid + Separator + entityId;
+            LocationHandler.TrySendLocation(fullId);
         }
     }
 }

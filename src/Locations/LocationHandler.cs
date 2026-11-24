@@ -22,9 +22,11 @@ internal class LocationHandler
 
         if (!TryAddLocationToSaveData(apWorldID))
         {
+            Logger.Log(LogLevel.Debug, "SJAP", $"Location {entitySid}: {apWorldID} already completed!");
             return false;
         }
-
+        
+        Logger.Log(LogLevel.Debug, "SJAP", $"Attempting to complete location {entitySid}: {apWorldID}");
         try
         {
             SendLocation(apWorldID);
@@ -32,6 +34,10 @@ internal class LocationHandler
         catch (ArchipelagoSocketClosedException)
         {
             Logger.Log(LogLevel.Warn, "SJAP", $"Cannot send location {entitySid}: connection not established. This location will be sent on next login.");
+        }
+        catch (NullReferenceException)
+        {
+            // Logger.Log(LogLevel.Warn, "SJAP", $"Cannot send location {entitySid}: connection not established, APSession never established. This location will be sent on next login.");
         }
 
         return true;

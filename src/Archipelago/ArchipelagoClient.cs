@@ -6,7 +6,6 @@ using Archipelago.MultiClient.Net.MessageLog.Messages;
 
 using System.Collections.Generic;
 using Celeste.Mod.SJArchipelago.Items;
-using Celeste.Mod.SJArchipelago.Locations;
 using Newtonsoft.Json;
 
 using Celeste.Mod.SJArchipelago.MapMods;

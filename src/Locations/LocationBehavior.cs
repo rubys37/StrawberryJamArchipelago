@@ -17,7 +17,7 @@ public class LocationBehavior
     public static void Load()
     {
         On.Celeste.Strawberry.OnCollect += ModStrawberry.OnCollect;
-        On.Celeste.AreaComplete.Begin += ModAreaComplete.OnBegin;
+        On.Celeste.Level.RegisterAreaComplete += ModLevel.OnComplete;
         cathook = new Hook(typeof(PettableCat).GetMethod("OnPetting", BindingFlags.Instance | BindingFlags.NonPublic), ModCat.OnPetting);
         gymhook = new Hook(typeof(InstantTeleportTrigger).GetMethod("Teleport", BindingFlags.Instance | BindingFlags.NonPublic), ModInstantTeleportTrigger.OnTeleport);
 
@@ -26,7 +26,7 @@ public class LocationBehavior
     public static void Unload()
     {
         On.Celeste.Strawberry.OnCollect -= ModStrawberry.OnCollect;
-        On.Celeste.AreaComplete.Begin -= ModAreaComplete.OnBegin;
+        On.Celeste.Level.RegisterAreaComplete -= ModLevel.OnComplete;
 
         cathook.Dispose();
         gymhook.Dispose();
@@ -38,8 +38,9 @@ public class LocationBehavior
         {
             orig(self, player);
             var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
-            var entityId = self.SourceId.Key;
-            var fullId = areaSid + Separator + entityId;
+            var levelId = self.SourceId.Level;
+            var entityId = self.SourceData.ID;
+            var fullId = areaSid + Separator + levelId + ":" + entityId;
             LocationHandler.TrySendLocation(fullId);
         }
     }
@@ -56,9 +57,9 @@ public class LocationBehavior
         }
     }
 
-    private class ModAreaComplete
+    private class ModLevel
     {
-        internal static void OnBegin(On.Celeste.AreaComplete.orig_Begin orig, AreaComplete self)
+        internal static void OnComplete(On.Celeste.Level.orig_RegisterAreaComplete orig, Level self)
         {
             var sid = self.Session.Area.SID;
             var fullId = sid + Separator + "complete";
@@ -72,8 +73,9 @@ public class LocationBehavior
         {
             orig(self, player);
             var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
-            var entityId = self.SourceId.Key;
-            var fullId = areaSid + Separator + entityId;
+            var levelId = self.SourceId.Level;
+            var entityId = self.SourceData.ID;
+            var fullId = areaSid + Separator + levelId + ":" + entityId;
             LocationHandler.TrySendLocation(fullId);
         }
     }

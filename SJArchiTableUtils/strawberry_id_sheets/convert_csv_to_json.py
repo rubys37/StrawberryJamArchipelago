@@ -3,12 +3,12 @@ import json
 import pathlib
 
 def main():
-    csv_file = pathlib.Path.cwd() / "strawberry_id_sheets" / "SJArchipelago_Tables - Combined Berries.csv"
+    csv_file = pathlib.Path.cwd() / "strawberry_id_sheets" / "SJArchipelago_Tables - Locations Sheet.csv"
     with open(csv_file) as file:
         reader = csv.DictReader(file)
         data = [i for i in reader]
-    apworldid_to_sid = {i["APWorld Location ID"]: i["Entity ID"] for i in data}
-    sid_to_apworldid = {i["Entity ID"]: i["APWorld Location ID"] for i in data}
+    apworldid_to_sid = {int(i["APWorld Location ID"]): i["Entity ID"] for i in data}
+    sid_to_apworldid = {i["Entity ID"]: int(i["APWorld Location ID"]) for i in data}
     sid_to_hrn = {i["Entity ID"]: i["Human Readable Name"] for i in data}
 
     APworldIDjson = pathlib.Path.cwd() / "strawberry_id_sheets" / "SJArchipelago_Tables - APworldID_to_SID.json"

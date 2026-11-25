@@ -14,7 +14,6 @@ using ExtendedVariants.Entities.Legacy;
 using Celeste.Mod.GravityHelper.Triggers;
 using vitmod;
 using Celeste.Mod.StrawberryJam2021.Entities;
-using Celeste.Mod.StrawberryJam2021.Triggers;
 using FrostHelper.Entities.Boosters;
 using Celeste.Mod.CherryHelper;
 using Celeste.Mod.CommunalHelper.Entities.StrawberryJam;
@@ -33,7 +32,6 @@ using Celeste.Mod.TwigHelper.Entities;
 using Celeste.Mod.Anonhelper;
 using Celeste.Mod.FurryHelper;
 using ExtendedVariants.Module;
-using Celeste.Mod.Spirialis;
 using Celeste.Mod.BGswitch;
 using FlaglinesAndSuch;
 using FrostHelper;
@@ -42,6 +40,7 @@ using Monocle;
 using MonoMod.RuntimeDetour;
 using VivHelper.Entities;
 using VivHelper.Entities.CurvedStuff;
+using BouncySpikes = Celeste.Mod.HonlyHelper.BouncySpikes;
 // wow thats a lot of imports, im sure there wouldnt be any conflicts
 using DashZipMover = Celeste.Mod.StrawberryJam2021.Entities.DashZipMover;
 using ExpiringDashRefill = Celeste.Mod.StrawberryJam2021.Entities.ExpiringDashRefill;
@@ -49,6 +48,7 @@ using Entity = Monocle.Entity;
 using GrabTempleGate = Celeste.Mod.StrawberryJam2021.Entities.GrabTempleGate;
 using InstantTeleportTrigger = VivHelper.Triggers.InstantTeleportTrigger;
 using ToggleSwapBlock = Celeste.Mod.StrawberryJam2021.Entities.ToggleSwapBlock;
+using Item = Celeste.Mod.SJArchipelago.Items.ItemHandler.Item;
 
 namespace Celeste.Mod.SJArchipelago.Items;
 
@@ -60,94 +60,94 @@ internal class EntityBehavior
         new ModItemUpdate()
     ];
     
-    public static bool HaveInteractable(ItemHandler.Item item)
+    public static bool HaveInteractable(Item item)
     {
         SJArchipelagoModuleSettings.ReceiveSpecificItems receiveItems = SJArchipelagoModule.Settings.ReceiveItems;
         if (SJArchipelagoModule.Settings.DisableAllItems) return false;
         return item switch
         {
-            ItemHandler.Item.IntroCrushers => receiveItems.ReceiveIntroCrushers,
-            ItemHandler.Item.Springs => receiveItems.ReceiveSprings,
-            ItemHandler.Item.TrafficBlocks => receiveItems.ReceiveTrafficBlocks,
-            ItemHandler.Item.DashCrystals => receiveItems.ReceiveDashCrystals,
-            ItemHandler.Item.DoubleDashCrystals => receiveItems.ReceiveDoubleDashCrystals,
-            ItemHandler.Item.CassetteBlocks => receiveItems.ReceiveCassetteBlocks,
-            ItemHandler.Item.DreamBlocks => receiveItems.ReceiveDreamBlocks,
-            ItemHandler.Item.StrawberrySeeds => receiveItems.ReceiveStrawberrySeeds,
-            ItemHandler.Item.Coins => receiveItems.ReceiveCoins,
-            ItemHandler.Item.SinkingPlatforms => receiveItems.ReceiveSinkingPlatforms,
-            ItemHandler.Item.MovingPlatforms => receiveItems.ReceiveMovingPlatforms,
-            ItemHandler.Item.BlueClouds => receiveItems.ReceiveBlueClouds,
-            ItemHandler.Item.PinkClouds => receiveItems.ReceivePinkClouds,
-            ItemHandler.Item.GreenBubbles => receiveItems.ReceiveGreenBubbles,
-            ItemHandler.Item.RedBubbles => receiveItems.ReceiveRedBubbles,
-            ItemHandler.Item.MoveBlocks => receiveItems.ReceiveMoveBlocks,
-            ItemHandler.Item.SwapBlocks => receiveItems.ReceiveSwapBlocks,
-            ItemHandler.Item.DashSwitch => receiveItems.ReceiveDashSwitch,
-            ItemHandler.Item.Seekers => receiveItems.ReceiveSeekers,
-            ItemHandler.Item.TheoCrystals => receiveItems.ReceiveTheoCrystals,
-            ItemHandler.Item.Feathers => receiveItems.ReceiveFeathers,
-            ItemHandler.Item.Kevins => receiveItems.ReceiveKevins,
-            ItemHandler.Item.Bumpers => receiveItems.ReceiveBumpers,
-            ItemHandler.Item.BadelineOrbs => receiveItems.ReceiveBadelineOrbs,
-            ItemHandler.Item.CoreBlocks => receiveItems.ReceiveCoreBlocks,
-            ItemHandler.Item.Iceballs => receiveItems.ReceiveIceballs,
-            ItemHandler.Item.CoreSwitches => receiveItems.ReceiveCoreSwitches,
-            ItemHandler.Item.Pufferfish => receiveItems.ReceivePufferfish,
-            ItemHandler.Item.Jellyfish => receiveItems.ReceiveJellyfish,
-            ItemHandler.Item.PowerBoxes => receiveItems.ReceivePowerBoxes,
-            ItemHandler.Item.Birds => receiveItems.ReceiveBirds,
+            Item.IntroCrushers => receiveItems.ReceiveIntroCrushers,
+            Item.Springs => receiveItems.ReceiveSprings,
+            Item.TrafficBlocks => receiveItems.ReceiveTrafficBlocks,
+            Item.DashCrystals => receiveItems.ReceiveDashCrystals,
+            Item.DoubleDashCrystals => receiveItems.ReceiveDoubleDashCrystals,
+            Item.CassetteBlocks => receiveItems.ReceiveCassetteBlocks,
+            Item.DreamBlocks => receiveItems.ReceiveDreamBlocks,
+            Item.StrawberrySeeds => receiveItems.ReceiveStrawberrySeeds,
+            Item.Coins => receiveItems.ReceiveCoins,
+            Item.SinkingPlatforms => receiveItems.ReceiveSinkingPlatforms,
+            Item.MovingPlatforms => receiveItems.ReceiveMovingPlatforms,
+            Item.BlueClouds => receiveItems.ReceiveBlueClouds,
+            Item.PinkClouds => receiveItems.ReceivePinkClouds,
+            Item.GreenBubbles => receiveItems.ReceiveGreenBubbles,
+            Item.RedBubbles => receiveItems.ReceiveRedBubbles,
+            Item.MoveBlocks => receiveItems.ReceiveMoveBlocks,
+            Item.SwapBlocks => receiveItems.ReceiveSwapBlocks,
+            Item.DashSwitch => receiveItems.ReceiveDashSwitch,
+            Item.Seekers => receiveItems.ReceiveSeekers,
+            Item.TheoCrystals => receiveItems.ReceiveTheoCrystals,
+            Item.Feathers => receiveItems.ReceiveFeathers,
+            Item.Kevins => receiveItems.ReceiveKevins,
+            Item.Bumpers => receiveItems.ReceiveBumpers,
+            Item.BadelineOrbs => receiveItems.ReceiveBadelineOrbs,
+            Item.CoreBlocks => receiveItems.ReceiveCoreBlocks,
+            Item.Iceballs => receiveItems.ReceiveIceballs,
+            Item.CoreSwitches => receiveItems.ReceiveCoreSwitches,
+            Item.Pufferfish => receiveItems.ReceivePufferfish,
+            Item.Jellyfish => receiveItems.ReceiveJellyfish,
+            Item.PowerBoxes => receiveItems.ReceivePowerBoxes,
+            Item.Birds => receiveItems.ReceiveBirds,
 
-            ItemHandler.Item.DashTrafficBlocks => receiveItems.ReceiveDashTrafficBlocks,
-            ItemHandler.Item.CerealBlocks => receiveItems.ReceiveCerealBlocks,
-            ItemHandler.Item.DreamDashCrystals => receiveItems.ReceiveDreamDashCrystals,
-            ItemHandler.Item.BlueSprings => receiveItems.ReceiveBlueSprings,
-            ItemHandler.Item.BlueBubbles => receiveItems.ReceiveBlueBubbles,
-            ItemHandler.Item.CassetteZippers => receiveItems.ReceiveCassetteZippers,
-            ItemHandler.Item.SingleJumpCrystals => receiveItems.ReceiveSingleJumpCrystals,
-            ItemHandler.Item.TripleJumpCrystals => receiveItems.ReceiveTripleJumpCrystals,
-            ItemHandler.Item.GravityTriggers => receiveItems.ReceiveGravityTriggers,
-            ItemHandler.Item.BlueTimeCrystals => receiveItems.ReceiveBlueTimeCrystals,
-            ItemHandler.Item.GrayTimeCrystals => receiveItems.ReceiveGrayTimeCrystals,
-            ItemHandler.Item.DashCrystalShards => receiveItems.ReceiveDashCrystalShards,
-            ItemHandler.Item.TinyStrawberries => receiveItems.ReceiveTinyStrawberries,
-            ItemHandler.Item.Roses => receiveItems.ReceiveRoses,
-            ItemHandler.Item.Pipes => receiveItems.ReceivePipes,
-            ItemHandler.Item.TeleportFields => receiveItems.ReceiveTeleportFields,
-            ItemHandler.Item.Ziplines => receiveItems.ReceiveZiplines,
-            ItemHandler.Item.DashToggleBlocks => receiveItems.ReceiveDashToggleBlocks,
-            ItemHandler.Item.CrystalBombs => receiveItems.ReceiveCrystalBombs,
-            ItemHandler.Item.PurpleBubbles => receiveItems.ReceivePurpleBubbles,
-            ItemHandler.Item.DashSprings => receiveItems.ReceiveDashSprings,
-            ItemHandler.Item.PlatformJellyfish => receiveItems.ReceivePlatformJellyfish,
-            ItemHandler.Item.GrayBubbles => receiveItems.ReceiveGrayBooster,
-            ItemHandler.Item.Skateboard => receiveItems.ReceiveSkateboard,
-            ItemHandler.Item.Umbrella => receiveItems.ReceiveUmbrella,
-            ItemHandler.Item.FakeHearts => receiveItems.ReceiveFakeHearts,
-            ItemHandler.Item.WormholeBubbles => receiveItems.ReceiveWormholeBoosters,
-            ItemHandler.Item.Portals => receiveItems.ReceivePortals,
-            ItemHandler.Item.MomentumSprings => receiveItems.ReceiveMomentumSprings,
-            ItemHandler.Item.PinkBubbles => receiveItems.ReceivePinkBubbles,
-            ItemHandler.Item.GravitySprings => receiveItems.ReceiveGravitySprings,
-            ItemHandler.Item.PowerSwitchCrates => receiveItems.ReceivePowerSwitchCrates,
-            ItemHandler.Item.Batteries => receiveItems.ReceiveBatteries,
-            ItemHandler.Item.FloatingBubbles => receiveItems.ReceiveFloatingBubbles,
-            ItemHandler.Item.DashBoostFields => receiveItems.ReceiveDashBoostFields,
-            ItemHandler.Item.PropellerBoxes => receiveItems.ReceivePropellerBoxes,
-            ItemHandler.Item.CoreBubbles => receiveItems.ReceiveCoreBubbles,
-            ItemHandler.Item.FlowerSprings => receiveItems.ReceiveFlowerSprings,
-            ItemHandler.Item.FlowerHyperBoosts => receiveItems.ReceiveFlowerHyperBoosts,
-            ItemHandler.Item.CloudCrystals => receiveItems.ReceiveCloudCrystals,
-            ItemHandler.Item.JellyCrystals => receiveItems.ReceiveJellyCrystals,
-            ItemHandler.Item.RewindCrystals => receiveItems.ReceiveRewindCrystals,
-            ItemHandler.Item.BowlPuffers => receiveItems.ReceiveBowlPuffers,
-            ItemHandler.Item.GrayStopwatches => receiveItems.ReceiveGrayStopwatches,
-            ItemHandler.Item.BlueStopwatches => receiveItems.ReceiveBlueStopwatches,
-            ItemHandler.Item.GreenStopwatches => receiveItems.ReceiveGreenStopwatches,
-            ItemHandler.Item.SkyLanterns => receiveItems.ReceiveSkyLanterns,
-            ItemHandler.Item.GlitchWalls => receiveItems.ReceiveGlitchWalls,
-            ItemHandler.Item.GrabToggleGates => receiveItems.ReceiveGrabToggleGates,
-            ItemHandler.Item.BackgroundToggleSwitches => receiveItems.ReceiveBackgroundToggleSwitches,
+            Item.DashTrafficBlocks => receiveItems.ReceiveDashTrafficBlocks,
+            Item.CerealBlocks => receiveItems.ReceiveCerealBlocks,
+            Item.DreamDashCrystals => receiveItems.ReceiveDreamDashCrystals,
+            Item.BlueSprings => receiveItems.ReceiveBlueSprings,
+            Item.BlueBubbles => receiveItems.ReceiveBlueBubbles,
+            Item.CassetteZippers => receiveItems.ReceiveCassetteZippers,
+            Item.SingleJumpCrystals => receiveItems.ReceiveSingleJumpCrystals,
+            Item.TripleJumpCrystals => receiveItems.ReceiveTripleJumpCrystals,
+            Item.GravityTriggers => receiveItems.ReceiveGravityTriggers,
+            Item.BlueTimeCrystals => receiveItems.ReceiveBlueTimeCrystals,
+            Item.GrayTimeCrystals => receiveItems.ReceiveGrayTimeCrystals,
+            Item.DashCrystalShards => receiveItems.ReceiveDashCrystalShards,
+            Item.TinyStrawberries => receiveItems.ReceiveTinyStrawberries,
+            Item.Roses => receiveItems.ReceiveRoses,
+            Item.Pipes => receiveItems.ReceivePipes,
+            Item.TeleportFields => receiveItems.ReceiveTeleportFields,
+            Item.Ziplines => receiveItems.ReceiveZiplines,
+            Item.DashToggleBlocks => receiveItems.ReceiveDashToggleBlocks,
+            Item.CrystalBombs => receiveItems.ReceiveCrystalBombs,
+            Item.PurpleBubbles => receiveItems.ReceivePurpleBubbles,
+            Item.DashSprings => receiveItems.ReceiveDashSprings,
+            Item.PlatformJellyfish => receiveItems.ReceivePlatformJellyfish,
+            Item.GrayBubbles => receiveItems.ReceiveGrayBooster,
+            Item.Skateboard => receiveItems.ReceiveSkateboard,
+            Item.Umbrella => receiveItems.ReceiveUmbrella,
+            Item.FakeHearts => receiveItems.ReceiveFakeHearts,
+            Item.WormholeBubbles => receiveItems.ReceiveWormholeBoosters,
+            Item.Portals => receiveItems.ReceivePortals,
+            Item.MomentumSprings => receiveItems.ReceiveMomentumSprings,
+            Item.PinkBubbles => receiveItems.ReceivePinkBubbles,
+            Item.GravitySprings => receiveItems.ReceiveGravitySprings,
+            Item.PowerSwitchCrates => receiveItems.ReceivePowerSwitchCrates,
+            Item.Batteries => receiveItems.ReceiveBatteries,
+            Item.FloatingBubbles => receiveItems.ReceiveFloatingBubbles,
+            Item.DashBoostFields => receiveItems.ReceiveDashBoostFields,
+            Item.PropellerBoxes => receiveItems.ReceivePropellerBoxes,
+            Item.CoreBubbles => receiveItems.ReceiveCoreBubbles,
+            Item.FlowerSprings => receiveItems.ReceiveFlowerSprings,
+            Item.FlowerHyperBoosts => receiveItems.ReceiveFlowerHyperBoosts,
+            Item.CloudCrystals => receiveItems.ReceiveCloudCrystals,
+            Item.JellyCrystals => receiveItems.ReceiveJellyCrystals,
+            Item.RewindCrystals => receiveItems.ReceiveRewindCrystals,
+            Item.BowlPuffers => receiveItems.ReceiveBowlPuffers,
+            Item.GrayStopwatches => receiveItems.ReceiveGrayStopwatches,
+            Item.BlueStopwatches => receiveItems.ReceiveBlueStopwatches,
+            Item.GreenStopwatches => receiveItems.ReceiveGreenStopwatches,
+            Item.SkyLanterns => receiveItems.ReceiveSkyLanterns,
+            Item.GlitchWalls => receiveItems.ReceiveGlitchWalls,
+            Item.GrabToggleGates => receiveItems.ReceiveGrabToggleGates,
+            Item.BackgroundToggleSwitches => receiveItems.ReceiveBackgroundToggleSwitches,
             _ => true
         };
     }
@@ -165,16 +165,6 @@ internal class EntityBehavior
             On.Monocle.Collide.Check_Entity_Entity -= modCollide_EntityCheck;
             On.Celeste.Solid.GetPlayerRider -= modSolid_GetPlayerRider;
         }
-        
-        private static Type TripleBoostFlower = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower");
-        private static Type PocketUmbrellaTrigger = Type.GetType("Celeste.Mod.StrawberryJam2021.Triggers.PocketUmbrellaTrigger");
-        private static Type WormholeBooster = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster");
-        private static Type PropellerBox = Type.GetType("Celeste.Mod.PandorasBox.PropellerBox");
-        private static Type PlusOneRefill = Type.GetType("FrostHelper.PlusOneRefill");
-        private static Type SkyLantern = Type.GetType("Celeste.Mod.StrawberryJam2021.Entities.SkyLantern");
-        private static Type Stopwatch = Type.GetType("Celeste.Mod.Spirialis.Stopwatch");
-        private static Type TimeGrabTrigger = Type.GetType("Celeste.Mod.Spirialis.TimeGrabTrigger");
-            
 
         /* Handles every entity that should have no collision when disabled by the ap
         TODO: Add a list of every entity handled here*/
@@ -191,15 +181,15 @@ internal class EntityBehavior
             Type t;
             string areaSid;
             int stopType;
-            // player is usually a, (if not then its theo, or jellyfish, or pufferfish or allat). ill sort out exceptions as they come along
+            // player is usually param a (if not then its theo, or jellyfish, or pufferfish or allat). ill sort out exceptions as they come along
             switch (b)
             {
                 // modded
                 case DreamTunnelRefill:
-                    return HaveInteractable(ItemHandler.Item.DreamDashCrystals);
+                    return HaveInteractable(Item.DreamDashCrystals);
 
                 case NoDashRefillSpring:
-                    return HaveInteractable(ItemHandler.Item.BlueSprings);
+                    return HaveInteractable(Item.BlueSprings);
 
                 case BlueBooster blueBooster:
                     // Blue boosters inherit generic custom booster which is where the field we are looking for is stored.
@@ -215,8 +205,8 @@ internal class EntityBehavior
                     bool red = (bool)field.GetValue(blueBooster);
                     return red switch
                     {
-                        false => HaveInteractable(ItemHandler.Item.BlueBubbles),
-                        true => HaveInteractable(ItemHandler.Item.PurpleBubbles)
+                        false => HaveInteractable(Item.BlueBubbles),
+                        true => HaveInteractable(Item.PurpleBubbles)
                     };
 
                 case JumpRefill jumpRefill:
@@ -242,60 +232,60 @@ internal class EntityBehavior
 
                     if (extraJumps == 1)
                     {
-                        return HaveInteractable(ItemHandler.Item.SingleJumpCrystals);
+                        return HaveInteractable(Item.SingleJumpCrystals);
                     }
 
-                    return HaveInteractable(ItemHandler.Item.TripleJumpCrystals);
+                    return HaveInteractable(Item.TripleJumpCrystals);
 
                 case GravityTrigger:
-                    return HaveInteractable(ItemHandler.Item.GravityTriggers);
+                    return HaveInteractable(Item.GravityTriggers);
 
                 case TimeCrystal timeCrystal:
                     field = typeof(TimeCrystal).GetField("untilDash", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                     bool untilDash = (bool)field.GetValue(timeCrystal);
-                    if (untilDash) return HaveInteractable(ItemHandler.Item.BlueTimeCrystals);
-                    return HaveInteractable(ItemHandler.Item.GrayTimeCrystals);
+                    if (untilDash) return HaveInteractable(Item.BlueTimeCrystals);
+                    return HaveInteractable(Item.GrayTimeCrystals);
 
                 case RefillShard:
-                    return HaveInteractable(ItemHandler.Item.DashCrystalShards);
+                    return HaveInteractable(Item.DashCrystalShards);
 
                 case MultiRoomStrawberrySeed:
-                    return HaveInteractable(ItemHandler.Item.TinyStrawberries);
+                    return HaveInteractable(Item.TinyStrawberries);
 
                 case FlagTouchSwitch:
-                    return HaveInteractable(ItemHandler.Item.Coins);
+                    return HaveInteractable(Item.Coins);
 
                 case ZipLine:
-                    return HaveInteractable(ItemHandler.Item.Ziplines);
+                    return HaveInteractable(Item.Ziplines);
 
                 case ResettingRefill resettingRefill:
                     field = typeof(ResettingRefill).GetField("extraJump", BindingFlags.Instance | BindingFlags.NonPublic);
                     bool extraJump = (bool)field.GetValue(resettingRefill);
                     field = typeof(ResettingRefill).GetField("dashes", BindingFlags.Instance | BindingFlags.NonPublic);
                     int dashes = (int)field.GetValue(resettingRefill);
-                    if (extraJump) return HaveInteractable(ItemHandler.Item.SingleJumpCrystals);
-                    if (dashes == 1) return HaveInteractable(ItemHandler.Item.DashCrystals);
-                    if (dashes == 2) return HaveInteractable(ItemHandler.Item.DoubleDashCrystals);
+                    if (extraJump) return HaveInteractable(Item.SingleJumpCrystals);
+                    if (dashes == 1) return HaveInteractable(Item.DashCrystals);
+                    if (dashes == 2) return HaveInteractable(Item.DoubleDashCrystals);
                     // idk how we'd end up here but just in case
                     return true;
 
                 case ExpiringDashRefill:
-                    return HaveInteractable(ItemHandler.Item.DashCrystals);
+                    return HaveInteractable(Item.DashCrystals);
 
                 case CrystalBomb:
-                    return HaveInteractable(ItemHandler.Item.CrystalBombs);
+                    return HaveInteractable(Item.CrystalBombs);
 
                 case DashSpring:
-                    return HaveInteractable(ItemHandler.Item.DashSprings);
+                    return HaveInteractable(Item.DashSprings);
 
                 case PlatformJelly:
-                    return HaveInteractable(ItemHandler.Item.PlatformJellyfish);
+                    return HaveInteractable(Item.PlatformJellyfish);
 
                 case GrayBooster:
-                    return HaveInteractable(ItemHandler.Item.GrayBubbles);
+                    return HaveInteractable(Item.GrayBubbles);
 
                 case TriggerTrigger trigger:
-                    if (HaveInteractable(ItemHandler.Item.Skateboard)) return true;
+                    if (HaveInteractable(Item.Skateboard)) return true;
                     areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
                     if (areaSid != "StrawberryJam2021/3-Advanced/mmm") return true;
                     string level = trigger.SceneAs<Level>().Session.Level;
@@ -303,45 +293,48 @@ internal class EntityBehavior
                     return true;
 
                 case CustomFakeHeart:
-                    return HaveInteractable(ItemHandler.Item.FakeHearts);
+                    return HaveInteractable(Item.FakeHearts);
+                
+                case BouncySpikes:
+                    return HaveInteractable(Item.Springs);
 
                 case Portal:
-                    return HaveInteractable(ItemHandler.Item.Portals);
+                    return HaveInteractable(Item.Portals);
 
                 case MovingTouchSwitch:
-                    return HaveInteractable(ItemHandler.Item.Coins);
+                    return HaveInteractable(Item.Coins);
 
                 case SpringGreen:
-                    return HaveInteractable(ItemHandler.Item.MomentumSprings);
+                    return HaveInteractable(Item.MomentumSprings);
 
                 case PurpleBooster:
-                    return HaveInteractable(ItemHandler.Item.PinkBubbles);
+                    return HaveInteractable(Item.PinkBubbles);
 
                 case GravitySpring:
-                    return HaveInteractable(ItemHandler.Item.GravitySprings);
+                    return HaveInteractable(Item.GravitySprings);
 
                 case RefillWall refillWall:
                     field = typeof(RefillWall).GetField("twoDashes", BindingFlags.Instance | BindingFlags.NonPublic);
                     bool twoDashes = (bool)field.GetValue(refillWall);
-                    return twoDashes ? HaveInteractable(ItemHandler.Item.DoubleDashCrystals) : HaveInteractable(ItemHandler.Item.DashCrystals);
+                    return twoDashes ? HaveInteractable(Item.DoubleDashCrystals) : HaveInteractable(Item.DashCrystals);
 
                 case SwitchCrate:
-                    return HaveInteractable(ItemHandler.Item.PowerSwitchCrates);
+                    return HaveInteractable(Item.PowerSwitchCrates);
 
                 case Battery:
-                    return HaveInteractable(ItemHandler.Item.Batteries);
+                    return HaveInteractable(Item.Batteries);
 
                 case FloatingBubble:
-                    return HaveInteractable(ItemHandler.Item.FloatingBubbles);
+                    return HaveInteractable(Item.FloatingBubbles);
 
                 case DashBoostField:
-                    return HaveInteractable(ItemHandler.Item.DashBoostFields);
+                    return HaveInteractable(Item.DashBoostFields);
 
                 case CoreBooster:
-                    return HaveInteractable(ItemHandler.Item.CoreBubbles);
+                    return HaveInteractable(Item.CoreBubbles);
 
                 case ShroomRefill:
-                    return HaveInteractable(ItemHandler.Item.DashCrystals);
+                    return HaveInteractable(Item.DashCrystals);
 
                 case ExtendedVariantTrigger trigger:
                     areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
@@ -351,13 +344,13 @@ internal class EntityBehavior
                         ExtendedVariantsModule.Variant variant = (ExtendedVariantsModule.Variant)field.GetValue(trigger);
                         if (variant == ExtendedVariantsModule.Variant.BounceEverywhere)
                         {
-                            return HaveInteractable(ItemHandler.Item.FlowerSprings);
+                            return HaveInteractable(Item.FlowerSprings);
                         }
 
                         if (variant is ExtendedVariantsModule.Variant.HyperdashSpeed
                             or ExtendedVariantsModule.Variant.WallBouncingSpeed)
                         {
-                            return HaveInteractable(ItemHandler.Item.FlowerHyperBoosts);
+                            return HaveInteractable(Item.FlowerHyperBoosts);
                         }
                     }
 
@@ -368,63 +361,72 @@ internal class EntityBehavior
 
                         if (variant is ExtendedVariantsModule.Variant.Gravity)
                         {
-                            return HaveInteractable(ItemHandler.Item.GravityTriggers);
+                            return HaveInteractable(Item.GravityTriggers);
                         }
                     }
 
                     return true;
 
                 case CardinalBumper:
-                    return HaveInteractable(ItemHandler.Item.Bumpers);
+                    return HaveInteractable(Item.Bumpers);
 
                 case MonumentBooster monumentBooster:
                     field = typeof(MonumentBooster).GetField("red", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                     if ((bool)field.GetValue(monumentBooster))
                     {
-                        return HaveInteractable(ItemHandler.Item.RedBubbles);
+                        return HaveInteractable(Item.RedBubbles);
                     }
 
-                    return HaveInteractable(ItemHandler.Item.GreenBubbles);
+                    return HaveInteractable(Item.GreenBubbles);
 
                 case CloudRefill:
-                    return HaveInteractable(ItemHandler.Item.CloudCrystals);
+                    return HaveInteractable(Item.CloudCrystals);
 
                 case JellyRefill:
-                    return HaveInteractable(ItemHandler.Item.JellyCrystals);
+                    return HaveInteractable(Item.JellyCrystals);
 
                 case StopwatchRefill:
-                    return HaveInteractable(ItemHandler.Item.RewindCrystals);
+                    return HaveInteractable(Item.RewindCrystals);
 
                 case BowlPuffer:
-                    return HaveInteractable(ItemHandler.Item.BowlPuffers);
+                    return HaveInteractable(Item.BowlPuffers);
 
                 case CustomizableRefill:
-                    return HaveInteractable(ItemHandler.Item.DashCrystals);
+                    return HaveInteractable(Item.DashCrystals);
 
                 case BGModeToggle:
-                    return HaveInteractable(ItemHandler.Item.BackgroundToggleSwitches);
+                    return HaveInteractable(Item.BackgroundToggleSwitches);
+                
+                case StaticBumper:
+                    return HaveInteractable(Item.Bumpers);
+                
+                case VortexBumper:
+                    return HaveInteractable(Item.Bumpers);
+                
+                case CustomGlider:
+                    return HaveInteractable(Item.Jellyfish);
 
                 // these classes are internal and i cannot reference them directly, which means a string comparison must be used
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.TripleBoostFlower":
-                return HaveInteractable(ItemHandler.Item.Roses);
+                return HaveInteractable(Item.Roses);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Triggers.PocketUmbrellaTrigger":
-                if (HaveInteractable(ItemHandler.Item.Umbrella)) return true;
+                if (HaveInteractable(Item.Umbrella)) return true;
                 field = obj.GetType().GetField("Enable", BindingFlags.Instance | BindingFlags.NonPublic);
                 field.SetValue(obj, false);
                 return false;
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.WormholeBooster":
-                return HaveInteractable(ItemHandler.Item.WormholeBubbles);
+                return HaveInteractable(Item.WormholeBubbles);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.PandorasBox.PropellerBox":
-                return HaveInteractable(ItemHandler.Item.PropellerBoxes);
+                return HaveInteractable(Item.PropellerBoxes);
                 
                 case Object obj when obj.GetType().FullName == "FrostHelper.PlusOneRefill":
-                return HaveInteractable(ItemHandler.Item.DashCrystals);
+                return HaveInteractable(Item.DashCrystals);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.StrawberryJam2021.Entities.SkyLantern":
-                return HaveInteractable(ItemHandler.Item.SkyLanterns);
+                return HaveInteractable(Item.SkyLanterns);
                 
                 case Object obj when obj.GetType().FullName == "Celeste.Mod.Spirialis.Stopwatch":
                 // TODO: this does not work. you need to disable the actual grab to toggle time functionality.
@@ -433,11 +435,11 @@ internal class EntityBehavior
                 switch (stopType)
                 {
                     case 0:
-                        return HaveInteractable(ItemHandler.Item.GrayStopwatches);
+                        return HaveInteractable(Item.GrayStopwatches);
                     case 1:
-                        return HaveInteractable(ItemHandler.Item.BlueStopwatches);
+                        return HaveInteractable(Item.BlueStopwatches);
                     case 2:
-                        return HaveInteractable(ItemHandler.Item.GreenStopwatches);
+                        return HaveInteractable(Item.GreenStopwatches);
                 }
                 return true;
                 
@@ -447,59 +449,59 @@ internal class EntityBehavior
                 switch (stopType)
                 {
                     case 0:
-                        return HaveInteractable(ItemHandler.Item.GrayStopwatches);
+                        return HaveInteractable(Item.GrayStopwatches);
                     case 1:
-                        return HaveInteractable(ItemHandler.Item.BlueStopwatches);
+                        return HaveInteractable(Item.BlueStopwatches);
                     case 2:
-                        return HaveInteractable(ItemHandler.Item.GreenStopwatches);
+                        return HaveInteractable(Item.GreenStopwatches);
                 }
                 return true;
             
                 //vanilla
                 case Spring:
-                return HaveInteractable(ItemHandler.Item.Springs);
+                return HaveInteractable(Item.Springs);
                 
                 case Refill { twoDashes: false }:
-                return HaveInteractable(ItemHandler.Item.DashCrystals);
+                return HaveInteractable(Item.DashCrystals);
                 
                 case Refill { twoDashes: true }:
-                return HaveInteractable(ItemHandler.Item.DoubleDashCrystals);
+                return HaveInteractable(Item.DoubleDashCrystals);
                 
                 case StrawberrySeed:
-                return HaveInteractable(ItemHandler.Item.StrawberrySeeds);
+                return HaveInteractable(Item.StrawberrySeeds);
                 
                 case TouchSwitch:
-                return HaveInteractable(ItemHandler.Item.Coins);
+                return HaveInteractable(Item.Coins);
                 
                 case Booster { red: false }:
-                return HaveInteractable(ItemHandler.Item.GreenBubbles);
+                return HaveInteractable(Item.GreenBubbles);
                 
                 case Booster { red: true }:
-                return HaveInteractable(ItemHandler.Item.RedBubbles);
+                return HaveInteractable(Item.RedBubbles);
                 
                 case TheoCrystal:
-                return HaveInteractable(ItemHandler.Item.TheoCrystals);
+                return HaveInteractable(Item.TheoCrystals);
                 
                 case FlyFeather:
-                return HaveInteractable(ItemHandler.Item.Feathers);
+                return HaveInteractable(Item.Feathers);
                 
                 case Bumper:
-                return HaveInteractable(ItemHandler.Item.Bumpers);
+                return HaveInteractable(Item.Bumpers);
                 
                 case BadelineBoost:
-                return HaveInteractable(ItemHandler.Item.BadelineOrbs);
+                return HaveInteractable(Item.BadelineOrbs);
                 
                 case CoreModeToggle:
-                return HaveInteractable(ItemHandler.Item.CoreSwitches);
+                return HaveInteractable(Item.CoreSwitches);
                 
                 case Puffer:
-                return HaveInteractable(ItemHandler.Item.Pufferfish);
+                return HaveInteractable(Item.Pufferfish);
                 
                 case Glider:
-                return HaveInteractable(ItemHandler.Item.Jellyfish);
+                return HaveInteractable(Item.Jellyfish);
                 
                 case FlingBird:
-                return HaveInteractable(ItemHandler.Item.Birds);
+                return HaveInteractable(Item.Birds);
                 
                 default:
                 return true;
@@ -524,11 +526,11 @@ internal class EntityBehavior
             {
                 return null;
             }
-            if (ZipMovers.Contains(self.GetType()) && !HaveInteractable(ItemHandler.Item.TrafficBlocks))
+            if (ZipMovers.Contains(self.GetType()) && !HaveInteractable(Item.TrafficBlocks))
             {
                 return null;
             }
-            if (self.GetType() == typeof(GlitchWall) && !HaveInteractable(ItemHandler.Item.GlitchWalls))
+            if (self.GetType() == typeof(GlitchWall) && !HaveInteractable(Item.GlitchWalls))
             {
                 return null;
             }
@@ -597,6 +599,7 @@ internal class EntityBehavior
             CustomHooks.Add(new Hook(typeof(BowlPuffer).GetMethod("Explode", BindingFlags.Instance | BindingFlags.NonPublic), ModBowlPuffer.Explode));
             CustomHooks.Add(new Hook(typeof(GrabTempleGate).GetMethod("Open", BindingFlags.Instance | BindingFlags.Public), ModGrabSwitchGate.OpenClose));
             CustomHooks.Add(new Hook(typeof(GrabTempleGate).GetMethod("Close", BindingFlags.Instance | BindingFlags.Public), ModGrabSwitchGate.OpenClose));
+            CustomHooks.Add(new Hook(typeof(MultiNodeMovingPlatform).GetMethod("Update", BindingFlags.Instance | BindingFlags.Public), ModMultiNodeMovingPlatform.Update));
         }
 
         public override void Unload()
@@ -631,7 +634,7 @@ internal class EntityBehavior
         {
             internal static IEnumerator Sequence(On.Celeste.IntroCrusher.orig_Sequence orig, IntroCrusher self)
             {
-                if (HaveInteractable(ItemHandler.Item.IntroCrushers))
+                if (HaveInteractable(Item.IntroCrushers))
                 {
                     yield return new SwapImmediately(orig(self));
                 }
@@ -645,7 +648,7 @@ internal class EntityBehavior
             internal static void Update(On.Celeste.CassetteBlock.orig_Update orig, CassetteBlock self)
             {
                 orig(self);
-                if (HaveInteractable(ItemHandler.Item.CassetteBlocks)) return;
+                if (HaveInteractable(Item.CassetteBlocks)) return;
                 self.Collidable = false;
                 self.DisableStaticMovers();
                 self.SetActivatedSilently(false);
@@ -653,7 +656,7 @@ internal class EntityBehavior
 
             internal static void ShiftSize(On.Celeste.CassetteBlock.orig_ShiftSize orig, CassetteBlock self, int shift)
             {
-                if (HaveInteractable(ItemHandler.Item.CassetteBlocks))
+                if (HaveInteractable(Item.CassetteBlocks))
                 {
                     orig(self, shift);
                 }
@@ -664,7 +667,7 @@ internal class EntityBehavior
         {
             internal static bool Update(On.Celeste.Player.orig_DreamDashCheck orig, Player self, Vector2 v)
             {
-                return HaveInteractable(ItemHandler.Item.DreamBlocks) && orig(self, v);
+                return HaveInteractable(Item.DreamBlocks) && orig(self, v);
             }
         }
 
@@ -672,7 +675,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.SinkingPlatform.orig_Update orig, SinkingPlatform self)
             {
-                if (!HaveInteractable(ItemHandler.Item.SinkingPlatforms))
+                if (!HaveInteractable(Item.SinkingPlatforms))
                 {
                     return;
                 }
@@ -685,7 +688,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.MovingPlatform.orig_Update orig, MovingPlatform self)
             {
-                if (!HaveInteractable(ItemHandler.Item.MovingPlatforms))
+                if (!HaveInteractable(Item.MovingPlatforms))
                 {
                     self.Collidable = false;
                     return;
@@ -699,8 +702,8 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.Cloud.orig_Update orig, Cloud self)
             {
-                if ((!self.fragile && !HaveInteractable(ItemHandler.Item.BlueClouds)) ||
-                    (self.fragile && !HaveInteractable(ItemHandler.Item.PinkClouds)))
+                if ((!self.fragile && !HaveInteractable(Item.BlueClouds)) ||
+                    (self.fragile && !HaveInteractable(Item.PinkClouds)))
                 {
                     self.sprite.Visible = false;
                     self.Collidable = false;
@@ -721,7 +724,7 @@ internal class EntityBehavior
                 {
                     return false;
                 }
-                return !HaveInteractable(ItemHandler.Item.MoveBlocks) || orig(self, v);
+                return !HaveInteractable(Item.MoveBlocks) || orig(self, v);
             }
         }
 
@@ -729,7 +732,7 @@ internal class EntityBehavior
         {
             internal static void OnDash(On.Celeste.SwapBlock.orig_OnDash orig, SwapBlock self, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.SwapBlocks))
+                if (HaveInteractable(Item.SwapBlocks))
                 {
                     orig(self, v);
                 }
@@ -741,7 +744,7 @@ internal class EntityBehavior
             internal static DashCollisionResults OnDashed(On.Celeste.DashSwitch.orig_OnDashed orig, DashSwitch self,
                 Player player, Vector2 v)
             {
-                return !HaveInteractable(ItemHandler.Item.DashSwitch)
+                return !HaveInteractable(Item.DashSwitch)
                     ? DashCollisionResults.NormalCollision
                     : orig(self, player, v);
             }
@@ -752,7 +755,7 @@ internal class EntityBehavior
             internal static void Awake(On.Celeste.Seeker.orig_Awake orig, Seeker self, Scene scene)
             {
                 // takes the death subrouting and runs it.
-                if (!HaveInteractable(ItemHandler.Item.Seekers))
+                if (!HaveInteractable(Item.Seekers))
                 {
                     Entity entity = new Entity(self.Position);
                     DeathEffect component = new DeathEffect(Color.HotPink, self.Center - self.Position)
@@ -773,7 +776,7 @@ internal class EntityBehavior
         {
             internal static bool CanActivate(On.Celeste.CrushBlock.orig_CanActivate orig, CrushBlock self, Vector2 v)
             {
-                return HaveInteractable(ItemHandler.Item.Kevins) && orig(self, v);
+                return HaveInteractable(Item.Kevins) && orig(self, v);
             }
         }
 
@@ -781,7 +784,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.BounceBlock.orig_Update orig, BounceBlock self)
             {
-                if (!HaveInteractable(ItemHandler.Item.CoreBlocks))
+                if (!HaveInteractable(Item.CoreBlocks))
                 {
                     self.DisableStaticMovers();
                     self.Collidable = false;
@@ -797,7 +800,7 @@ internal class EntityBehavior
         {
             internal static void Update(On.Celeste.FireBall.orig_Update orig, FireBall self)
             {
-                if (self.iceMode && !HaveInteractable(ItemHandler.Item.Iceballs))
+                if (self.iceMode && !HaveInteractable(Item.Iceballs))
                 {
                     self.sprite.Visible = false;
                     self.broken = true;
@@ -812,7 +815,7 @@ internal class EntityBehavior
         {
             internal static void Explode(On.Celeste.Puffer.orig_Explode orig, Puffer self)
             {
-                if (!HaveInteractable(ItemHandler.Item.Pufferfish))
+                if (!HaveInteractable(Item.Pufferfish))
                 {
                     return;
                 }
@@ -824,7 +827,7 @@ internal class EntityBehavior
         {
             internal static void Break(On.Celeste.LightningBreakerBox.orig_Break orig, LightningBreakerBox self)
             {
-                if (!HaveInteractable(ItemHandler.Item.PowerBoxes))
+                if (!HaveInteractable(Item.PowerBoxes))
                 {
                     // modified code to omit the lightning removal routine.
                     RumbleTrigger.ManuallyTrigger(self.Center.X, 1.2f);
@@ -850,7 +853,7 @@ internal class EntityBehavior
         {
             internal static IEnumerator Sequence(Func<DashZipMover, IEnumerator> orig, DashZipMover self)
             {
-                if (HaveInteractable(ItemHandler.Item.DashTrafficBlocks))
+                if (HaveInteractable(Item.DashTrafficBlocks))
                 {
                     yield return new SwapImmediately(orig(self));
                 }
@@ -862,7 +865,7 @@ internal class EntityBehavior
             internal static DashCollisionResults OnDashed(Func<LoopBlock, Player, Vector2, DashCollisionResults> orig,
                 LoopBlock self, Player player, Vector2 v)
             {
-                return HaveInteractable(ItemHandler.Item.CerealBlocks) switch
+                return HaveInteractable(Item.CerealBlocks) switch
                 {
                     false => DashCollisionResults.NormalCollision,
                     true => orig(self, player, v)
@@ -871,7 +874,7 @@ internal class EntityBehavior
 
             internal static void Update(Action<LoopBlock> orig, LoopBlock self)
             {
-                if (HaveInteractable(ItemHandler.Item.CerealBlocks))
+                if (HaveInteractable(Item.CerealBlocks))
                 {
                     orig(self);
                 }
@@ -882,7 +885,7 @@ internal class EntityBehavior
         {
             internal static void OnDash(Action<CassetteSwapBlock, Vector2> orig, CassetteSwapBlock self, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.SwapBlocks))
+                if (HaveInteractable(Item.SwapBlocks))
                 {
                     orig(self, v);
                 }
@@ -894,7 +897,7 @@ internal class EntityBehavior
             internal static bool MoveCheck(Func<ConnectedMoveBlock, Vector2, bool> orig, ConnectedMoveBlock self,
                 Vector2 v)
             {
-                return !HaveInteractable(ItemHandler.Item.MoveBlocks) || orig(self, v);
+                return !HaveInteractable(Item.MoveBlocks) || orig(self, v);
             }
         }
 
@@ -902,7 +905,7 @@ internal class EntityBehavior
         {
             internal static bool MoveCheck(Func<VitMoveBlock, Vector2, bool> orig, VitMoveBlock self, Vector2 v)
             {
-                return !HaveInteractable(ItemHandler.Item.MoveBlocks) || orig(self, v);
+                return !HaveInteractable(Item.MoveBlocks) || orig(self, v);
             }
         }
 
@@ -912,7 +915,7 @@ internal class EntityBehavior
                 Func<UninterruptedNRCB, Player, Vector2, DashCollisionResults> orig, UninterruptedNRCB self,
                 Player player, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.Kevins))
+                if (HaveInteractable(Item.Kevins))
                 {
                     return orig(self, player, v);
                 }
@@ -927,7 +930,7 @@ internal class EntityBehavior
                 Func<NonReturnCrushBlock, Player, Vector2, DashCollisionResults> orig, NonReturnCrushBlock self,
                 Player player, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.Kevins))
+                if (HaveInteractable(Item.Kevins))
                 {
                     return orig(self, player, v);
                 }
@@ -941,7 +944,7 @@ internal class EntityBehavior
             internal static bool CanTransportEntity(Func<Entity, MarioClearPipeHelper.Direction, bool> orig,
                 Entity entity, MarioClearPipeHelper.Direction dir)
             {
-                return HaveInteractable(ItemHandler.Item.Pipes) && orig(entity, dir);
+                return HaveInteractable(Item.Pipes) && orig(entity, dir);
             }
         }
 
@@ -950,7 +953,7 @@ internal class EntityBehavior
             internal static void TeleportMaster(Action<InstantTeleportTrigger, Player> orig,
                 InstantTeleportTrigger self, Player player)
             {
-                if (HaveInteractable(ItemHandler.Item.TeleportFields))
+                if (HaveInteractable(Item.TeleportFields))
                 {
                     orig(self, player);
                 }
@@ -962,7 +965,7 @@ internal class EntityBehavior
             internal static void OnDash(Action<FrostHelper.ToggleSwapBlock, Vector2> orig,
                 FrostHelper.ToggleSwapBlock self, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.SwapBlocks))
+                if (HaveInteractable(Item.SwapBlocks))
                 {
                     orig(self, v);
                 }
@@ -974,7 +977,7 @@ internal class EntityBehavior
             internal static void OnPlayerDashed(Action<StrawberryJam2021.Entities.ToggleSwapBlock, Vector2> orig,
                 ToggleSwapBlock self, Vector2 v)
             {
-                if (HaveInteractable(ItemHandler.Item.SwapBlocks))
+                if (HaveInteractable(Item.SwapBlocks))
                 {
                     orig(self, v);
                 }
@@ -987,7 +990,7 @@ internal class EntityBehavior
                 Func<StationBlock, Player, Vector2, DashCollisionResults> orig, StationBlock self, Player player,
                 Vector2 v)
             {
-                return HaveInteractable(ItemHandler.Item.DashToggleBlocks) switch
+                return HaveInteractable(Item.DashToggleBlocks) switch
                 {
                     false => DashCollisionResults.NormalCollision,
                     true => orig(self, player, v)
@@ -1000,7 +1003,7 @@ internal class EntityBehavior
             internal static void Update(Action<PlatformJelly> orig, PlatformJelly self)
             {
                 orig(self);
-                if (!HaveInteractable(ItemHandler.Item.PlatformJellyfish))
+                if (!HaveInteractable(Item.PlatformJellyfish))
                 {
                     JumpThru ridablePlatform = (JumpThru)(typeof(PlatformJelly).GetField("ridablePlatform", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(self));
                     ridablePlatform.Collidable = false;
@@ -1012,7 +1015,7 @@ internal class EntityBehavior
         {
             internal static bool MoveCheck(Func<DreamMoveBlock, Vector2, bool> orig, DreamMoveBlock self, Vector2 speed)
             {
-                return !HaveInteractable(ItemHandler.Item.MoveBlocks) || orig(self, speed);
+                return !HaveInteractable(Item.MoveBlocks) || orig(self, speed);
             }
         }
         
@@ -1020,7 +1023,7 @@ internal class EntityBehavior
         {
             internal static bool MoveCheck(Func<BounceMoveBlock, float, bool> orig, BounceMoveBlock self, float move)
             {
-                return !HaveInteractable(ItemHandler.Item.MoveBlocks) || orig(self, move);
+                return !HaveInteractable(Item.MoveBlocks) || orig(self, move);
             }
         }
         
@@ -1028,7 +1031,7 @@ internal class EntityBehavior
         {
             internal static void Explode(Action<BowlPuffer, bool> orig, BowlPuffer self, bool playsound)
             {
-                if (!HaveInteractable(ItemHandler.Item.BowlPuffers))
+                if (!HaveInteractable(Item.BowlPuffers))
                 {
                     return;
                 }
@@ -1040,8 +1043,21 @@ internal class EntityBehavior
         {
             internal static void OpenClose(Action<GrabTempleGate> orig, GrabTempleGate self)
             {
-                if (!HaveInteractable(ItemHandler.Item.GrabToggleGates))
+                if (!HaveInteractable(Item.GrabToggleGates))
                 {
+                    return;
+                }
+                orig(self);
+            }
+        }
+        
+        private static class ModMultiNodeMovingPlatform
+        {
+            internal static void Update(Action<MultiNodeMovingPlatform> orig, MultiNodeMovingPlatform self)
+            {
+                if (!HaveInteractable(Item.MovingPlatforms))
+                {
+                    self.Collidable = false;
                     return;
                 }
                 orig(self);

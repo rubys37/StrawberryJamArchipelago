@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Celeste.Mod.SJArchipelago.MapMods;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,8 +9,8 @@ using MonoMod.Cil;
 
 namespace Celeste.Mod.SJArchipelago.Archipelago;
 
-// TO BE CLEAR: I DID NOT WRITE THIS CODE
-// i adopted this from rhelmot's bingoclient
+// TO BE CLEAR: I DID NOT WRITE (most of) THIS CODE
+// I adopted this from rhelmot's bingoclient. I did have to modify it to work as a static method, more so like everything else written in this mod.
 // https://github.com/rhelmot/CelesteBingoClient/blob/main/BingoClient/BingoChat.cs
 
 public class ArchipelagoChat {
@@ -287,6 +288,12 @@ public class ArchipelagoChat {
                         break;
                     }
                     Chat($"Connected Successfully to {conn.Uri} with slot {conn.SlotName}");
+                    break;
+                
+                case "/resync":
+                    // testing command
+                    SJArchipelagoModule.SaveData.RequiredHearts[1] = 10;
+                    MapEntranceMod.MapUnlockHandler();
                     break;
 
                 default:

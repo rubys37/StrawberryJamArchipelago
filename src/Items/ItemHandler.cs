@@ -101,8 +101,13 @@ public static class ItemHandler
         // introduced in gm
         BackgroundToggleSwitches,
         
-        // progressive items that unlock things start at id 1000
+        // progressive items that (may) unlock things start at id 1000
         ProgressiveDifficulty,
+        BeginnerHeart,
+        IntermediateHeart,
+        AdvancedHeart,
+        ExpertHeart,
+        GrandmasterHeart,
         Strawberry,
         
         // filler items start at 2000

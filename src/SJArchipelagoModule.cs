@@ -38,7 +38,8 @@ public class SJArchipelagoModule : EverestModule
         foreach (LoadableItemMod item in EntityBehavior.LoadedItemBehaviorMods) item.Load();
         LocationBehavior.Load();
         ArchipelagoChat.Load();
-        //MapEntranceMod.Load();
+        MapEntranceMod.Load();
+        
     }
 
     public override void Unload()
@@ -48,7 +49,7 @@ public class SJArchipelagoModule : EverestModule
         {
             item.Unload();
         }
-        //MapEntranceMod.Unload();
+        MapEntranceMod.Unload();
         LocationBehavior.Unload();
         ArchipelagoChat.Unload();
 

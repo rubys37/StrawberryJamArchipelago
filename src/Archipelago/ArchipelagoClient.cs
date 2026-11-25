@@ -132,7 +132,7 @@ public static class APClient
         // unless the user connects to a save file that has less progress than the server (different room seeds)
         // i plan to handle this in other ways, but right now, lets just ignore this glaring fucking problem
         var locations = APSession.Locations.AllLocationsChecked;
-        HashSet<long> savedLocations = new HashSet<long>(SJArchipelagoModule.SaveData.UnlockedLocations);
+        HashSet<long> savedLocations = new HashSet<long>(SJArchipelagoModule.SaveData.CheckedLocations);
         foreach (var location in locations)
         {
             savedLocations.Remove(location);
@@ -149,7 +149,7 @@ public static class APClient
         var items = APSession.Items.AllItemsReceived;
         
         // since this is a full resync done on connection, we overwrite the items save data.
-        SJArchipelagoModule.SaveData.UnlockedDifficulty = 0;
+        SJArchipelagoModule.SaveData.ProgressiveDifficulties = 0;
         SJArchipelagoModule.SaveData.Strawberries = 0;
         SJArchipelagoModule.SaveData.UnlockedInteractables.Clear();
         foreach (var item in items)
@@ -176,10 +176,23 @@ public static class APClient
             switch (itemID)
             {
                 case 1000:
-                    SJArchipelagoModule.SaveData.UnlockedDifficulty += 1;
+                    SJArchipelagoModule.SaveData.ProgressiveDifficulties++;
+                    MapEntranceMod.MapUnlockHandler();
                     return;
                 case 1001:
-                    SJArchipelagoModule.SaveData.Strawberries += 1;
+                    SJArchipelagoModule.SaveData.BeginnerHearts++;
+                    return;
+                case 1002:
+                    SJArchipelagoModule.SaveData.IntermediateHearts++;
+                    return;
+                case 1003:
+                    SJArchipelagoModule.SaveData.AdvancedHearts++;
+                    return;
+                case 1004:
+                    SJArchipelagoModule.SaveData.ExpertHearts++;
+                    return;
+                case 1005:
+                    SJArchipelagoModule.SaveData.GrandmasterHearts++;
                     return;
             }
         }

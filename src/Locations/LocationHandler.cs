@@ -37,7 +37,7 @@ internal class LocationHandler
         }
         catch (NullReferenceException)
         {
-            // Logger.Log(LogLevel.Warn, "SJAP", $"Cannot send location {entitySid}: connection not established, APSession never established. This location will be sent on next login.");
+            Logger.Log(LogLevel.Warn, "SJAP", $"Cannot send location {entitySid}: connection not established, APSession never established. This location will be sent on next login.");
         }
 
         return true;
@@ -58,7 +58,7 @@ internal class LocationHandler
 
     public static bool TryAddLocationToSaveData(long apWorldID)
     {
-        var added = SJArchipelagoModule.SaveData.UnlockedLocations.Add(apWorldID);
+        var added = SJArchipelagoModule.SaveData.CheckedLocations.Add(apWorldID);
         return added;
     }
 }

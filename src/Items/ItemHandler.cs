@@ -29,7 +29,7 @@ public static class ItemHandler
         RedBubbles,
         MoveBlocks,
         SwapBlocks,
-        DashSwitch,
+        DashSwitches,
         Seekers,
         TheoCrystals,
         Feathers,

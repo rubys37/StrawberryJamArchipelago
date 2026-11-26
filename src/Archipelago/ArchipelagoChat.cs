@@ -247,15 +247,20 @@ public class ArchipelagoChat {
             var args = msg.Split(' ');
             switch (args[0]) {
                 case "/connect":
+                    if (APClient.Connected)
+                    {
+                        Chat("APClient: You're already connected! Use /disconnect to redo the connection.");
+                    }
+                    
                     if (SJArchipelagoModule.SaveData == null)
                     {
-                        Chat("Connection Failed. Please connect after selecting a save file.");
+                        Chat("APClient: Connection Failed. Please connect after selecting a save file.");
                         break;
                     }
 
                     if (args.Length != 4 && args.Length != 3)
                     {
-                        Chat("Connection Failed. The command syntax is /connect [url:port] [slot name] [password(optional)]");
+                        Chat("APClient: Connection Failed. The command syntax is /connect [url:port] [slot name] [password(optional)]");
                         break;
                     }
 
@@ -269,35 +274,39 @@ public class ArchipelagoChat {
                     conn = new APConnData(uri, slotName, password);
                     if (!APClient.ConnectToAPServer(conn).Successful)
                     {
-                        Chat("Bad Connect. Parameters are invalid, try again.");
+                        Chat("APClient: Bad Connect. Parameters are invalid, try again.");
                         break;
                     }
-                    Chat($"Connected Successfully to {conn.Uri} with slot {conn.SlotName}");
+                    Chat($"APClient: Connected Successfully to {conn.Uri} with slot {conn.SlotName}");
                     break;
 
                 case "/reconnect":
                     if (SJArchipelagoModule.SaveData == null)
                     {
-                        Chat("Connection Failed. Please connect after selecting a Strawberry Jam Archipelago save file.");
+                        Chat("APClient: Connection Failed. Please connect after selecting a Strawberry Jam Archipelago save file.");
                         break;
                     }
                     conn = APConnData.FromJson(SJArchipelagoModule.SaveData.ConnectionData);
                     if (!APClient.ConnectToAPServer(conn).Successful)
                     {
-                        Chat("Bad Connect. Saved parameters are invalid, This could mean the port changed or the server is down. Retry, or use /connect to change the parameters.");
+                        Chat("APClient: Bad Connect. Saved parameters are invalid, This could mean the port changed or the server is down. Retry, or use /connect to change the parameters.");
                         break;
                     }
-                    Chat($"Connected Successfully to {conn.Uri} with slot {conn.SlotName}");
+                    Chat($"APClient: Connected Successfully to {conn.Uri} with slot {conn.SlotName}");
+                    break;
+                
+                case "/disconnect":
+                    APClient.Disconnect();
+                    Chat("APClient: Disconnected");
                     break;
                 
                 case "/resync":
                     // testing command
-                    SJArchipelagoModule.SaveData.RequiredHearts[1] = 10;
                     MapEntranceMod.MapUnlockHandler();
                     break;
 
                 default:
-                    Chat("Bad command. Valid commands are: /connect, /reconnect");
+                    Chat("APClient: Bad command. Valid commands are: /connect, /reconnect, /disconnect");
                     break;
             }
         } else {

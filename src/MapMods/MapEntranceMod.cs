@@ -29,6 +29,15 @@ public class MapEntranceMod
         {"StrawberryJam2021/4-Expert/ZZ-HeartSide", 4},
         {"StrawberryJam2021/5-Grandmaster/ZZ-HeartSide", 5}
     };
+    private static Dictionary<int, int> acquiredHeartsDict = new() 
+    {
+        { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
+        { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
+        { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
+        { 4, SJArchipelagoModule.SaveData.ExpertHearts },
+        { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
+    };
+    
 
     public static void Load()
     {
@@ -92,7 +101,8 @@ public class MapEntranceMod
         }
         return sid;
     }
-
+    
+    // oh mother of god
     public static void MapUnlockHandler()
     {
         foreach (var item in MapData)
@@ -110,12 +120,18 @@ public class MapEntranceMod
             }
             
             // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty
-            if (SJArchipelagoModule.SaveData.LockedHeartsides.Contains(lobbyNumber))
+            if (!SJArchipelagoModule.SaveData.LockedHeartsides.Contains(lobbyNumber))
+            {
+                SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(item.Key);
+            }
+            
+            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty that are locked by hearts.
+            if (acquiredHeartsDict[lobbyNumber] < SJArchipelagoModule.SaveData.RequiredHearts[lobbyNumber])
             {
                 continue;
             }
             
-            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty that are not locked by hearts.
+            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty that are locked by hearts that we have enough hearts for.
             SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(item.Key);
         }
     }
@@ -139,14 +155,6 @@ public class MapEntranceMod
             }
             
             // Reach: SJ Lobbies with heartside that is locked.
-            var acquiredHeartsDict = new Dictionary<int, int>
-            {
-                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
-                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
-                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
-                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
-                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
-            };
             var acquiredHearts = acquiredHeartsDict[lobbyNumber];
             return acquiredHearts;
             

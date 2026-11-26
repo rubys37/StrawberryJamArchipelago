@@ -5,6 +5,7 @@ using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.MessageLog.Messages;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Celeste.Mod.SJArchipelago.Items;
 using Newtonsoft.Json;
 
@@ -65,7 +66,7 @@ public static class APClient
 
     public static LoginResult ConnectToAPServer(APConnData cdata)
     {
-        Logger.Log(LogLevel.Info, "SJAP", $"Attempting to connect to APServer with connection data {cdata.Uri}, {cdata.SlotName}");
+        Logger.Log(LogLevel.Debug, "SJAP", $"Attempting to connect to APServer with connection data {cdata.Uri}, {cdata.SlotName}.");
         
         connData = cdata;
         APSession = ArchipelagoSessionFactory.CreateSession(cdata.Uri);
@@ -75,9 +76,11 @@ public static class APClient
         {
             return loginResult;
         }
-
+        Logger.Log(LogLevel.Info, "SJAP", $"Connected to APServer with connection data {cdata.Uri}, {cdata.SlotName}.");
+        
         Connected = true;
         APSession.Socket.ErrorReceived += APSession_ErrorReceived;
+        APSession.Socket.SocketClosed += OnDisconnect;
         SetupSession((LoginSuccessful)loginResult, APSession.RoomState.Seed);
         return loginResult;
     }
@@ -92,6 +95,18 @@ public static class APClient
         
         APSession.Items.ItemReceived += OnItemReceivedFromAP;
         APSession.MessageLog.OnMessageReceived += OnMessageReceivedFromAP;
+    }
+
+    public static void Disconnect()
+    {
+        Task.Run(APSession.Socket.DisconnectAsync);
+        Connected = false;
+    }
+
+    private static void OnDisconnect(string reason)
+    {
+        Connected = false;
+        Logger.Log(LogLevel.Info, "SJAP", $"Disconnected from Archipelago Server with reason {reason}.");
     }
 
     private static void OnItemReceivedFromAP(IReceivedItemsHelper receivedItemsHelper)
@@ -124,6 +139,8 @@ public static class APClient
             $"Receive error from APSession: '{msg}'\n" +
             $"{e.StackTrace}");
     }
+    
+    
 
     private static void ResyncLocations()
     {

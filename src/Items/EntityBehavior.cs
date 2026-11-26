@@ -83,7 +83,7 @@ internal class EntityBehavior
             Item.RedBubbles => receiveItems.ReceiveRedBubbles,
             Item.MoveBlocks => receiveItems.ReceiveMoveBlocks,
             Item.SwapBlocks => receiveItems.ReceiveSwapBlocks,
-            Item.DashSwitch => receiveItems.ReceiveDashSwitch,
+            Item.DashSwitches => receiveItems.ReceiveDashSwitch,
             Item.Seekers => receiveItems.ReceiveSeekers,
             Item.TheoCrystals => receiveItems.ReceiveTheoCrystals,
             Item.Feathers => receiveItems.ReceiveFeathers,
@@ -665,9 +665,26 @@ internal class EntityBehavior
 
         private static class ModDreamBlock
         {
+            private static List<string> gymRooms = new List<string>()
+            {
+                "StrawberryJam2021/0-Gyms/1-Beginner=^.^=1-hub",
+                "StrawberryJam2021/0-Gyms/2-Intermediate=^.^=1-hub",
+                "StrawberryJam2021/0-Gyms/3-Advanced=^.^=1-hub",
+                "StrawberryJam2021/0-Gyms/4-Expert=^.^=1-hub",
+                "StrawberryJam2021/0-Gyms/5-Grandmaster=^.^=1-hub",
+            };
             internal static bool Update(On.Celeste.Player.orig_DreamDashCheck orig, Player self, Vector2 v)
             {
-                return HaveInteractable(Item.DreamBlocks) && orig(self, v);
+                if (!orig(self, v))
+                {
+                    return false;
+                }
+
+                var sid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+                var level = self.SourceData.Level.Name;
+                var fullId = sid + "=^.^=" + level;
+
+                return gymRooms.Contains(fullId) || HaveInteractable(Item.DreamBlocks);
             }
         }
 
@@ -744,7 +761,7 @@ internal class EntityBehavior
             internal static DashCollisionResults OnDashed(On.Celeste.DashSwitch.orig_OnDashed orig, DashSwitch self,
                 Player player, Vector2 v)
             {
-                return !HaveInteractable(Item.DashSwitch)
+                return !HaveInteractable(Item.DashSwitches)
                     ? DashCollisionResults.NormalCollision
                     : orig(self, player, v);
             }
@@ -950,10 +967,23 @@ internal class EntityBehavior
 
         private static class ModInstantTeleport
         {
+            private static List<string> gymList = new List<string>()
+            {
+                "StrawberryJam2021/0-Gyms/1-Beginner",
+                "StrawberryJam2021/0-Gyms/2-Intermediate",
+                "StrawberryJam2021/0-Gyms/3-Advanced",
+                "StrawberryJam2021/0-Gyms/4-Expert",
+                "StrawberryJam2021/0-Gyms/5-Grandmaster",
+            };
             internal static void TeleportMaster(Action<InstantTeleportTrigger, Player> orig,
                 InstantTeleportTrigger self, Player player)
             {
                 if (HaveInteractable(Item.TeleportFields))
+                {
+                    orig(self, player);
+                }
+                var sid = SaveData.Instance.CurrentSession_Safe.Area.SID;
+                if (gymList.Contains(sid))
                 {
                     orig(self, player);
                 }

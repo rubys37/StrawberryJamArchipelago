@@ -4,14 +4,18 @@ an archipelago implementation for the popular celeste mod strawberry jam!
 
 ## Features
 done:  
-selective entity disabling up to advanced lobby
-
-things left to implement:  
-location checks  
+selective entity disabling up to grandmaster lobby  
+strawberry checks  
+cat checks  
+gym checks  
+silver checks  
 archipelago connection  
+chat client
+
+todo:  
 apworld  
 item disabling rendering  
-selective entity disabling up to gm lobby
+
 
 ## Installation
 for now, this archipelago remains a manual implementation with a manual enabling and disabling of entities. you can use any manual clients that include entity items. i have attahced one made by maybeGVST that will work with this mod while it develops into a full archipelago client.
@@ -27,7 +31,7 @@ the apworld attached to releases is made by maybeGVST. it relies on bingosync pr
 * Pufferfish -> Crystal bombs
 * Theo crystals -> Switch crates (theyre separate items in the code, these may be combnined in the future)
 * Loop blocks -> Cereal block clouds/Cereal block bumps
-* Toggle Blocks -> Dash Traffic Blocks/Dash Toggle Blocks
+* Toggle Blocks -> Dash Traffic Blocks/Dash Toggle Blocks (this may be changed soon)
 
 some items have been renamed:
 * Loop blocks -> Cereal blocks (also i just realized i never tested these uh oh) 
@@ -37,11 +41,9 @@ additionally, the folloing items are enabled by default since they are not used 
 * Gravity triggers
 * Teleport Fields
 
-## Licensing
-i bear no association to the main celeste archipelago team, nor has any of their code been used in the development of this repository or its associated releases. Ruby/rubys37 maintains the copyright for this repository (at least, for now). if you have had any part in developing the main celeste archipelago by PoryGoneDev, you are not permitted to contribute, use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of any code in this repository.  
-if others would like to contribute or use my code, please ask me first.
+## Acknowledgements
 
-also, the apworld attached in releases belongs to maybeGVST, who gave me permission to post it :3
+the apworld attached in releases belongs to maybeGVST, who gave me permission to post it :3
 
 i would like to acknoledge the many resources out there that helped me on this journey to developing this archipelago implementation. 
 the archipelago for outer wilds, developed by ixrecs, helped me tremendously with the networking. 

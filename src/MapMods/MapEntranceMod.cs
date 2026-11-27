@@ -30,6 +30,14 @@ public class MapEntranceMod
         {"StrawberryJam2021/4-Expert/ZZ-HeartSide", 4},
         {"StrawberryJam2021/5-Grandmaster/ZZ-HeartSide", 5}
     };
+    private static Dictionary<int, string> IntIDtoHeartsideSID = new()
+    {
+        {1, "StrawberryJam2021/1-Beginner/ZZ-HeartSide"},
+        {2, "StrawberryJam2021/2-Intermediate/ZZ-HeartSide"},
+        {3, "StrawberryJam2021/3-Advanced/ZZ-HeartSide"},
+        {4, "StrawberryJam2021/4-Expert/ZZ-HeartSide"},
+        {5, "StrawberryJam2021/5-Grandmaster/ZZ-HeartSide"}
+    };
     
 
     public static void Load()
@@ -100,46 +108,43 @@ public class MapEntranceMod
         return sid;
     }
     
-    // oh mother of god
     public static void MapUnlockHandler()
     {
-        var acquiredHeartsDict = new Dictionary<int, int>
-            {
-                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
-                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
-                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
-                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
-                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
-            };
-        
         foreach (var item in MapData)
         {
+            if (HeartsideSIDtoIntID.ContainsKey(item.Key))
+            {
+                // Reach: SJ heartsides. Leave unlocking these to the Heartside Unlock Handler
+                continue;
+            }
+            
+            // Reach: SJ maps that are not heartsides
             if ((long)item.Value["Difficulty"] > SJArchipelagoModule.SaveData.UnlockedDifficulty)
             {
                 continue;
             }
-
-            // Reach: SJ maps with a difficulty lower than unlocked difficulty
-            if (!HeartsideSIDtoIntID.TryGetValue(item.Key, out var lobbyNumber))
-            {
-                SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(item.Key);
-                continue;
-            }
             
-            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty
-            if (!SJArchipelagoModule.SaveData.LockedHeartsides.Contains(lobbyNumber))
-            {
-                SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(item.Key);
-            }
-            
-            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty that are locked by hearts.
-            if (acquiredHeartsDict[lobbyNumber] < SJArchipelagoModule.SaveData.RequiredHearts[lobbyNumber])
-            {
-                continue;
-            }
-            
-            // Reach: SJ Heartsides with a difficulty lower than unlocked difficulty that are locked by hearts that we have enough hearts for.
+            // Reach: SJ maps that are not heartsides, with a difficulty lower than unlocked difficulty.
             SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(item.Key);
+        }
+    }
+
+    public static void HeartsideUnlockHandler()
+    {
+        var acquiredHeartsDict = new Dictionary<int, int>
+        {
+            { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
+            { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
+            { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
+            { 4, SJArchipelagoModule.SaveData.ExpertHearts },
+            { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
+        };
+        foreach (var item in acquiredHeartsDict)
+        {
+            if (item.Value >= SJArchipelagoModule.SaveData.RequiredHearts[item.Key])
+            {
+                SJArchipelagoModule.SaveData.UnlockedMapSIDs.Add(IntIDtoHeartsideSID[item.Key]);
+            }
         }
     }
 
@@ -147,14 +152,7 @@ public class MapEntranceMod
     {
         internal static int OnGetCollectedHeartGems(Func<HeartGemDoor, int> orig, HeartGemDoor self)
         {
-            var acquiredHeartsDict = new Dictionary<int, int>
-            {
-                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
-                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
-                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
-                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
-                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
-            };
+            
             var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
             
             if (!LobbySIDtoIntID.TryGetValue(areaSid, out var lobbyNumber))
@@ -163,13 +161,22 @@ public class MapEntranceMod
             }
             
             // Reach: SJ Lobbies
-            var locked = SJArchipelagoModule.SaveData.LockedHeartsides.Contains(lobbyNumber);
-            if (!locked)
+            var heartsideSID = IntIDtoHeartsideSID[lobbyNumber];
+            var disabled = SJArchipelagoModule.SaveData.DisallowedMapSIDs.Contains(heartsideSID);
+            if (disabled)
             {
-                return self.Requires;
+                return 0;
             }
             
-            // Reach: SJ Lobbies with heartside that is locked.
+            // Reach: SJ Lobbies with enabled heartside
+            var acquiredHeartsDict = new Dictionary<int, int>
+            {
+                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
+                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
+                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
+                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
+                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
+            };
             var acquiredHearts = acquiredHeartsDict[lobbyNumber];
             return acquiredHearts;
             

@@ -16,7 +16,6 @@ public class SJArchipelagoModuleSaveData : EverestModuleSaveData
     public int AdvancedHearts { get; set; } = 0;
     public int ExpertHearts { get; set; } = 0;
     public int GrandmasterHearts { get; set; } = 0;
-    public List<int> LockedHeartsides { get; set; } = new();
     public Dictionary<int, int> RequiredHearts { get; set; } = new();
     public HashSet<string> UnlockedMapSIDs { get; set; } = new();
     public HashSet<string> DisallowedMapSIDs { get; set; } = new();

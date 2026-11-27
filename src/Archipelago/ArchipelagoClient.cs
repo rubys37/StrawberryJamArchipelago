@@ -198,18 +198,23 @@ public static class APClient
                     return;
                 case 1001:
                     SJArchipelagoModule.SaveData.BeginnerHearts++;
+                    MapEntranceMod.HeartsideUnlockHandler();
                     return;
                 case 1002:
                     SJArchipelagoModule.SaveData.IntermediateHearts++;
+                    MapEntranceMod.HeartsideUnlockHandler();
                     return;
                 case 1003:
                     SJArchipelagoModule.SaveData.AdvancedHearts++;
+                    MapEntranceMod.HeartsideUnlockHandler();
                     return;
                 case 1004:
                     SJArchipelagoModule.SaveData.ExpertHearts++;
+                    MapEntranceMod.HeartsideUnlockHandler();
                     return;
                 case 1005:
                     SJArchipelagoModule.SaveData.GrandmasterHearts++;
+                    MapEntranceMod.HeartsideUnlockHandler();
                     return;
             }
         }

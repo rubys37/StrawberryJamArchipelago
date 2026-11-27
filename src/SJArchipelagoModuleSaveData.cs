@@ -19,6 +19,7 @@ public class SJArchipelagoModuleSaveData : EverestModuleSaveData
     public List<int> LockedHeartsides { get; set; } = new();
     public Dictionary<int, int> RequiredHearts { get; set; } = new();
     public HashSet<string> UnlockedMapSIDs { get; set; } = new();
+    public HashSet<string> DisallowedMapSIDs { get; set; } = new();
     public Dictionary<string, string> MapSwapMappings { get; set; } = new();
     public int ProgressiveDifficulties { get; set; } = 0;
     public List<int> EnabledDifficulties { get; set; } = Enumerable.Range(1, 17).ToList();

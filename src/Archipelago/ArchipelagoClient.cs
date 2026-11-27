@@ -121,7 +121,7 @@ public static class APClient
 
     private static void OnMessageReceivedFromAP(LogMessage msg)
     {
-        // TODO: implement
+        ArchipelagoChat.Chat(msg.ToString());
     }
 
     private static HashSet<string> SocketWarningsAlreadyShown = new();

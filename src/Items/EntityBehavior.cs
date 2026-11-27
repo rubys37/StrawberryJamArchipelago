@@ -665,6 +665,8 @@ internal class EntityBehavior
 
         private static class ModDreamBlock
         {
+            // this does NOT work btw, it locks all checkpoints and transitions back to the hub rooms for gyms.
+            // TODO: fix this.
             private static List<string> gymRooms = new List<string>()
             {
                 "StrawberryJam2021/0-Gyms/1-Beginner=^.^=1-hub",
@@ -967,14 +969,8 @@ internal class EntityBehavior
 
         private static class ModInstantTeleport
         {
-            private static List<string> gymList = new List<string>()
-            {
-                "StrawberryJam2021/0-Gyms/1-Beginner",
-                "StrawberryJam2021/0-Gyms/2-Intermediate",
-                "StrawberryJam2021/0-Gyms/3-Advanced",
-                "StrawberryJam2021/0-Gyms/4-Expert",
-                "StrawberryJam2021/0-Gyms/5-Grandmaster",
-            };
+            // the only ones i want to disable are in vertigo.
+            private static string vertigoSID = "StrawberryJam2021/2-Intermediate/Evilleafy";
             internal static void TeleportMaster(Action<InstantTeleportTrigger, Player> orig,
                 InstantTeleportTrigger self, Player player)
             {
@@ -983,7 +979,7 @@ internal class EntityBehavior
                     orig(self, player);
                 }
                 var sid = SaveData.Instance.CurrentSession_Safe.Area.SID;
-                if (gymList.Contains(sid))
+                if (sid != vertigoSID)
                 {
                     orig(self, player);
                 }

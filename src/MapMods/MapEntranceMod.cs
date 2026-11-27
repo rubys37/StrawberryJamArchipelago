@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.CollabUtils2.Triggers;
+using Celeste.Mod.SJArchipelago.Archipelago;
 using MonoMod.RuntimeDetour;
 using Newtonsoft.Json;
 
@@ -29,14 +30,6 @@ public class MapEntranceMod
         {"StrawberryJam2021/4-Expert/ZZ-HeartSide", 4},
         {"StrawberryJam2021/5-Grandmaster/ZZ-HeartSide", 5}
     };
-    private static Dictionary<int, int> acquiredHeartsDict = new() 
-    {
-        { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
-        { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
-        { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
-        { 4, SJArchipelagoModule.SaveData.ExpertHearts },
-        { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
-    };
     
 
     public static void Load()
@@ -59,14 +52,13 @@ public class MapEntranceMod
         On.Celeste.Trigger.ctor -= ModTriggerCtor;
         getHeartGemHook.Dispose();
         On.Celeste.HeartGemDoor.ctor -= ModHeartGate.OnHeartGateCtor;
-        
     }
 
     // this could be done better but im not bothered rn because it works so therefore i dont touch
     // this handles both map locking and map swapping from chapter panel triggers
     private static void ModTriggerCtor(On.Celeste.Trigger.orig_ctor orig, Trigger self, EntityData data, Vector2 offset)
     {
-        if (self is not ChapterPanelTrigger)
+        if (!APClient.Connected || self is not ChapterPanelTrigger)
         {
             orig(self, data, offset);
             return;
@@ -79,19 +71,25 @@ public class MapEntranceMod
         }
         var mapSid = data.Attr("orig_map");
         
-        if (!SJArchipelagoModule.SaveData.UnlockedMapSIDs.Contains(mapSid))
+        // elif chain my goat
+        if (SJArchipelagoModule.SaveData.DisallowedMapSIDs.Contains(mapSid))
+        {
+            data.Values["map"] = "SJArchipelago/disabled";
+        }
+        
+        else if (!SJArchipelagoModule.SaveData.UnlockedMapSIDs.Contains(mapSid))
         {
             data.Values["map"] = "SJArchipelago/locked";
-            orig(self, data, offset);
-            return;
         }
-
-        var mapping = GetMapSwapFromSIDLocation(mapSid);
-        data.Values["map"] = mapping;
+        else
+        {
+            var mapping = GetMapSwapFromSIDLocation(mapSid);
+            data.Values["map"] = mapping;
+        }
         orig(self, data, offset);
     }
 
-    // i think the name of this doesnt do a good job explaining this but wtvr
+    // i think the name of this doesnt do a good job explaining this.
     // it gets the map that is in place of the map SID that you pass in.
     private static string GetMapSwapFromSIDLocation(string sid)
     {
@@ -105,6 +103,15 @@ public class MapEntranceMod
     // oh mother of god
     public static void MapUnlockHandler()
     {
+        var acquiredHeartsDict = new Dictionary<int, int>
+            {
+                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
+                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
+                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
+                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
+                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
+            };
+        
         foreach (var item in MapData)
         {
             if ((long)item.Value["Difficulty"] > SJArchipelagoModule.SaveData.UnlockedDifficulty)
@@ -140,6 +147,14 @@ public class MapEntranceMod
     {
         internal static int OnGetCollectedHeartGems(Func<HeartGemDoor, int> orig, HeartGemDoor self)
         {
+            var acquiredHeartsDict = new Dictionary<int, int>
+            {
+                { 1, SJArchipelagoModule.SaveData.BeginnerHearts },
+                { 2, SJArchipelagoModule.SaveData.IntermediateHearts },
+                { 3, SJArchipelagoModule.SaveData.AdvancedHearts },
+                { 4, SJArchipelagoModule.SaveData.ExpertHearts },
+                { 5, SJArchipelagoModule.SaveData.GrandmasterHearts }
+            };
             var areaSid = SaveData.Instance.CurrentSession_Safe.Area.SID;
             
             if (!LobbySIDtoIntID.TryGetValue(areaSid, out var lobbyNumber))

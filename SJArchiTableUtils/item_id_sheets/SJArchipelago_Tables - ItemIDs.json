@@ -1,0 +1,452 @@
+{
+   "Intro Crushers": {
+      "category": "Vanilla",
+      "world_id": "1",
+      "classification": "Progression"
+   },
+   "Springs": {
+      "category": "Vanilla",
+      "world_id": "2",
+      "classification": "Progression"
+   },
+   "Traffic Blocks": {
+      "category": "Vanilla",
+      "world_id": "3",
+      "classification": "Progression"
+   },
+   "Dash Crystals": {
+      "category": "Vanilla",
+      "world_id": "4",
+      "classification": "Progression"
+   },
+   "Double Dash Crystals": {
+      "category": "Vanilla",
+      "world_id": "5",
+      "classification": "Progression"
+   },
+   "Cassette Blocks": {
+      "category": "Vanilla",
+      "world_id": "6",
+      "classification": "Progression"
+   },
+   "Dream Blocks": {
+      "category": "Vanilla",
+      "world_id": "7",
+      "classification": "Progression"
+   },
+   "Strawberry Seeds": {
+      "category": "Vanilla",
+      "world_id": "8",
+      "classification": "Progression"
+   },
+   "Coins": {
+      "category": "Vanilla",
+      "world_id": "9",
+      "classification": "Progression"
+   },
+   "Sinking Platforms": {
+      "category": "Vanilla",
+      "world_id": "10",
+      "classification": "Progression"
+   },
+   "Moving Platforms": {
+      "category": "Vanilla",
+      "world_id": "11",
+      "classification": "Progression"
+   },
+   "Blue Clouds": {
+      "category": "Vanilla",
+      "world_id": "12",
+      "classification": "Progression"
+   },
+   "Pink Clouds": {
+      "category": "Vanilla",
+      "world_id": "13",
+      "classification": "Progression"
+   },
+   "Green Bubbles": {
+      "category": "Vanilla",
+      "world_id": "14",
+      "classification": "Progression"
+   },
+   "Red Bubbles": {
+      "category": "Vanilla",
+      "world_id": "15",
+      "classification": "Progression"
+   },
+   "Move Blocks": {
+      "category": "Vanilla",
+      "world_id": "16",
+      "classification": "Progression"
+   },
+   "Swap Blocks": {
+      "category": "Vanilla",
+      "world_id": "17",
+      "classification": "Progression"
+   },
+   "Dash Switches": {
+      "category": "Vanilla",
+      "world_id": "18",
+      "classification": "Progression"
+   },
+   "Seekers": {
+      "category": "Vanilla",
+      "world_id": "19",
+      "classification": "Progression"
+   },
+   "Theo Crystals": {
+      "category": "Vanilla",
+      "world_id": "20",
+      "classification": "Progression"
+   },
+   "Feathers": {
+      "category": "Vanilla",
+      "world_id": "21",
+      "classification": "Progression"
+   },
+   "Kevins": {
+      "category": "Vanilla",
+      "world_id": "22",
+      "classification": "Progression"
+   },
+   "Bumpers": {
+      "category": "Vanilla",
+      "world_id": "23",
+      "classification": "Progression"
+   },
+   "Badeline Orbs": {
+      "category": "Vanilla",
+      "world_id": "24",
+      "classification": "Progression"
+   },
+   "Core Blocks": {
+      "category": "Vanilla",
+      "world_id": "25",
+      "classification": "Progression"
+   },
+   "Iceballs": {
+      "category": "Vanilla",
+      "world_id": "26",
+      "classification": "Progression"
+   },
+   "Core Switches": {
+      "category": "Vanilla",
+      "world_id": "27",
+      "classification": "Progression"
+   },
+   "Pufferfish": {
+      "category": "Vanilla",
+      "world_id": "28",
+      "classification": "Progression"
+   },
+   "Jellyfish": {
+      "category": "Vanilla",
+      "world_id": "29",
+      "classification": "Progression"
+   },
+   "Power Boxes": {
+      "category": "Vanilla",
+      "world_id": "30",
+      "classification": "Progression"
+   },
+   "Birds": {
+      "category": "Vanilla",
+      "world_id": "31",
+      "classification": "Progression"
+   },
+   "Dream Dash Crystals": {
+      "category": "Modded",
+      "world_id": "100",
+      "classification": "Progression"
+   },
+   "Cereal Blocks": {
+      "category": "Modded",
+      "world_id": "101",
+      "classification": "Progression"
+   },
+   "Dash Traffic Blocks": {
+      "category": "Modded",
+      "world_id": "102",
+      "classification": "Progression"
+   },
+   "Blue Springs": {
+      "category": "Modded",
+      "world_id": "103",
+      "classification": "Progression"
+   },
+   "Blue Bubbles": {
+      "category": "Modded",
+      "world_id": "104",
+      "classification": "Progression"
+   },
+   "Cassette Zippers": {
+      "category": "Modded",
+      "world_id": "105",
+      "classification": "Progression"
+   },
+   "Single Jump Crystals": {
+      "category": "Modded",
+      "world_id": "106",
+      "classification": "Progression"
+   },
+   "Triple Jump Crystals": {
+      "category": "Modded",
+      "world_id": "107",
+      "classification": "Progression"
+   },
+   "Gravity Triggers": {
+      "category": "Modded",
+      "world_id": "108",
+      "classification": "Progression"
+   },
+   "Blue Time Crystals": {
+      "category": "Modded",
+      "world_id": "109",
+      "classification": "Progression"
+   },
+   "Dash Crystal Shards": {
+      "category": "Modded",
+      "world_id": "110",
+      "classification": "Progression"
+   },
+   "Tiny Strawberries": {
+      "category": "Modded",
+      "world_id": "111",
+      "classification": "Progression"
+   },
+   "Roses": {
+      "category": "Modded",
+      "world_id": "112",
+      "classification": "Progression"
+   },
+   "Pipes": {
+      "category": "Modded",
+      "world_id": "113",
+      "classification": "Progression"
+   },
+   "Teleport Fields": {
+      "category": "Modded",
+      "world_id": "114",
+      "classification": "Progression"
+   },
+   "Ziplines": {
+      "category": "Modded",
+      "world_id": "115",
+      "classification": "Progression"
+   },
+   "Dash Toggle Blocks": {
+      "category": "Modded",
+      "world_id": "116",
+      "classification": "Progression"
+   },
+   "Crystal Bombs": {
+      "category": "Modded",
+      "world_id": "117",
+      "classification": "Progression"
+   },
+   "Dash Springs": {
+      "category": "Modded",
+      "world_id": "118",
+      "classification": "Progression"
+   },
+   "Gray Time Crystals": {
+      "category": "Modded",
+      "world_id": "119",
+      "classification": "Progression"
+   },
+   "Gray Bubbles": {
+      "category": "Modded",
+      "world_id": "120",
+      "classification": "Progression"
+   },
+   "Platform Jellyfish": {
+      "category": "Modded",
+      "world_id": "121",
+      "classification": "Progression"
+   },
+   "Skateboard": {
+      "category": "Modded",
+      "world_id": "122",
+      "classification": "Progression"
+   },
+   "Momentum Springs": {
+      "category": "Modded",
+      "world_id": "123",
+      "classification": "Progression"
+   },
+   "Purple Bubbles": {
+      "category": "Modded",
+      "world_id": "124",
+      "classification": "Progression"
+   },
+   "Umbrella": {
+      "category": "Modded",
+      "world_id": "125",
+      "classification": "Progression"
+   },
+   "Power Switch Crates": {
+      "category": "Modded",
+      "world_id": "126",
+      "classification": "Progression"
+   },
+   "Wormhole Bubbles": {
+      "category": "Modded",
+      "world_id": "127",
+      "classification": "Progression"
+   },
+   "Fake Hearts": {
+      "category": "Modded",
+      "world_id": "128",
+      "classification": "Progression"
+   },
+   "Portals": {
+      "category": "Modded",
+      "world_id": "129",
+      "classification": "Progression"
+   },
+   "Pink Bubbles": {
+      "category": "Modded",
+      "world_id": "130",
+      "classification": "Progression"
+   },
+   "Gravity Springs": {
+      "category": "Modded",
+      "world_id": "131",
+      "classification": "Progression"
+   },
+   "Batteries": {
+      "category": "Modded",
+      "world_id": "132",
+      "classification": "Progression"
+   },
+   "Core Bubbles": {
+      "category": "Modded",
+      "world_id": "133",
+      "classification": "Progression"
+   },
+   "Bowl Puffers": {
+      "category": "Modded",
+      "world_id": "134",
+      "classification": "Progression"
+   },
+   "Grab Toggle Gates": {
+      "category": "Modded",
+      "world_id": "135",
+      "classification": "Progression"
+   },
+   "Glitch Walls": {
+      "category": "Modded",
+      "world_id": "136",
+      "classification": "Progression"
+   },
+   "Propeller Boxes": {
+      "category": "Modded",
+      "world_id": "137",
+      "classification": "Progression"
+   },
+   "Jelly Crystals": {
+      "category": "Modded",
+      "world_id": "138",
+      "classification": "Progression"
+   },
+   "Cloud Crystals": {
+      "category": "Modded",
+      "world_id": "139",
+      "classification": "Progression"
+   },
+   "Rewind Crystals": {
+      "category": "Modded",
+      "world_id": "140",
+      "classification": "Progression"
+   },
+   "Sky Lanterns": {
+      "category": "Modded",
+      "world_id": "141",
+      "classification": "Progression"
+   },
+   "Blue Stopwatches": {
+      "category": "Modded",
+      "world_id": "142",
+      "classification": "Progression"
+   },
+   "Gray Stopwatches": {
+      "category": "Modded",
+      "world_id": "143",
+      "classification": "Progression"
+   },
+   "Green Stopwatches": {
+      "category": "Modded",
+      "world_id": "144",
+      "classification": "Progression"
+   },
+   "Floating Bubbles": {
+      "category": "Modded",
+      "world_id": "145",
+      "classification": "Progression"
+   },
+   "Dash Boost Fields": {
+      "category": "Modded",
+      "world_id": "146",
+      "classification": "Progression"
+   },
+   "Flower Springs": {
+      "category": "Modded",
+      "world_id": "147",
+      "classification": "Progression"
+   },
+   "Flower Hyper Boosts": {
+      "category": "Modded",
+      "world_id": "148",
+      "classification": "Progression"
+   },
+   "Background Toggle Switches": {
+      "category": "Modded",
+      "world_id": "149",
+      "classification": "Progression"
+   },
+   "Progressive Difficulty": {
+      "category": "Collectibles",
+      "world_id": "1000",
+      "classification": "Progression"
+   },
+   "Beginner Heart": {
+      "category": "Collectibles",
+      "world_id": "1001",
+      "classification": "Progression"
+   },
+   "Intermediate Heart": {
+      "category": "Collectibles",
+      "world_id": "1002",
+      "classification": "Progression"
+   },
+   "Advanced Heart": {
+      "category": "Collectibles",
+      "world_id": "1003",
+      "classification": "Progression"
+   },
+   "Expert Heart": {
+      "category": "Collectibles",
+      "world_id": "1004",
+      "classification": "Progression"
+   },
+   "Grandmaster Heart": {
+      "category": "Collectibles",
+      "world_id": "1005",
+      "classification": "Progression"
+   },
+   "Strawberry": {
+      "category": "Collectibles",
+      "world_id": "1006",
+      "classification": "Progression"
+   },
+   "Meow": {
+      "category": "Filler",
+      "world_id": "2000",
+      "classification": "Filler"
+   },
+   "Mrrrp": {
+      "category": "Filler",
+      "world_id": "2001",
+      "classification": "Filler"
+   }
+}

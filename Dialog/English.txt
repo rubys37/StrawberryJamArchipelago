@@ -1,1 +1,3 @@
+SJArchipelago= Strawberry Jam Archipelago
 SJArchipelago_locked= locked!
+SJArchipelago_disabled= disabled!
